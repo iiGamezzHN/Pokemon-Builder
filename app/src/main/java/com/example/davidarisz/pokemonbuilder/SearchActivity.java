@@ -20,7 +20,7 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        pokemonNames = getIntent().getStringArrayListExtra("pokemonNames");
+        pokemonNames = getIntent().getStringArrayListExtra("namesTag");
 
         findViewById(R.id.btnSearch).setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -39,7 +39,7 @@ public class SearchActivity extends AppCompatActivity {
     private ArrayList<SearchModel> initData() {
         ArrayList<SearchModel> items = new ArrayList<>();
 
-        for (int i = 0; i <= pokemonNames.size(); i++) {
+        for (int i = 0; i < pokemonNames.size(); i++) {
             items.add(new SearchModel(pokemonNames.get(i).toString()));
         }
 

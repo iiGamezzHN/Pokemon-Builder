@@ -26,11 +26,11 @@
         android:onClick="toSearch"
         android:textSize="30sp" />
 
-    <ListView
-        android:id="@+id/pokemon_listView"
+    <TextView
+        android:id="@+id/pokemon_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    </ListView>
+    </TextView>
 
 </LinearLayout>

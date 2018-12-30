@@ -60,12 +60,14 @@ public class PokemonRequest implements Response.Listener<JSONObject>, Response.E
             for (int i = 0; i < values.length(); i++) {
                 JSONObject object = values.getJSONObject(i);
                 String pokemon = object.getString("name");
-                Log.d("pokemonTag", pokemon);
+//                Log.d("pokemonTag", pokemon);
 
-//                arrayList.add(pokemon);
+                arrayList.add(pokemon);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        Log.d("pokemonTag", String.valueOf(arrayList.size()));
+        activity.gotPokemon(arrayList);
     }
 }

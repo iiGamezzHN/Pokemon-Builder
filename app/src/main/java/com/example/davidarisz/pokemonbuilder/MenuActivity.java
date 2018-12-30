@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.Serializable;
 import java.lang.reflect.Array;
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 
 public class MenuActivity extends AppCompatActivity implements PokemonRequest.Callback, Serializable {
     private ArrayList pokemonNames;
+    private TextView tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,12 +24,16 @@ public class MenuActivity extends AppCompatActivity implements PokemonRequest.Ca
         setContentView(R.layout.activity_main_menu);
         PokemonRequest request = new PokemonRequest(this);
         request.getPokemon(this);
+        tv = findViewById(R.id.pokemon_textView);
+        tv.setText("Starting");
     }
 
     public void gotPokemon(final ArrayList<String> pokemon) {
+        tv.setText("Done loading");
         pokemonNames = pokemon;
-//        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
-//                android.R.id.text1, pokemon);
+        Toast.makeText(this, "method", Toast.LENGTH_SHORT).show();
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
+                android.R.id.text1, pokemon);
 //        ListView listView = findViewById(R.id.pokemon_listView);
 //
 //        listView.setAdapter(adapter);
