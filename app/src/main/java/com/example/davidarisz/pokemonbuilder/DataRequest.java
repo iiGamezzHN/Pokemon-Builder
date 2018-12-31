@@ -16,21 +16,22 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class PokemonRequest implements Response.Listener<JSONObject>, Response.ErrorListener {
+public class DataRequest implements Response.Listener<JSONObject>, Response.ErrorListener {
     Context context;
-    Callback activity;
+    DataRequest.Callback activity;
 
     public interface Callback {
-        void gotPokemon(ArrayList<String> pokemon);
+        void gotData();
     }
 
-    public PokemonRequest(Context context) {
+    public DataRequest(Context context) {
         this.context = context;
     }
 
     // Makes a request to the api
-    public void getPokemon(Callback activity) {
-        String url = "https://pokeapi.co/api/v2/pokemon/";
+    public void getData(DataRequest.Callback activity) {
+        String name = SearchActivity.name;
+        String url = "https://pokeapi.co/api/v2/pokemon/"+name+"/";
         RequestQueue queue = Volley.newRequestQueue(context);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, null, this, this);
@@ -55,12 +56,12 @@ public class PokemonRequest implements Response.Listener<JSONObject>, Response.E
         ArrayList arrayList = new ArrayList();
 
         try {
-            values = response.getJSONArray("results");
+            values = response.getJSONArray("abilities");
 
             for (int i = 0; i < values.length(); i++) {
                 JSONObject object = values.getJSONObject(i);
                 String pokemon = object.getString("name");
-//                Log.d("pokemonTag", pokemon);
+                Log.d("pokemonTag", pokemon);
 
                 arrayList.add(pokemon);
             }
@@ -68,6 +69,6 @@ public class PokemonRequest implements Response.Listener<JSONObject>, Response.E
             e.printStackTrace();
         }
 
-        activity.gotPokemon(arrayList);
+        activity.gotData();
     }
 }
