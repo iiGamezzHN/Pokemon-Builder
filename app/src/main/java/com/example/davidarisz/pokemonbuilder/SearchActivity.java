@@ -25,6 +25,7 @@ public class SearchActivity extends AppCompatActivity implements DataRequest.Cal
 
         tv = findViewById(R.id.tvSelected);
         tv.setText("Adding: ");
+        pokemonNames = getIntent().getStringArrayListExtra("namesTag");
 
         findViewById(R.id.btnSearch).setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -38,7 +39,7 @@ public class SearchActivity extends AppCompatActivity implements DataRequest.Cal
                         String adding = "Adding: " + name;
                         tv.setText(adding);
 
-//                        makeRequest();
+                        makeRequest();
                     }
                 }).show();
             }

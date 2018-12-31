@@ -9,6 +9,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.davidarisz.pokemonbuilder.models.AbilityItem;
+import com.example.davidarisz.pokemonbuilder.models.Pokemon;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,8 +20,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class DataRequest implements Response.Listener<JSONObject>, Response.ErrorListener {
-    Context context;
-    DataRequest.Callback activity;
+
+    private Context context;
+    private DataRequest.Callback activity;
+    private Gson gson = new Gson();
 
     public interface Callback {
         void gotData();
@@ -52,21 +57,12 @@ public class DataRequest implements Response.Listener<JSONObject>, Response.Erro
 
     @Override
     public void onResponse(JSONObject response) {
-        JSONArray values;
-        ArrayList arrayList = new ArrayList();
+        Pokemon pokemon = gson.fromJson(response.toString(), Pokemon.class);
 
-        try {
-            values = response.getJSONArray("abilities");
-
-            for (int i = 0; i < values.length(); i++) {
-                JSONObject object = values.getJSONObject(i);
-                String pokemon = object.getString("name");
-                Log.d("pokemonTag", pokemon);
-
-                arrayList.add(pokemon);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
+        for (AbilityItem abilityItem : pokemon.getAbilities()) {
+            System.out.println(
+                    String.format("DAVID IS HOMO. Ohja %s heeft deze ability: %s", pokemon.getName(), abilityItem.getAbility().getName())
+                    );
         }
 
         activity.gotData();
