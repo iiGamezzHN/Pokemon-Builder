@@ -10,6 +10,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.davidarisz.pokemonbuilder.models.AbilityItem;
+import com.example.davidarisz.pokemonbuilder.models.MoveItem;
 import com.example.davidarisz.pokemonbuilder.models.Pokemon;
 import com.google.gson.Gson;
 

@@ -15,9 +15,9 @@ public class Pokemon {
     private String name;
     private int order;
 //    private ArrayList<String> species;
-//    private ArrayList<String> sprites;
-//    private ArrayList<String> stats;
-//    private ArrayList<String> types;
+    private ArrayList<Sprites> sprites;
+    private ArrayList<StatsItem> stats;
+    private ArrayList<TypesItem> types;
     private int weight;
 
     public ArrayList<AbilityItem> getAbilities() {
@@ -107,38 +107,30 @@ public class Pokemon {
     public void setOrder(int order) {
         this.order = order;
     }
-//
-//    public ArrayList<String> getSpecies() {
-//        return species;
-//    }
 
-//    public void setSpecies(ArrayList<String> species) {
-//        this.species = species;
-//    }
-//
-//    public ArrayList<String> getSprites() {
-//        return sprites;
-//    }
-//
-//    public void setSprites(ArrayList<String> sprites) {
-//        this.sprites = sprites;
-//    }
-//
-//    public ArrayList<String> getStats() {
-//        return stats;
-//    }
-//
-//    public void setStats(ArrayList<String> stats) {
-//        this.stats = stats;
-//    }
-//
-//    public ArrayList<String> getTypes() {
-//        return types;
-//    }
-//
-//    public void setTypes(ArrayList<String> types) {
-//        this.types = types;
-//    }
+    public ArrayList<Sprites> getSprites() {
+        return sprites;
+    }
+
+    public void setSprites(ArrayList<Sprites> sprites) {
+        this.sprites = sprites;
+    }
+
+    public ArrayList<StatsItem> getStats() {
+        return stats;
+    }
+
+    public void setStats(ArrayList<StatsItem> stats) {
+        this.stats = stats;
+    }
+
+    public ArrayList<TypesItem> getTypes() {
+        return types;
+    }
+
+    public void setTypes(ArrayList<TypesItem> types) {
+        this.types = types;
+    }
 
     public int getWeight() {
         return weight;

@@ -49,5 +49,7 @@ public class AbilityItem {
             this.url = url;
         }
     }
+
+
 }
 

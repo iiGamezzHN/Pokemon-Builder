@@ -13,6 +13,22 @@ public class VersionGroupDetails {
         this.level_learned_at = level_learned_at;
     }
 
+    public MoveLearnMethod getMove_learn_method() {
+        return move_learn_method;
+    }
+
+    public void setMove_learn_method(MoveLearnMethod move_learn_method) {
+        this.move_learn_method = move_learn_method;
+    }
+
+    public VersionGroup getVersion_group() {
+        return version_group;
+    }
+
+    public void setVersion_group(VersionGroup version_group) {
+        this.version_group = version_group;
+    }
+
     class MoveLearnMethod {
         private String name;
         private String url;
