@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Pokemon Builder</string>
     <string name="main_list">Pokemon List</string>
-    <string name="main_add">Add Pokemon</string>
+    <string name="add_pokemon">Add Pokemon</string>
 </resources>

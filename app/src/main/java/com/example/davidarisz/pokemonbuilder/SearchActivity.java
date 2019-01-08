@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.davidarisz.pokemonbuilder.models.Pokemon;
+
 import java.util.ArrayList;
 
 import ir.mirrajabi.searchdialog.SimpleSearchDialogCompat;
@@ -68,7 +70,7 @@ public class SearchActivity extends AppCompatActivity implements DataRequest.Cal
         return items;
     }
 
-    public void gotData () {
+    public void gotData (Pokemon pokemon) {
         // asdf
     }
 }

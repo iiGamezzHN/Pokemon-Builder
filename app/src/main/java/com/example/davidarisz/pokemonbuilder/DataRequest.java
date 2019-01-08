@@ -12,6 +12,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.davidarisz.pokemonbuilder.models.AbilityItem;
 import com.example.davidarisz.pokemonbuilder.models.MoveItem;
 import com.example.davidarisz.pokemonbuilder.models.Pokemon;
+import com.example.davidarisz.pokemonbuilder.models.Sprites;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -27,7 +28,7 @@ public class DataRequest implements Response.Listener<JSONObject>, Response.Erro
     private Gson gson = new Gson();
 
     public interface Callback {
-        void gotData();
+        void gotData(Pokemon pokemon);
     }
 
     public DataRequest(Context context) {
@@ -66,6 +67,15 @@ public class DataRequest implements Response.Listener<JSONObject>, Response.Erro
                     );
         }
 
-        activity.gotData();
+        for (MoveItem moveItem : pokemon.getMoves()) {
+            System.out.println(
+                    String.format("%s heeft deze move: %s", pokemon.getName(), moveItem.getMove().getName())
+                    );
+        }
+
+        Sprites sprites = pokemon.getSprites();
+        System.out.println(String.format("back_default = %s", sprites.getBack_default()));
+
+        activity.gotData(pokemon);
     }
 }

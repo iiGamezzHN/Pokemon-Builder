@@ -1,6 +1,9 @@
 package com.example.davidarisz.pokemonbuilder.models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class Pokemon {
     private ArrayList<AbilityItem> abilities;
@@ -15,7 +18,8 @@ public class Pokemon {
     private String name;
     private int order;
 //    private ArrayList<String> species;
-    private ArrayList<Sprites> sprites;
+    @SerializedName("sprites")
+    private Sprites sprites;
     private ArrayList<StatsItem> stats;
     private ArrayList<TypesItem> types;
     private int weight;
@@ -108,11 +112,11 @@ public class Pokemon {
         this.order = order;
     }
 
-    public ArrayList<Sprites> getSprites() {
+    public Sprites getSprites() {
         return sprites;
     }
 
-    public void setSprites(ArrayList<Sprites> sprites) {
+    public void setSprites(Sprites sprites) {
         this.sprites = sprites;
     }
 
