@@ -20,13 +20,62 @@ The API sends the response to the search list popup, the pokedex overview and th
 
 ## Diagrams
 
-| PokemonDatabase |
+<table><tr><td>
+
+| Pokemon Class |
 | --- |
 | Name |
 | Moves |
 | ID | 
 | Sprites | 
-| Abilities | 
+| Abilities |
+| Height |
+| Weight |
+| Abilities |
+| Types |
+| etc... |
+
+
+</td><td>
+
+| Pokedex Class |
 | --- |
-| addPokemon() |
-| deletePokemon() |
+| Name |
+| ID | 
+| Sprites | 
+| Abilities |
+| Height |
+| Weight |
+| Regions |
+
+</td></tr> </table>
+
+<table>
+<tr><th> PokemonDatabase </th></tr>
+<tr><td>
+
+| Name | Moves | ID |  Sprites |  Abilities |  etc... |
+| ---- | ----- | --- | ------- | ---------- | ------- |
+| String | Array(names) | int | Array(url) | Array(names) | ... |
+
+</td></tr> 
+</table>
+
+## API's and external components
+The API that's used is [PokeAPI](https://pokeapi.co/), which provides information on Pokemon, moves, items, abilities, etc. The information can be a multitude of types like: string, int, JSONArray, JSONObject. The API will be called at least 2 times: once to get just the names of all the pokemon for the search list popup, and once to get all the specific information of the pokemon that was selected in the search list popup.
+
+A framework that I'll use is one for getting a popup screen to search through an array. Which I'll use for a list of all Pokemon, and when you click a Pokemon I'll use the name to filter the data for that exact Pokemon to add him to the database.
+
+To make API calls easier and cleaner, I want to try to use [Retrofit](http://square.github.io/retrofit/), which should be able to do that.
+
+For handling images I will use Picasso. Mainly to resize the sprites so I can use them where I want to have a small picture of the Pokemon.
+
+To store the information on saved pokemon I will use SQLite to create a database on the phone itself in which to store the information.
+
+In an effort to try make SQL statements easier and cleaner, I want to use [Active Android](http://www.activeandroid.com/), which should shorten statement a lot.
+
+## Transforming Data
+
+The API response with just the names will be transformed into an array, so that it's searchable with the popup.
+
+I will be using [GSON](https://github.com/google/gson) to 'automatically' transform the data from the API for the specific pokemon to the Pokemon Object. This Object contains all the information a single Pokemon can have. This makes it easier because the response has a lot of information, and this will enable me to go through the entire response and assign each part where it belongs with it's own type (String, int, etc).
