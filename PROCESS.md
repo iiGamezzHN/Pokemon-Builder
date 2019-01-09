@@ -7,3 +7,7 @@ I already have code that I can run. I've already processed two API requests and 
 - Realised I still need to send a request to the API for the items and berries, because I want to show the effects of the items that can be equipped. Note: This information cannot be obtained through Pokemon informatinon because each item/berry can be used on any pokemon.
 
 # Day 3
+- Might have to use the search popup for selecting moves too. I think it had options to show more than just names.
+- Will need API request for move info
+- Will need API request for berry names, which I need to use for API request for item information
+- In API response for items: attributes 0: name needs to be "holdable-active", url needs to be "https://pokeapi.co/api/v2/item-attribute/7/"
