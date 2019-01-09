@@ -3,9 +3,12 @@ package com.example.davidarisz.pokemonbuilder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.davidarisz.pokemonbuilder.models.MoveItem;
 import com.example.davidarisz.pokemonbuilder.models.Pokemon;
 
 import java.util.ArrayList;
@@ -71,6 +74,23 @@ public class SearchActivity extends AppCompatActivity implements DataRequest.Cal
     }
 
     public void gotData (Pokemon pokemon) {
-        // asdf
+        ArrayList<String> moves = new ArrayList<String>();
+        for (MoveItem moveItem : pokemon.getMoves()) {
+            moves.add(moveItem.getMove().getName());
+        }
+
+        Spinner move1 = findViewById(R.id.move1);
+        Spinner move2 = findViewById(R.id.move2);
+        Spinner move3 = findViewById(R.id.move3);
+        Spinner move4 = findViewById(R.id.move4);
+
+        //Creating the ArrayAdapter instance having the country list
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, moves);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Setting the ArrayAdapter data on the Spinner
+        move1.setAdapter(arrayAdapter);
+        move2.setAdapter(arrayAdapter);
+        move3.setAdapter(arrayAdapter);
+        move4.setAdapter(arrayAdapter);
     }
 }
