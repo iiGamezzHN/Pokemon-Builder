@@ -14,6 +14,7 @@
         android:layout_margin="16dp"
         android:text="@string/main_list"
         android:textAllCaps="false"
+        android:onClick="toMain"
         android:textSize="30sp" />
 
     <Button

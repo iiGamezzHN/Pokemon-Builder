@@ -33,4 +33,9 @@ public class MenuActivity extends AppCompatActivity implements PokemonRequest.Ca
         intent.putExtra("namesTag", pokemonNames);
         startActivity(intent);
     }
+
+    public void toMain(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 }

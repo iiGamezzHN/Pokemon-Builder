@@ -59,7 +59,7 @@ public class SearchActivity extends AppCompatActivity implements DataRequest.Cal
     }
 
     public void makeRequest () {
-        DataRequest request = new DataRequest(this);
+        DataRequest request = new DataRequest(SearchActivity.this);
         request.getData(this);
     }
 
