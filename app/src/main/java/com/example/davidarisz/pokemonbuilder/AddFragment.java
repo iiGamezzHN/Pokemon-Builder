@@ -1,6 +1,7 @@
 package com.example.davidarisz.pokemonbuilder;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +34,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.zip.Inflater;
 
 import ir.mirrajabi.searchdialog.SimpleSearchDialogCompat;
 import ir.mirrajabi.searchdialog.core.BaseSearchDialogCompat;
@@ -47,6 +50,7 @@ public class AddFragment extends Fragment {
     private TextView tv;
     public static String name;
     private View rootView;
+    private Button button;
 
     public AddFragment() {
         // Required empty public constructor
@@ -91,6 +95,17 @@ public class AddFragment extends Fragment {
                     }
                 });
         queue.add(jsObjRequest);
+
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                DetailsFragment detailsFragment = new DetailsFragment();
+//                getActivity().getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.fragment_container, detailsFragment, "fragmentTag")
+//                        .addToBackStack(null)
+//                        .commit();
+//            }
+//        });
     }
 
     @Override
@@ -119,6 +134,8 @@ public class AddFragment extends Fragment {
                 }).show();
             }
         });
+
+//        button = rootView.findViewById(R.id.button);
 
         return rootView;
     }

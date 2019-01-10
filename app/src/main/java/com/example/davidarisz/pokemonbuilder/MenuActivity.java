@@ -36,6 +36,7 @@ public class MenuActivity extends AppCompatActivity implements PokemonRequest.Ca
 
     public void toMain(View view) {
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("tabTag", "1");
         startActivity(intent);
     }
 }
