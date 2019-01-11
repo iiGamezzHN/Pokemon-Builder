@@ -13,7 +13,13 @@ I already have code that I can run. I've already processed two API requests and 
 - In API response for items: attributes 0: name needs to be "holdable-active", url needs to be "https://pokeapi.co/api/v2/item-attribute/7/"
 - Need to use Fragments for a better looking layout
 
-## 4
+## Day 4
 - (Begin of the day) Fragments suck
 - Both Renske and Natashja had trouble giving advice on fragments. Decided with Natashja's help to move both the requests into the Fragment itself (without callback).
 - (End of the day) Both requests now work inside the fragment itself without callback and the app doesn't crash anymore :)
+
+## Day 5
+- Decided to stop using fragments and TabLayout (now for atleast), as it took too much time to get it working properly. But I will keep using that idea for navigation
+- Added navigation buttons to normal activities (replacement for TabLayout)
+- Added ListView and ListView adapter to Pokedex. It now shows all pokemon names.
+- Made the overall layout better looking. Like white text for tabs, no transition animations when changing activities and some margins for text so that it's more readable.
