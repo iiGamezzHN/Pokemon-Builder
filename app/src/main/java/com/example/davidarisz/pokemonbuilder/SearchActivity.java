@@ -10,6 +10,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.davidarisz.pokemonbuilder.models.AbilityItem;
 import com.example.davidarisz.pokemonbuilder.models.MoveItem;
 import com.example.davidarisz.pokemonbuilder.models.Pokemon;
 
@@ -45,8 +46,9 @@ public class SearchActivity extends AppCompatActivity implements DataRequest.Cal
                     public void onSelected(BaseSearchDialogCompat baseSearchDialogCompat, Searchable searchable, int i) {
                         baseSearchDialogCompat.dismiss();
                         name = searchable.getTitle();
+                        String name2 = name.substring(0,1).toUpperCase() + name.substring(1);
                         tv = findViewById(R.id.tvSelected);
-                        String adding = "Adding: " + name;
+                        String adding = "Adding: " + name2;
                         tv.setText(adding);
 
                         makeRequest();
@@ -73,23 +75,33 @@ public class SearchActivity extends AppCompatActivity implements DataRequest.Cal
 
     public void gotData (Pokemon pokemon) {
         ArrayList<String> moves = new ArrayList<String>();
+        ArrayList<String> abilities = new ArrayList<String>();
+        ArrayList<String> natures = new ArrayList<String>();
         for (MoveItem moveItem : pokemon.getMoves()) {
             moves.add(moveItem.getMove().getName());
         }
+        for (AbilityItem abilityItem : pokemon.getAbilities()) {
+            abilities.add(abilityItem.getAbility().getName());
+        }
 
+        Spinner ability = findViewById(R.id.spn_ability);
         Spinner move1 = findViewById(R.id.move1);
         Spinner move2 = findViewById(R.id.move2);
         Spinner move3 = findViewById(R.id.move3);
         Spinner move4 = findViewById(R.id.move4);
 
         //Creating the ArrayAdapter instance having the country list
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, moves);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //Setting the ArrayAdapter data on the Spinner
-        move1.setAdapter(arrayAdapter);
-        move2.setAdapter(arrayAdapter);
-        move3.setAdapter(arrayAdapter);
-        move4.setAdapter(arrayAdapter);
+        ArrayAdapter movesAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, moves);
+        movesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter abilityAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, abilities);
+        abilityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        //Setting the ArrayAdapter data on the spinners
+        ability.setAdapter(abilityAdapter);
+        move1.setAdapter(movesAdapter);
+        move2.setAdapter(movesAdapter);
+        move3.setAdapter(movesAdapter);
+        move4.setAdapter(movesAdapter);
     }
 
     public void toList(View view) {

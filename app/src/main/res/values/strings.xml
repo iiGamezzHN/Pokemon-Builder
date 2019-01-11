@@ -12,4 +12,11 @@
     <string name="pokedex">Pokedex</string>
     <string name="weight">Weight:</string>
     <string name="height">Height:</string>
+    <string name="gender">Gender:</string>
+    <string name="female">Female</string>
+    <string name="male">Male</string>
+    <string name="item">Item:</string>
+    <string name="ability">Ability:</string>
+    <string name="move">Move:</string>
+    <string name="nature">Nature:</string>
 </resources>
