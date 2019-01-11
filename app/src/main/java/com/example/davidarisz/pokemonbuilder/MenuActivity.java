@@ -19,12 +19,12 @@ public class MenuActivity extends AppCompatActivity implements PokemonRequest.Ca
         setContentView(R.layout.activity_main_menu);
         PokemonRequest request = new PokemonRequest(this);
         request.getPokemon(this);
-        tv = findViewById(R.id.pokemon_textView);
-        tv.setText("Starting");
+//        tv = findViewById(R.id.pokemon_textView);
+//        tv.setText("Starting");
     }
 
     public void gotPokemon(final ArrayList<String> pokemon) {
-        tv.setText("Done loading");
+//        tv.setText("Done loading");
         pokemonNames = pokemon;
     }
 

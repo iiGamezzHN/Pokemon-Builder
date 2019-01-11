@@ -59,6 +59,7 @@ public class AddFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("Tag", "onCreate");
 
         // Instantiate the RequestQueue.
         String url = "https://pokeapi.co/api/v2/pokemon/";
@@ -95,6 +96,7 @@ public class AddFragment extends Fragment {
                     }
                 });
         queue.add(jsObjRequest);
+        Log.d("Tag", "onCreate2");
 
 //        button.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -111,6 +113,7 @@ public class AddFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d("Tag", "onCreateView");
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_add, container, false);
 
@@ -136,6 +139,7 @@ public class AddFragment extends Fragment {
         });
 
 //        button = rootView.findViewById(R.id.button);
+        Log.d("Tag", "onCreateView2");
 
         return rootView;
     }
@@ -151,7 +155,7 @@ public class AddFragment extends Fragment {
     }
 
     public void detailsRequest() {
-        String url = "https://pokeapi.co/api/v2/pokemon/"+name+"/";
+        String url = "https://pokeapi.co/api/v2/pokemon/" + name + "/";
         RequestQueue queue = Volley.newRequestQueue(getContext());
         final Gson gson = new Gson();
 

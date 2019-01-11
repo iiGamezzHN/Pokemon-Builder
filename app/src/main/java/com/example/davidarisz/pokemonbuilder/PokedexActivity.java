@@ -5,16 +5,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-public class ListActivity extends AppCompatActivity {
+public class PokedexActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list);
+        setContentView(R.layout.activity_pokedex);
     }
 
     public void toList(View view) {
-        // Do nothing
+        Intent intent = new Intent(this, ListActivity.class);
+        startActivity(intent);
     }
 
     public void toSearch(View view) {
@@ -23,7 +24,6 @@ public class ListActivity extends AppCompatActivity {
     }
 
     public void toPokedex(View view) {
-        Intent intent = new Intent(this, PokedexActivity.class);
-        startActivity(intent);
+        // Do nothing
     }
 }

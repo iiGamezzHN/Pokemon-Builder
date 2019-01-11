@@ -7,6 +7,12 @@
     android:orientation="vertical"
     tools:context=".MenuActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </LinearLayout>
+
     <Button
         android:id="@+id/pokemonList"
         android:layout_width="wrap_content"
@@ -27,11 +33,14 @@
         android:onClick="toSearch"
         android:textSize="30sp" />
 
-    <TextView
-        android:id="@+id/pokemon_textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </TextView>
+    <Button
+        android:id="@+id/addList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/add_pokemon"
+        android:textAllCaps="false"
+        android:onClick="toSearch"
+        android:textSize="30sp" />
 
 </LinearLayout>

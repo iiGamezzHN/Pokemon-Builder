@@ -1,5 +1,6 @@
 package com.example.davidarisz.pokemonbuilder;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,7 +19,7 @@ import ir.mirrajabi.searchdialog.core.BaseSearchDialogCompat;
 import ir.mirrajabi.searchdialog.core.SearchResultListener;
 import ir.mirrajabi.searchdialog.core.Searchable;
 
-public class SearchActivity extends AppCompatActivity implements DataRequest.Callback {
+public class SearchActivity extends AppCompatActivity implements PokemonRequest.Callback, DataRequest.Callback {
     private ArrayList pokemonNames;
     private TextView tv;
     public static String name;
@@ -27,6 +28,9 @@ public class SearchActivity extends AppCompatActivity implements DataRequest.Cal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        PokemonRequest request = new PokemonRequest(this);
+        request.getPokemon(this);
 
         tv = findViewById(R.id.tvSelected);
         tv.setText("Adding: ");
@@ -49,13 +53,10 @@ public class SearchActivity extends AppCompatActivity implements DataRequest.Cal
                 }).show();
             }
         });
+    }
 
-        Toast.makeText(this, "after click", Toast.LENGTH_SHORT).show();
-
-        if (name != null) {
-            Toast.makeText(this, "name not null", Toast.LENGTH_SHORT).show();
-
-        }
+    public void gotPokemon(final ArrayList<String> pokemon) {
+        pokemonNames = pokemon;
     }
 
     public void makeRequest () {
@@ -92,5 +93,19 @@ public class SearchActivity extends AppCompatActivity implements DataRequest.Cal
         move2.setAdapter(arrayAdapter);
         move3.setAdapter(arrayAdapter);
         move4.setAdapter(arrayAdapter);
+    }
+
+    public void toList(View view) {
+        Intent intent = new Intent(this, ListActivity.class);
+        startActivity(intent);
+    }
+
+    public void toSearch(View view) {
+        // Do nothing
+    }
+
+    public void toPokedex(View view) {
+        Intent intent = new Intent(this, PokedexActivity.class);
+        startActivity(intent);
     }
 }
