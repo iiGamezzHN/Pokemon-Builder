@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 
@@ -17,6 +18,9 @@ public class ListActivity extends AppCompatActivity implements PokemonRequest.Ca
 
         PokemonRequest request = new PokemonRequest(this);
         request.getPokemon(this);
+
+        Button button = findViewById(R.id.list_tab);
+        button.setBackgroundColor(getResources().getColor(R.color.selectedTab));
     }
 
     public void gotPokemon(final ArrayList<String> pokemon) {
@@ -31,11 +35,19 @@ public class ListActivity extends AppCompatActivity implements PokemonRequest.Ca
         Intent intent = new Intent(this, SearchActivity.class);
         intent.putStringArrayListExtra("namesTag", pokemonNames);
         startActivity(intent);
+        overridePendingTransition(0,0);
     }
 
     public void toPokedex(View view) {
         Intent intent = new Intent(this, PokedexActivity.class);
         intent.putStringArrayListExtra("namesTag", pokemonNames);
         startActivity(intent);
+        overridePendingTransition(0,0);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(0, 0);
     }
 }

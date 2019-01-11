@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +31,9 @@ public class SearchActivity extends AppCompatActivity implements DataRequest.Cal
         setContentView(R.layout.activity_search);
         pokemonNames = getIntent().getStringArrayListExtra("namesTag");
 
+        Button button = findViewById(R.id.search_tag);
+        button.setBackgroundColor(getResources().getColor(R.color.selectedTab));
+
         tv = findViewById(R.id.tvSelected);
         tv.setText("Adding: ");
 
@@ -53,7 +57,7 @@ public class SearchActivity extends AppCompatActivity implements DataRequest.Cal
     }
 
     public void makeRequest () {
-        DataRequest request = new DataRequest(SearchActivity.this);
+        DataRequest request = new DataRequest(SearchActivity.this, name);
         request.getData(this);
     }
 
@@ -92,6 +96,7 @@ public class SearchActivity extends AppCompatActivity implements DataRequest.Cal
         Intent intent = new Intent(this, ListActivity.class);
         intent.putStringArrayListExtra("namesTag", pokemonNames);
         startActivity(intent);
+        overridePendingTransition(0,0);
     }
 
     public void toSearch(View view) {
@@ -102,5 +107,12 @@ public class SearchActivity extends AppCompatActivity implements DataRequest.Cal
         Intent intent = new Intent(this, PokedexActivity.class);
         intent.putStringArrayListExtra("namesTag", pokemonNames);
         startActivity(intent);
+        overridePendingTransition(0,0);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(0, 0);
     }
 }

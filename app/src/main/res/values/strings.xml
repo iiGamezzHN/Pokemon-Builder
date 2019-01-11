@@ -10,4 +10,6 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="pokemon_list">Pokemon List</string>
     <string name="pokedex">Pokedex</string>
+    <string name="weight">Weight:</string>
+    <string name="height">Height:</string>
 </resources>

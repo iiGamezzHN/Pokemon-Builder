@@ -26,18 +26,19 @@ public class DataRequest implements Response.Listener<JSONObject>, Response.Erro
     private Context context;
     private DataRequest.Callback activity;
     private Gson gson = new Gson();
+    private String name;
 
     public interface Callback {
         void gotData(Pokemon pokemon);
     }
 
-    public DataRequest(Context context) {
+    public DataRequest(Context context, String name) {
         this.context = context;
+        this.name = name;
     }
 
     // Makes a request to the api
     public void getData(DataRequest.Callback activity) {
-        String name = SearchActivity.name;
         String url = "https://pokeapi.co/api/v2/pokemon/"+name+"/";
         RequestQueue queue = Volley.newRequestQueue(context);
 
@@ -62,19 +63,19 @@ public class DataRequest implements Response.Listener<JSONObject>, Response.Erro
         Pokemon pokemon = gson.fromJson(response.toString(), Pokemon.class);
 
         for (AbilityItem abilityItem : pokemon.getAbilities()) {
-            System.out.println(
-                    String.format("DAVID IS HOMO. Ohja %s heeft deze ability: %s", pokemon.getName(), abilityItem.getAbility().getName())
-                    );
+//            System.out.println(
+//                    String.format("DAVID IS HOMO. Ohja %s heeft deze ability: %s", pokemon.getName(), abilityItem.getAbility().getName())
+//                    );
         }
 
         for (MoveItem moveItem : pokemon.getMoves()) {
-            System.out.println(
-                    String.format("%s heeft deze move: %s", pokemon.getName(), moveItem.getMove().getName())
-                    );
+//            System.out.println(
+//                    String.format("%s heeft deze move: %s", pokemon.getName(), moveItem.getMove().getName())
+//                    );
         }
 
         Sprites sprites = pokemon.getSprites();
-        System.out.println(String.format("back_default = %s", sprites.getBack_default()));
+//        System.out.println(String.format("back_default = %s", sprites.getBack_default()));
 
         activity.gotData(pokemon);
     }
