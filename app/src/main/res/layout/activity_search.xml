@@ -41,42 +41,58 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnSearch"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="@string/add_pokemon"
-        android:textAllCaps="false"
-        android:textSize="20sp" />
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-    <TextView
-        android:id="@+id/tvSelected"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <Spinner
-        android:id="@+id/move1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></Spinner>
+            <Button
+                android:id="@+id/btnSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@string/add_pokemon"
+                android:textAllCaps="false"
+                android:textSize="20sp" />
 
-    <Spinner
-        android:id="@+id/move2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></Spinner>
+            <TextView
+                android:id="@+id/tvSelected"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-    <Spinner
-        android:id="@+id/move3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></Spinner>
+            <Spinner
+                android:id="@+id/move1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></Spinner>
 
-    <Spinner
-        android:id="@+id/move4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></Spinner>
+            <Spinner
+                android:id="@+id/move2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></Spinner>
+
+            <Spinner
+                android:id="@+id/move3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></Spinner>
+
+            <Spinner
+                android:id="@+id/move4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></Spinner>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
 
 </LinearLayout>

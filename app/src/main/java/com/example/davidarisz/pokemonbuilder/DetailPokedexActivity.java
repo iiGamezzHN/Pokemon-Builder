@@ -48,10 +48,10 @@ public class DetailPokedexActivity extends AppCompatActivity implements DataRequ
         tv_name.setText(name2);
 
         ImageView iv_normal = findViewById(R.id.pd_detail_normal);
-        Picasso.get().load(normal).resize(500, 500).into(iv_normal);
+        Picasso.get().load(normal).into(iv_normal);
 
-        ImageView iv_shiny = findViewById(R.id.pd_detail_shiny);
-        Picasso.get().load(shiny).resize(500, 500).into(iv_shiny);
+//        ImageView iv_shiny = findViewById(R.id.pd_detail_shiny);
+//        Picasso.get().load(shiny).resize(500, 500).into(iv_shiny);
 
         TextView tv_weight = findViewById(R.id.pd_detail_weight);
         String weight2 = "Height: " + weight;
