@@ -68,15 +68,32 @@ public class PokemonDatabase extends SQLiteOpenHelper {
     }
 
     public Cursor selectAll() {
-        return getWritableDatabase().rawQuery("select * from entries",null);
+        return getWritableDatabase().rawQuery("select * from pokemon",null);
     }
 
-    public Long insert (JournalEntry entry) {
+    public Long insert (SavedPokemon savedPokemon) {
         ContentValues contentValues = new ContentValues();
 
-        contentValues.put("title",entry.getTitle());
-        contentValues.put("content",entry.getContent());
-        contentValues.put("mood",entry.getMood());
+        contentValues.put("name",savedPokemon.getName());
+        contentValues.put("item",savedPokemon.getItem());
+        contentValues.put("ability",savedPokemon.getAbility());
+        contentValues.put("move1",savedPokemon.getMove1());
+        contentValues.put("move2",savedPokemon.getMove2());
+        contentValues.put("move3",savedPokemon.getMove3());
+        contentValues.put("move4",savedPokemon.getMove4());
+        contentValues.put("nature",savedPokemon.getNature());
+        contentValues.put("hp_iv",savedPokemon.getHp_iv());
+        contentValues.put("att_iv",savedPokemon.getAtt_iv());
+        contentValues.put("def_iv",savedPokemon.getDef_iv());
+        contentValues.put("spa_iv",savedPokemon.getSpa_iv());
+        contentValues.put("spd_iv",savedPokemon.getSpd_iv());
+        contentValues.put("sp_iv",savedPokemon.getSp_iv());
+        contentValues.put("hp_ev",savedPokemon.getHp_ev());
+        contentValues.put("att_ev",savedPokemon.getAtt_ev());
+        contentValues.put("def_ev",savedPokemon.getDef_ev());
+        contentValues.put("spa_ev",savedPokemon.getSpa_ev());
+        contentValues.put("spd_ev",savedPokemon.getSpd_ev());
+        contentValues.put("sp_ev",savedPokemon.getSp_ev());
 
         return getWritableDatabase().insert("pokemon",null,contentValues);
     }
