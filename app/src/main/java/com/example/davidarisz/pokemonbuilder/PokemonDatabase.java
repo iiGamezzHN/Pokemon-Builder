@@ -30,14 +30,15 @@ public class PokemonDatabase extends SQLiteOpenHelper {
             "def_ev" + " INTEGER NOT NULL, " +
             "spa_ev" + " INTEGER NOT NULL, " +
             "spd_ev" + " INTEGER NOT NULL, " +
-            "sp_ev" + " INTEGER NOT NULL)";
+            "sp_ev" + " INTEGER NOT NULL, " +
+            "url" + " TEXT NOT NULL)";
 
     private static final String SQL_DELETE_POKEMON = "DROP TABLE IF EXISTS " + "pokemon";
 
     private static final String sql = "INSERT INTO pokemon (name, item, ability, move1, move2, move3, move4, nature, " +
-            "hp_iv, att_iv, def_iv, spa_iv, spd_iv, sp_iv, hp_ev, att_ev, def_ev, spa_ev, spd_ev, sp_ev) " +
+            "hp_iv, att_iv, def_iv, spa_iv, spd_iv, sp_iv, hp_ev, att_ev, def_ev, spa_ev, spd_ev, sp_ev, url) " +
             "VALUES('Charizard','Fire Orb','blaze','mega-punch','fire-punch','thunder punch','swords dance','adamant'" +
-            ",'1','2','3','4','5','6','7','8','9','10','11','12')" ;
+            ",'1','2','3','4','5','6','7','8','9','10','11','12','https://img.pokemondb.net/artwork/large/charizard.jpg')" ;
 
     @Override
     public void onCreate(SQLiteDatabase db) {
