@@ -24,7 +24,7 @@ public class DetailPokedexActivity extends AppCompatActivity implements DataRequ
 
         Intent intent = getIntent();
         String name = intent.getStringExtra("nameTag");
-        pokemonNames = intent.getStringArrayListExtra("nameTag");
+        pokemonNames = intent.getStringArrayListExtra("namesTag");
 
         DataRequest request = new DataRequest(DetailPokedexActivity.this, name);
         request.getData(this);

@@ -35,6 +35,7 @@ public class PokedexActivity extends AppCompatActivity {
                 Intent intent = new Intent(PokedexActivity.this, DetailPokedexActivity.class);
                 String name = String.valueOf(pokemonNames.get(position));
                 intent.putExtra("nameTag", name);
+                intent.putStringArrayListExtra("namesTag", pokemonNames);
                 startActivity(intent);
             }
         });

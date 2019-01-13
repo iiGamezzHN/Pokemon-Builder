@@ -19,4 +19,5 @@
     <string name="ability">Ability:</string>
     <string name="move">Move:</string>
     <string name="nature">Nature:</string>
+    <string name="select_pokemon">Select Pokemon</string>
 </resources>
