@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ListDetailActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:onClick="toList"
+            android:text="@string/pokemon_list"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btn_add_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:onClick="toSearch"
+            android:text="@string/add_pokemon"
+            android:textColor="@color/white" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:onClick="toPokedex"
+            android:text="@string/pokedex"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="16dp"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/img_picture"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"/>
+
+            <!--Gender-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/gender"
+                    android:layout_marginEnd="16dp"/>
+
+                <TextView
+                    android:id="@+id/tv_gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <!--// Item-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/item" />
+
+                <TextView
+                    android:id="@+id/tv_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <!--// Ability-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/ability" />
+
+                <TextView
+                    android:id="@+id/tv_ability"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <!--// Moves-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/move" />
+
+                <TextView
+                    android:id="@+id/tv_move1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/move" />
+
+                <TextView
+                    android:id="@+id/tv_move2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/move" />
+
+                <TextView
+                    android:id="@+id/tv_move3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/move" />
+
+                <TextView
+                    android:id="@+id/tv_move4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <!--Nature-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/nature" />
+
+                <TextView
+                    android:id="@+id/tv_nature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="#c0c0c0" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="1,2">
+
+                <TableRow>
+
+                    <TextView />
+
+                    <TextView
+                        android:gravity="center"
+                        android:text="@string/iv" />
+
+                    <TextView
+                        android:gravity="center"
+                        android:text="@string/ev" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView android:text="@string/hp" />
+
+                    <TextView
+                        android:id="@+id/tv_hp_iv"
+                        android:gravity="center"
+                        android:hint="@string/et_hint"/>
+
+                    <TextView
+                        android:id="@+id/tv_hp_ev"
+                        android:gravity="center"
+                        android:hint="@string/et_hint" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView android:text="@string/attack" />
+
+                    <TextView
+                        android:id="@+id/tv_att_iv"
+                        android:gravity="center"
+                        android:hint="@string/et_hint"/>
+
+                    <TextView
+                        android:id="@+id/tv_att_ev"
+                        android:gravity="center"
+                        android:hint="@string/et_hint"/>
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView android:text="@string/defense" />
+
+                    <TextView
+                        android:id="@+id/tv_def_iv"
+                        android:gravity="center"
+                        android:hint="@string/et_hint"/>
+
+                    <TextView
+                        android:id="@+id/tv_def_ev"
+                        android:gravity="center"
+                        android:hint="@string/et_hint"/>
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView android:text="@string/special_attack" />
+
+                    <TextView
+                        android:id="@+id/tv_spa_iv"
+                        android:gravity="center"
+                        android:hint="@string/et_hint"/>
+
+                    <TextView
+                        android:id="@+id/tv_spa_ev"
+                        android:gravity="center"
+                        android:hint="@string/et_hint"/>
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_marginEnd="16dp"
+                        android:text="@string/special_defense" />
+
+                    <TextView
+                        android:id="@+id/tv_spd_iv"
+                        android:gravity="center"
+                        android:hint="@string/et_hint"/>
+
+                    <TextView
+                        android:id="@+id/tv_spd_ev"
+                        android:gravity="center"
+                        android:hint="@string/et_hint"/>
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView android:text="@string/speed" />
+
+                    <TextView
+                        android:id="@+id/tv_sp_iv"
+                        android:gravity="center"
+                        android:hint="@string/et_hint" />
+
+                    <TextView
+                        android:id="@+id/tv_sp_ev"
+                        android:gravity="center"
+                        android:hint="@string/et_hint" />
+                </TableRow>
+
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
