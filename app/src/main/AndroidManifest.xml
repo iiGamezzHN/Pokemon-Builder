@@ -22,7 +22,6 @@
         </activity>
         <activity android:name=".MenuActivity" />
         <activity android:name=".AddActivity" />
-        <activity android:name=".SearchActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".PokedexActivity" />
         <activity android:name=".DetailPokedexActivity"></activity>

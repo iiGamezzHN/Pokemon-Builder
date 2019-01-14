@@ -44,7 +44,7 @@ public class ListActivity extends AppCompatActivity implements PokemonRequest.Ca
         if(pokemonNames == null) {
             Toast.makeText(this, "List not loaded yet", Toast.LENGTH_SHORT).show();
         } else {
-            Intent intent = new Intent(this, SearchActivity.class);
+            Intent intent = new Intent(this, AddActivity.class);
             intent.putStringArrayListExtra("namesTag", pokemonNames);
             startActivity(intent);
             overridePendingTransition(0, 0);

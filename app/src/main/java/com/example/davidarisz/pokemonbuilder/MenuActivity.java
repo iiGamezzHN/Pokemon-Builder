@@ -29,7 +29,7 @@ public class MenuActivity extends AppCompatActivity implements PokemonRequest.Ca
     }
 
     public void toSearch(View view) {
-        Intent intent = new Intent(this, SearchActivity.class);
+        Intent intent = new Intent(this, AddActivity.class);
         intent.putExtra("namesTag", pokemonNames);
         startActivity(intent);
     }

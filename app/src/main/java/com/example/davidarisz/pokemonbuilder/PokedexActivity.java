@@ -49,7 +49,7 @@ public class PokedexActivity extends AppCompatActivity {
     }
 
     public void toSearch(View view) {
-        Intent intent = new Intent(this, SearchActivity.class);
+        Intent intent = new Intent(this, AddActivity.class);
         intent.putStringArrayListExtra("namesTag", pokemonNames);
         startActivity(intent);
         overridePendingTransition(0,0);
