@@ -9,7 +9,7 @@ import android.widget.TextView;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MenuActivity extends AppCompatActivity implements PokemonRequest.Callback, Serializable {
+public class MenuActivity extends AppCompatActivity implements PokemonNamesRequest.Callback, Serializable {
     private ArrayList pokemonNames;
     private TextView tv;
 
@@ -17,7 +17,7 @@ public class MenuActivity extends AppCompatActivity implements PokemonRequest.Ca
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-        PokemonRequest request = new PokemonRequest(this);
+        PokemonNamesRequest request = new PokemonNamesRequest(this);
         request.getPokemon(this);
 //        tv = findViewById(R.id.pokemon_textView);
 //        tv.setText("Starting");

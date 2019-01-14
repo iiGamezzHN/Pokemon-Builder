@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class ListActivity extends AppCompatActivity implements PokemonRequest.Callback {
+public class ListActivity extends AppCompatActivity implements PokemonNamesRequest.Callback {
     private ArrayList pokemonNames;
     private PokemonDatabase db;
     private ListAdapter adapter;
@@ -24,7 +24,7 @@ public class ListActivity extends AppCompatActivity implements PokemonRequest.Ca
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        PokemonRequest request = new PokemonRequest(this);
+        PokemonNamesRequest request = new PokemonNamesRequest(this);
         request.getPokemon(this);
 
         db = PokemonDatabase.getInstance(getApplicationContext());

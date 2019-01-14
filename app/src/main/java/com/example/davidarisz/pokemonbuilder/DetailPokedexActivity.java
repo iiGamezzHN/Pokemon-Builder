@@ -13,7 +13,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class DetailPokedexActivity extends AppCompatActivity implements DataRequest.Callback {
+public class DetailPokedexActivity extends AppCompatActivity implements PokemonDataRequest.Callback {
     private ArrayList pokemonNames;
 
     @Override
@@ -25,7 +25,7 @@ public class DetailPokedexActivity extends AppCompatActivity implements DataRequ
         String name = intent.getStringExtra("nameTag");
         pokemonNames = intent.getStringArrayListExtra("namesTag");
 
-        DataRequest request = new DataRequest(DetailPokedexActivity.this, name);
+        PokemonDataRequest request = new PokemonDataRequest(DetailPokedexActivity.this, name);
         request.getData(this);
 
         Button button = findViewById(R.id.btn_pokedex_tab);

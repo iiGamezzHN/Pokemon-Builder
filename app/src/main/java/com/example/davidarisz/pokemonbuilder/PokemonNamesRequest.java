@@ -16,7 +16,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class PokemonRequest implements Response.Listener<JSONObject>, Response.ErrorListener {
+public class PokemonNamesRequest implements Response.Listener<JSONObject>, Response.ErrorListener {
     Context context;
     Callback activity;
 
@@ -24,7 +24,7 @@ public class PokemonRequest implements Response.Listener<JSONObject>, Response.E
         void gotPokemon(ArrayList<String> pokemon);
     }
 
-    public PokemonRequest(Context context) {
+    public PokemonNamesRequest(Context context) {
         this.context = context;
     }
 
@@ -60,9 +60,9 @@ public class PokemonRequest implements Response.Listener<JSONObject>, Response.E
             for (int i = 0; i < values.length(); i++) {
                 JSONObject object = values.getJSONObject(i);
                 String pokemon = object.getString("name");
-//                Log.d("pokemonTag", pokemon);
+                String pokemon2 = pokemon.substring(0,1).toUpperCase() + pokemon.substring(1);
 
-                arrayList.add(pokemon);
+                arrayList.add(pokemon2);
             }
         } catch (JSONException e) {
             e.printStackTrace();

@@ -1,7 +1,6 @@
 package com.example.davidarisz.pokemonbuilder;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,7 +23,7 @@ import ir.mirrajabi.searchdialog.core.BaseSearchDialogCompat;
 import ir.mirrajabi.searchdialog.core.SearchResultListener;
 import ir.mirrajabi.searchdialog.core.Searchable;
 
-public class AddActivity extends AppCompatActivity implements DataRequest.Callback {
+public class AddActivity extends AppCompatActivity implements PokemonDataRequest.Callback {
     private ArrayList pokemonNames;
     private TextView tv;
     public static String name;
@@ -63,7 +62,7 @@ public class AddActivity extends AppCompatActivity implements DataRequest.Callba
     }
 
     public void makeRequest () {
-        DataRequest request = new DataRequest(AddActivity.this, name);
+        PokemonDataRequest request = new PokemonDataRequest(AddActivity.this, name);
         request.getData(this);
     }
 
@@ -82,10 +81,14 @@ public class AddActivity extends AppCompatActivity implements DataRequest.Callba
         ArrayList<String> abilities = new ArrayList<String>();
         ArrayList<String> natures = new ArrayList<String>();
         for (MoveItem moveItem : pokemon.getMoves()) {
-            moves.add(moveItem.getMove().getName());
+            String move = moveItem.getMove().getName();
+            String move2 = move.substring(0,1).toUpperCase() + move.substring(1);
+            moves.add(move2);
         }
         for (AbilityItem abilityItem : pokemon.getAbilities()) {
-            abilities.add(abilityItem.getAbility().getName());
+            String ability = abilityItem.getAbility().getName();
+            String ability2 = ability.substring(0,1).toUpperCase() + ability.substring(1);
+            abilities.add(ability2);
         }
 
         Spinner ability = findViewById(R.id.spn_ability);

@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         loadFragments();
 
-//        PokemonRequest request = new PokemonRequest(this);
+//        PokemonNamesRequest request = new PokemonNamesRequest(this);
 //        request.getPokemon(this);
     }
 
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
 //    }
 //
 //    public void makeRequest () {
-//        DataRequest request = new DataRequest(MainActivity.this);
+//        PokemonDataRequest request = new PokemonDataRequest(MainActivity.this);
 //        request.getData(this);
 //    }
 }

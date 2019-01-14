@@ -1,7 +1,6 @@
 package com.example.davidarisz.pokemonbuilder;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -15,16 +14,12 @@ import com.example.davidarisz.pokemonbuilder.models.Pokemon;
 import com.example.davidarisz.pokemonbuilder.models.Sprites;
 import com.google.gson.Gson;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
-public class DataRequest implements Response.Listener<JSONObject>, Response.ErrorListener {
+public class PokemonDataRequest implements Response.Listener<JSONObject>, Response.ErrorListener {
 
     private Context context;
-    private DataRequest.Callback activity;
+    private PokemonDataRequest.Callback activity;
     private Gson gson = new Gson();
     private String name;
 
@@ -32,13 +27,13 @@ public class DataRequest implements Response.Listener<JSONObject>, Response.Erro
         void gotData(Pokemon pokemon);
     }
 
-    public DataRequest(Context context, String name) {
+    public PokemonDataRequest(Context context, String name) {
         this.context = context;
-        this.name = name;
+        this.name = name.substring(0,1).toLowerCase() + name.substring(1);;
     }
 
     // Makes a request to the api
-    public void getData(DataRequest.Callback activity) {
+    public void getData(PokemonDataRequest.Callback activity) {
         String url = "https://pokeapi.co/api/v2/pokemon/"+name+"/";
         RequestQueue queue = Volley.newRequestQueue(context);
 
