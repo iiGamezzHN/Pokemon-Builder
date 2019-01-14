@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 public class PokemonDatabase extends SQLiteOpenHelper {
 
@@ -95,8 +96,15 @@ public class PokemonDatabase extends SQLiteOpenHelper {
         contentValues.put("spa_ev",savedPokemon.getSpa_ev());
         contentValues.put("spd_ev",savedPokemon.getSpd_ev());
         contentValues.put("sp_ev",savedPokemon.getSp_ev());
+        contentValues.put("url",savedPokemon.getUrl());
 
-        return getWritableDatabase().insert("pokemon",null,contentValues);
+        Log.d("dbTag", savedPokemon.getName());
+        Log.d("dbTag", savedPokemon.getNature());
+        Log.d("dbTag", savedPokemon.getItem());
+        Log.d("dbTag", savedPokemon.getMove1());
+        Log.d("dbTag", savedPokemon.getUrl());
+
+        return getWritableDatabase().insertOrThrow("pokemon",null,contentValues);
     }
 
     public long remove (int id) {

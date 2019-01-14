@@ -20,7 +20,6 @@ public class ListAdapter extends ResourceCursorAdapter {
         String name = cursor.getString(cursor.getColumnIndex("name"));
         String item = cursor.getString(cursor.getColumnIndex("item"));
         String url = cursor.getString(cursor.getColumnIndex("url"));
-        Log.d("urlTag", url);
 
         TextView list_name = view.findViewById(R.id.tv_name);
         TextView list_item = view.findViewById(R.id.tv_item);

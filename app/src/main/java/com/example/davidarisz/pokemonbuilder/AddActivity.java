@@ -1,8 +1,10 @@
 package com.example.davidarisz.pokemonbuilder;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -139,13 +141,13 @@ public class AddActivity extends AppCompatActivity implements DataRequest.Callba
         } else {
             String gender = "Genderless";
         }
-        String item = spn_item.getSelectedItem().toString();
+//        String item = spn_item.getSelectedItem().toString();
         String ability = spn_ability.getSelectedItem().toString();
         String move1 = spn_move1.getSelectedItem().toString();
         String move2 = spn_move2.getSelectedItem().toString();
         String move3 = spn_move3.getSelectedItem().toString();
         String move4 = spn_move4.getSelectedItem().toString();
-        String nature = spn_nature.getSelectedItem().toString();
+//        String nature = spn_nature.getSelectedItem().toString();
         int hp_iv = Integer.parseInt(et_hp_iv.getText().toString());
         int att_iv = Integer.parseInt(et_att_iv.getText().toString());
         int def_iv = Integer.parseInt(et_def_iv.getText().toString());
@@ -159,9 +161,16 @@ public class AddActivity extends AppCompatActivity implements DataRequest.Callba
         int spd_ev = Integer.parseInt(et_spd_ev.getText().toString());
         int sp_ev = Integer.parseInt(et_sp_ev.getText().toString());
 
-        SavedPokemon savedPokemon = new SavedPokemon(0,hp_iv,att_iv,def_iv,spa_iv,spd_iv,sp_iv,
-                hp_ev,att_ev,def_ev,spa_ev,spd_ev,sp_ev,name,item,ability,move1,move2,move3,move4,nature,url);
-        db.insert(savedPokemon);
+        String item = "Master ball";
+        String nature = "Docile";
+
+        SavedPokemon savedPokemon = new SavedPokemon(0,name,item,ability,move1,move2,move3,move4,nature,
+                hp_iv,att_iv,def_iv,spa_iv,spd_iv,sp_iv,hp_ev,att_ev,def_ev,spa_ev,spd_ev,sp_ev,url);
+        Long aLong = db.insert(savedPokemon);
+        Log.d("longTag", String.valueOf(aLong));
+        Intent intent = new Intent(getApplicationContext(), ListActivity.class);
+        startActivity(intent);
+        overridePendingTransition(0,0);
     }
 
     public void toList(View view) {

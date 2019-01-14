@@ -6,9 +6,9 @@ public class SavedPokemon implements Serializable {
     private int id, hp_iv, att_iv, def_iv, spa_iv, spd_iv, sp_iv, hp_ev, att_ev, def_ev, spa_ev, spd_ev, sp_ev;
     private String name, item, ability, move1, move2, move3, move4, nature, url;
 
-    public SavedPokemon(int id, int hp_iv, int att_iv, int def_iv, int spa_iv, int spd_iv, int sp_iv, int hp_ev,
-                        int att_ev, int def_ev, int spa_ev, int spd_ev, int sp_ev, String name, String item,
-                        String ability, String move1, String move2, String move3, String move4, String nature, String url) {
+    public SavedPokemon(int id, String name, String item, String ability, String move1, String move2, String move3, String move4, String nature,
+                        int hp_iv, int att_iv, int def_iv, int spa_iv, int spd_iv, int sp_iv, int hp_ev,
+                        int att_ev, int def_ev, int spa_ev, int spd_ev, int sp_ev,  String url) {
         this.id = id;
         this.hp_iv = hp_iv;
         this.att_iv = att_iv;

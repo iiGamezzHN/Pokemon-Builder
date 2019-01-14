@@ -3,6 +3,7 @@ package com.example.davidarisz.pokemonbuilder;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 public class ListActivity extends AppCompatActivity implements PokemonRequest.Callback {
     private ArrayList pokemonNames;
     private PokemonDatabase db;
+    private ListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +25,7 @@ public class ListActivity extends AppCompatActivity implements PokemonRequest.Ca
         request.getPokemon(this);
 
         db = PokemonDatabase.getInstance(getApplicationContext());
-        ListAdapter adapter = new ListAdapter(this, db.selectAll());
+        adapter = new ListAdapter(this, db.selectAll());
 
         ListView listView = findViewById(R.id.lv_saved_pokemon);
         listView.setAdapter(adapter);
@@ -66,5 +68,21 @@ public class ListActivity extends AppCompatActivity implements PokemonRequest.Ca
     protected void onPause() {
         super.onPause();
         overridePendingTransition(0, 0);
+        updateData();
+//        Toast.makeText(this, "onPause", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateData();
+//        Toast.makeText(this, "onResume", Toast.LENGTH_SHORT).show();
+        String test = String.valueOf(db.selectAll().getCount());
+        Log.d("databaseTag", test);
+    }
+
+    private void updateData() { // Update the data
+        db = PokemonDatabase.getInstance(getApplicationContext());
+        adapter.swapCursor(db.selectAll());
     }
 }
