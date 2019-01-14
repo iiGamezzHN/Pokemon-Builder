@@ -249,11 +249,13 @@
 
                     <EditText
                         android:gravity="center"
-                        android:hint="0" />
+                        android:hint="0"
+                        android:inputType="phone"/>
 
                     <EditText
                         android:gravity="center"
-                        android:hint="0" />
+                        android:hint="0"
+                        android:inputType="phone"/>
                 </TableRow>
 
                 <TableRow>
@@ -263,11 +265,13 @@
 
                     <EditText
                         android:gravity="center"
-                        android:hint="0" />
+                        android:hint="0"
+                        android:inputType="phone"/>
 
                     <EditText
                         android:gravity="center"
-                        android:hint="0" />
+                        android:hint="0"
+                        android:inputType="phone"/>
                 </TableRow>
 
                 <TableRow>
@@ -277,11 +281,13 @@
 
                     <EditText
                         android:gravity="center"
-                        android:hint="0" />
+                        android:hint="0"
+                        android:inputType="phone"/>
 
                     <EditText
                         android:gravity="center"
-                        android:hint="0" />
+                        android:hint="0"
+                        android:inputType="phone"/>
                 </TableRow>
 
                 <TableRow>
@@ -291,11 +297,13 @@
 
                     <EditText
                         android:gravity="center"
-                        android:hint="0" />
+                        android:hint="0"
+                        android:inputType="phone"/>
 
                     <EditText
                         android:gravity="center"
-                        android:hint="0" />
+                        android:hint="0"
+                        android:inputType="phone"/>
                 </TableRow>
 
                 <TableRow>
@@ -306,11 +314,13 @@
 
                     <EditText
                         android:gravity="center"
-                        android:hint="0" />
+                        android:hint="0"
+                        android:inputType="phone"/>
 
                     <EditText
                         android:gravity="center"
-                        android:hint="0" />
+                        android:hint="0"
+                        android:inputType="phone"/>
                 </TableRow>
 
                 <TableRow>
@@ -320,11 +330,13 @@
 
                     <EditText
                         android:gravity="center"
-                        android:hint="0" />
+                        android:hint="0"
+                        android:inputType="phone"/>
 
                     <EditText
                         android:gravity="center"
-                        android:hint="0" />
+                        android:hint="0"
+                        android:inputType="phone"/>
                 </TableRow>
 
             </TableLayout>
