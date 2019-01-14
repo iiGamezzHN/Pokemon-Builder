@@ -23,3 +23,10 @@ I already have code that I can run. I've already processed two API requests and 
 - Added navigation buttons to normal activities (replacement for TabLayout)
 - Added ListView and ListView adapter to Pokedex. It now shows all pokemon names.
 - Made the overall layout better looking. Like white text for tabs, no transition animations when changing activities and some margins for text so that it's more readable.
+
+## Weekend
+- Added all needed information to SearchActivity in an ok looking layout
+- Built the SQLite database for saving pokemon and added 1 example
+- Completed the insert method for the database (22 items per pokemon)
+- Created a SavedPokemon class to hold the data of the saved pokemon
+- Made a ListAdapter class to show saved pokemon for the database in the ListActivity
