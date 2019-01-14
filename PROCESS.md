@@ -34,3 +34,10 @@ I already have code that I can run. I've already processed two API requests and 
 
 ## Day 6
 - Decided to use input type phone for edittexts in SearchActivity. This only shows numbers for input and lets you automatically go to the next edittext
+- Changed SearchActivity to AddActivity since that better reflects it's purpose
+- Database for saved pokemon now works
+- ListDetailActivity for showing saved pokemon now works
+- Changed PokemonRequest and DataRequest to PokemonNamesRequest and PokemonDataRequest respectively
+- Added an ItemRequest and a NatureRequest to get names to put in AddActivity
+- Alpha is basically finished
+- I need a way to display (and save) descriptions for items, natures and moves
