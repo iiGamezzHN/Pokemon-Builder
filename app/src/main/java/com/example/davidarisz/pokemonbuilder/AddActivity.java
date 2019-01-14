@@ -23,7 +23,8 @@ import ir.mirrajabi.searchdialog.core.BaseSearchDialogCompat;
 import ir.mirrajabi.searchdialog.core.SearchResultListener;
 import ir.mirrajabi.searchdialog.core.Searchable;
 
-public class AddActivity extends AppCompatActivity implements PokemonDataRequest.Callback, NatureNamesRequest.Callback {
+public class AddActivity extends AppCompatActivity implements PokemonDataRequest.Callback, NatureNamesRequest.Callback,
+        ItemNamesRequest.Callback {
     private ArrayList pokemonNames;
     private TextView tv;
     public static String name;
@@ -67,6 +68,9 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
 
         NatureNamesRequest natures = new NatureNamesRequest(this);
         natures.getNatureNames(this);
+
+        ItemNamesRequest items = new ItemNamesRequest(this);
+        items.getItemNames(this);
     }
 
     private ArrayList<SearchModel> initData() {
@@ -82,7 +86,6 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
     public void gotData (Pokemon pokemon) {
         ArrayList<String> moves = new ArrayList<String>();
         ArrayList<String> abilities = new ArrayList<String>();
-        ArrayList<String> natures = new ArrayList<String>();
         for (MoveItem moveItem : pokemon.getMoves()) {
             String move = moveItem.getMove().getName();
             String move2 = move.substring(0,1).toUpperCase() + move.substring(1);
@@ -122,6 +125,13 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         nature.setAdapter(abilityAdapter);
     }
 
+    public void gotItemNames(ArrayList items) {
+        Spinner item = findViewById(R.id.spn_item);
+        ArrayAdapter itemAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, items);
+        itemAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        item.setAdapter(itemAdapter);
+    }
+
     public void addPokemon(View view) {
         PokemonDatabase db = PokemonDatabase.getInstance(getApplicationContext());
 
@@ -154,13 +164,13 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         } else {
             String gender = "Genderless";
         }
-//        String item = spn_item.getSelectedItem().toString();
+        String item = spn_item.getSelectedItem().toString();
         String ability = spn_ability.getSelectedItem().toString();
         String move1 = spn_move1.getSelectedItem().toString();
         String move2 = spn_move2.getSelectedItem().toString();
         String move3 = spn_move3.getSelectedItem().toString();
         String move4 = spn_move4.getSelectedItem().toString();
-//        String nature = spn_nature.getSelectedItem().toString();
+        String nature = spn_nature.getSelectedItem().toString();
         int hp_iv = Integer.parseInt(et_hp_iv.getText().toString());
         int att_iv = Integer.parseInt(et_att_iv.getText().toString());
         int def_iv = Integer.parseInt(et_def_iv.getText().toString());
@@ -174,8 +184,8 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         int spd_ev = Integer.parseInt(et_spd_ev.getText().toString());
         int sp_ev = Integer.parseInt(et_sp_ev.getText().toString());
 
-        String item = "Master ball";
-        String nature = "Docile";
+//        String item = "Master ball";
+//        String nature = "Docile";
 
         SavedPokemon savedPokemon = new SavedPokemon(0,name,item,ability,move1,move2,move3,move4,nature,
                 hp_iv,att_iv,def_iv,spa_iv,spd_iv,sp_iv,hp_ev,att_ev,def_ev,spa_ev,spd_ev,sp_ev,url);
