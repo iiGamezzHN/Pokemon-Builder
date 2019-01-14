@@ -23,7 +23,7 @@ import ir.mirrajabi.searchdialog.core.BaseSearchDialogCompat;
 import ir.mirrajabi.searchdialog.core.SearchResultListener;
 import ir.mirrajabi.searchdialog.core.Searchable;
 
-public class AddActivity extends AppCompatActivity implements PokemonDataRequest.Callback {
+public class AddActivity extends AppCompatActivity implements PokemonDataRequest.Callback, NatureNamesRequest.Callback {
     private ArrayList pokemonNames;
     private TextView tv;
     public static String name;
@@ -62,8 +62,11 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
     }
 
     public void makeRequest () {
-        PokemonDataRequest request = new PokemonDataRequest(AddActivity.this, name);
-        request.getData(this);
+        PokemonDataRequest pokemonData = new PokemonDataRequest(this, name);
+        pokemonData.getData(this);
+
+        NatureNamesRequest natures = new NatureNamesRequest(this);
+        natures.getNatureNames(this);
     }
 
     private ArrayList<SearchModel> initData() {
@@ -110,6 +113,13 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         move2.setAdapter(movesAdapter);
         move3.setAdapter(movesAdapter);
         move4.setAdapter(movesAdapter);
+    }
+
+    public void gotNatureNames(ArrayList natures) {
+        Spinner nature = findViewById(R.id.spn_nature);
+        ArrayAdapter abilityAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, natures);
+        abilityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        nature.setAdapter(abilityAdapter);
     }
 
     public void addPokemon(View view) {
