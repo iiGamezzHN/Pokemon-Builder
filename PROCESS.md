@@ -20,7 +20,7 @@ I already have code that I can run. I've already processed two API requests and 
 
 ## Day 5
 - Decided to stop using fragments and TabLayout (now for atleast), as it took too much time to get it working properly. But I will keep using that idea for navigation
-- Added navigation buttons to normal activities (replacement for TabLayout)
+- Added navigation buttons to normal activities (replacement for TabLayout). Height will be 50dp, as that was about the height the TabLayout had and looks good
 - Added ListView and ListView adapter to Pokedex. It now shows all pokemon names.
 - Made the overall layout better looking. Like white text for tabs, no transition animations when changing activities and some margins for text so that it's more readable.
 
@@ -30,3 +30,6 @@ I already have code that I can run. I've already processed two API requests and 
 - Completed the insert method for the database (22 items per pokemon)
 - Created a SavedPokemon class to hold the data of the saved pokemon
 - Made a ListAdapter class to show saved pokemon for the database in the ListActivity
+
+## Day 6
+- Decided to use input type phone for edittexts in SearchActivity. This only shows numbers for input and lets you automatically go to the next edittext
