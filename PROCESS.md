@@ -30,6 +30,7 @@ I already have code that I can run. I've already processed two API requests and 
 - Completed the insert method for the database (22 items per pokemon)
 - Created a SavedPokemon class to hold the data of the saved pokemon
 - Made a ListAdapter class to show saved pokemon for the database in the ListActivity
+<img src="doc/AddDesign.jpg" width="300"> <img src="doc/DatabaseDesign.png" width="400">
 
 ## Day 6
 - Decided to use input type phone for edittexts in SearchActivity. This only shows numbers for input and lets you automatically go to the next edittext
