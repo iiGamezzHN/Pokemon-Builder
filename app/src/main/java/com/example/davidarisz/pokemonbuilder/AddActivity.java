@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -24,6 +26,7 @@ public class AddActivity extends AppCompatActivity implements DataRequest.Callba
     private ArrayList pokemonNames;
     private TextView tv;
     public static String name;
+    private String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +34,7 @@ public class AddActivity extends AppCompatActivity implements DataRequest.Callba
         setContentView(R.layout.activity_add);
         pokemonNames = getIntent().getStringArrayListExtra("namesTag");
 
-        Button button = findViewById(R.id.search_tag);
+        Button button = findViewById(R.id.btn_add_tab);
         button.setBackgroundColor(getResources().getColor(R.color.selectedTab));
 
         tv = findViewById(R.id.tv_name);
@@ -88,6 +91,7 @@ public class AddActivity extends AppCompatActivity implements DataRequest.Callba
         Spinner move2 = findViewById(R.id.spn_move2);
         Spinner move3 = findViewById(R.id.spn_move3);
         Spinner move4 = findViewById(R.id.spn_move4);
+        url = pokemon.getSprites().getFront_default();
 
         //Creating the ArrayAdapter instance having the country list
         ArrayAdapter movesAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, moves);
@@ -101,6 +105,63 @@ public class AddActivity extends AppCompatActivity implements DataRequest.Callba
         move2.setAdapter(movesAdapter);
         move3.setAdapter(movesAdapter);
         move4.setAdapter(movesAdapter);
+    }
+
+    public void addPokemon(View view) {
+        PokemonDatabase db = PokemonDatabase.getInstance(getApplicationContext());
+
+        CheckBox chk_male = findViewById(R.id.chk_male);
+        CheckBox chk_female = findViewById(R.id.chk_female);
+        Spinner spn_item = findViewById(R.id.spn_item);
+        Spinner spn_ability = findViewById(R.id.spn_ability);
+        Spinner spn_move1 = findViewById(R.id.spn_move1);
+        Spinner spn_move2 = findViewById(R.id.spn_move2);
+        Spinner spn_move3 = findViewById(R.id.spn_move3);
+        Spinner spn_move4 = findViewById(R.id.spn_move4);
+        Spinner spn_nature = findViewById(R.id.spn_nature);
+        EditText et_hp_iv = findViewById(R.id.et_hp_iv);
+        EditText et_att_iv = findViewById(R.id.et_att_iv);
+        EditText et_def_iv = findViewById(R.id.et_def_iv);
+        EditText et_spa_iv = findViewById(R.id.et_spa_iv);
+        EditText et_spd_iv = findViewById(R.id.et_spd_iv);
+        EditText et_sp_iv = findViewById(R.id.et_sp_iv);
+        EditText et_hp_ev = findViewById(R.id.et_hp_ev);
+        EditText et_att_ev = findViewById(R.id.et_att_ev);
+        EditText et_def_ev = findViewById(R.id.et_def_ev);
+        EditText et_spa_ev = findViewById(R.id.et_spa_ev);
+        EditText et_spd_ev = findViewById(R.id.et_spd_ev);
+        EditText et_sp_ev = findViewById(R.id.et_sp_ev);
+
+        if(chk_male.isChecked()) {
+            String gender = "Male";
+        } else if (chk_female.isChecked()){
+            String gender = "Female";
+        } else {
+            String gender = "Genderless";
+        }
+        String item = spn_item.getSelectedItem().toString();
+        String ability = spn_ability.getSelectedItem().toString();
+        String move1 = spn_move1.getSelectedItem().toString();
+        String move2 = spn_move2.getSelectedItem().toString();
+        String move3 = spn_move3.getSelectedItem().toString();
+        String move4 = spn_move4.getSelectedItem().toString();
+        String nature = spn_nature.getSelectedItem().toString();
+        int hp_iv = Integer.parseInt(et_hp_iv.getText().toString());
+        int att_iv = Integer.parseInt(et_att_iv.getText().toString());
+        int def_iv = Integer.parseInt(et_def_iv.getText().toString());
+        int spa_iv = Integer.parseInt(et_spa_iv.getText().toString());
+        int spd_iv = Integer.parseInt(et_spd_iv.getText().toString());
+        int sp_iv = Integer.parseInt(et_sp_iv.getText().toString());
+        int hp_ev = Integer.parseInt(et_hp_ev.getText().toString());
+        int att_ev = Integer.parseInt(et_att_ev.getText().toString());
+        int def_ev = Integer.parseInt(et_def_ev.getText().toString());
+        int spa_ev = Integer.parseInt(et_spa_ev.getText().toString());
+        int spd_ev = Integer.parseInt(et_spd_ev.getText().toString());
+        int sp_ev = Integer.parseInt(et_sp_ev.getText().toString());
+
+        SavedPokemon savedPokemon = new SavedPokemon(0,hp_iv,att_iv,def_iv,spa_iv,spd_iv,sp_iv,
+                hp_ev,att_ev,def_ev,spa_ev,spd_ev,sp_ev,name,item,ability,move1,move2,move3,move4,nature,url);
+        db.insert(savedPokemon);
     }
 
     public void toList(View view) {

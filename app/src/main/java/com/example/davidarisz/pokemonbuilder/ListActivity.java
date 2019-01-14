@@ -28,7 +28,7 @@ public class ListActivity extends AppCompatActivity implements PokemonRequest.Ca
         ListView listView = findViewById(R.id.lv_saved_pokemon);
         listView.setAdapter(adapter);
 
-        Button button = findViewById(R.id.list_tab);
+        Button button = findViewById(R.id.btn_list_tab);
         button.setBackgroundColor(getResources().getColor(R.color.selectedTab));
     }
 

@@ -12,6 +12,7 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/btn_list_tab"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -43,8 +44,7 @@
     <ListView
         android:id="@+id/lv_saved_pokemon"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="16dp">
+        android:layout_height="match_parent">
 
     </ListView>
 

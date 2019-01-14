@@ -19,7 +19,7 @@ public class PokedexActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pokedex);
         pokemonNames = getIntent().getStringArrayListExtra("namesTag");
 
-        Button button = findViewById(R.id.pokedex_tab);
+        Button button = findViewById(R.id.btn_pokedex_tab);
         button.setBackgroundColor(getResources().getColor(R.color.selectedTab));
 
         PokedexAdapter adapter = new PokedexAdapter(this, R.layout.pokedex_items, pokemonNames);

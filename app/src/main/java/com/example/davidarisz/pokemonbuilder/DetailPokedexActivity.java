@@ -28,7 +28,7 @@ public class DetailPokedexActivity extends AppCompatActivity implements DataRequ
         DataRequest request = new DataRequest(DetailPokedexActivity.this, name);
         request.getData(this);
 
-        Button button = findViewById(R.id.pokedex_detail_tab);
+        Button button = findViewById(R.id.btn_pokedex_tab);
         button.setBackgroundColor(getResources().getColor(R.color.selectedTab));
     }
 

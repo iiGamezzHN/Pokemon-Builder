@@ -28,6 +28,6 @@ public class ListAdapter extends ResourceCursorAdapter {
 
         list_name.setText(name);
         list_item.setText(item);
-        Picasso.get().load(url).resize(250,250).into(list_picture);
+        Picasso.get().load(url).resize(300,300).centerCrop().into(list_picture);
     }
 }
