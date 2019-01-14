@@ -25,7 +25,7 @@ public class ListActivity extends AppCompatActivity implements PokemonRequest.Ca
         db = PokemonDatabase.getInstance(getApplicationContext());
         ListAdapter adapter = new ListAdapter(this, db.selectAll());
 
-        ListView listView = findViewById(R.id.list_listview);
+        ListView listView = findViewById(R.id.lv_saved_pokemon);
         listView.setAdapter(adapter);
 
         Button button = findViewById(R.id.list_tab);

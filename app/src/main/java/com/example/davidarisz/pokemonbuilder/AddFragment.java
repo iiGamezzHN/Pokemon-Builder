@@ -1,11 +1,9 @@
 package com.example.davidarisz.pokemonbuilder;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,10 +20,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.davidarisz.pokemonbuilder.models.AbilityItem;
 import com.example.davidarisz.pokemonbuilder.models.MoveItem;
 import com.example.davidarisz.pokemonbuilder.models.Pokemon;
-import com.example.davidarisz.pokemonbuilder.models.Sprites;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -34,7 +30,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.zip.Inflater;
 
 import ir.mirrajabi.searchdialog.SimpleSearchDialogCompat;
 import ir.mirrajabi.searchdialog.core.BaseSearchDialogCompat;
@@ -117,10 +112,10 @@ public class AddFragment extends Fragment {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_add, container, false);
 
-        tv = rootView.findViewById(R.id.tvSelected);
+        tv = rootView.findViewById(R.id.tv_name);
         tv.setText("Adding: ");
 
-        rootView.findViewById(R.id.btnSearch).setOnClickListener(new View.OnClickListener() {
+        rootView.findViewById(R.id.btn_search).setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 new SimpleSearchDialogCompat(getContext(), "Search...", "What are you looking for...",
                         null, initData(), new SearchResultListener<Searchable>() {
@@ -128,7 +123,7 @@ public class AddFragment extends Fragment {
                     public void onSelected(BaseSearchDialogCompat baseSearchDialogCompat, Searchable searchable, int i) {
                         baseSearchDialogCompat.dismiss();
                         name = searchable.getTitle();
-                        tv = rootView.findViewById(R.id.tvSelected);
+                        tv = rootView.findViewById(R.id.tv_name);
                         String adding = "Adding: " + name;
                         tv.setText(adding);
 
@@ -170,10 +165,10 @@ public class AddFragment extends Fragment {
                             moves.add(moveItem.getMove().getName());
                         }
 
-                        Spinner move1 = rootView.findViewById(R.id.move1);
-                        Spinner move2 = rootView.findViewById(R.id.move2);
-                        Spinner move3 = rootView.findViewById(R.id.move3);
-                        Spinner move4 = rootView.findViewById(R.id.move4);
+                        Spinner move1 = rootView.findViewById(R.id.spn_move1);
+                        Spinner move2 = rootView.findViewById(R.id.spn_move2);
+                        Spinner move3 = rootView.findViewById(R.id.spn_move3);
+                        Spinner move4 = rootView.findViewById(R.id.spn_move4);
 
                         //Creating the ArrayAdapter instance having the country list
                         ArrayAdapter arrayAdapter = new ArrayAdapter(Objects.requireNonNull(getActivity()), android.R.layout.simple_spinner_item, moves);

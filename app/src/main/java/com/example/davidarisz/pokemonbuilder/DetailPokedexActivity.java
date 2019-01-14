@@ -42,21 +42,21 @@ public class DetailPokedexActivity extends AppCompatActivity implements DataRequ
 //        String normal = pokemon.getSprites().getFront_default();
 //        String shiny = pokemon.getSprites().getFront_shiny();
 
-        TextView tv_name = findViewById(R.id.pd_detail_name);
+        TextView tv_name = findViewById(R.id.tv_name);
         String name2 = name.substring(0,1).toUpperCase() + name.substring(1);
         tv_name.setText(name2);
 
-        ImageView iv_normal = findViewById(R.id.pd_detail_normal);
+        ImageView iv_normal = findViewById(R.id.img_picture);
         Picasso.get().load(normal).into(iv_normal);
 
 //        ImageView iv_shiny = findViewById(R.id.pd_detail_shiny);
 //        Picasso.get().load(shiny).resize(500, 500).into(iv_shiny);
 
-        TextView tv_weight = findViewById(R.id.pd_detail_weight);
+        TextView tv_weight = findViewById(R.id.tv_weight);
         String weight2 = "Height: " + weight;
         tv_weight.setText(weight2);
 
-        TextView tv_height = findViewById(R.id.pd_detail_height);
+        TextView tv_height = findViewById(R.id.tv_height);
         String height2 = "Height: " + height;
         tv_height.setText(height2);
     }

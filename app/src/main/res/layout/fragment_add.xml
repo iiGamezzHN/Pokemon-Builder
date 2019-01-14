@@ -13,7 +13,7 @@
         android:layout_marginTop="50dp">
 
         <Button
-            android:id="@+id/btnSearch"
+            android:id="@+id/btn_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -22,7 +22,7 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/tvSelected"
+            android:id="@+id/tv_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -31,22 +31,22 @@
             android:textStyle="bold" />
 
         <Spinner
-            android:id="@+id/move1"
+            android:id="@+id/spn_move1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></Spinner>
 
         <Spinner
-            android:id="@+id/move2"
+            android:id="@+id/spn_move2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></Spinner>
 
         <Spinner
-            android:id="@+id/move3"
+            android:id="@+id/spn_move3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></Spinner>
 
         <Spinner
-            android:id="@+id/move4"
+            android:id="@+id/spn_move4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0"></Spinner>

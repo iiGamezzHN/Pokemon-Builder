@@ -34,10 +34,10 @@ public class AddActivity extends AppCompatActivity implements DataRequest.Callba
         Button button = findViewById(R.id.search_tag);
         button.setBackgroundColor(getResources().getColor(R.color.selectedTab));
 
-        tv = findViewById(R.id.tvSelected);
+        tv = findViewById(R.id.tv_name);
         tv.setText("Adding: ");
 
-        findViewById(R.id.btnSearch).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btn_search).setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 new SimpleSearchDialogCompat(AddActivity.this, "Search...", "What are you looking for...",
                         null, initData(), new SearchResultListener<Searchable>() {
@@ -46,7 +46,7 @@ public class AddActivity extends AppCompatActivity implements DataRequest.Callba
                         baseSearchDialogCompat.dismiss();
                         name = searchable.getTitle();
                         String name2 = name.substring(0,1).toUpperCase() + name.substring(1);
-                        tv = findViewById(R.id.tvSelected);
+                        tv = findViewById(R.id.tv_name);
                         String adding = "Adding: " + name2;
                         tv.setText(adding);
 
@@ -84,10 +84,10 @@ public class AddActivity extends AppCompatActivity implements DataRequest.Callba
         }
 
         Spinner ability = findViewById(R.id.spn_ability);
-        Spinner move1 = findViewById(R.id.move1);
-        Spinner move2 = findViewById(R.id.move2);
-        Spinner move3 = findViewById(R.id.move3);
-        Spinner move4 = findViewById(R.id.move4);
+        Spinner move1 = findViewById(R.id.spn_move1);
+        Spinner move2 = findViewById(R.id.spn_move2);
+        Spinner move3 = findViewById(R.id.spn_move3);
+        Spinner move4 = findViewById(R.id.spn_move4);
 
         //Creating the ArrayAdapter instance having the country list
         ArrayAdapter movesAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, moves);
