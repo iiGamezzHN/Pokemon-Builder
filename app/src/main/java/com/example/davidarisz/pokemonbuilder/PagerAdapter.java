@@ -4,6 +4,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.example.davidarisz.pokemonbuilder.FragmentFiles.AddFragment;
+import com.example.davidarisz.pokemonbuilder.FragmentFiles.ListFragment;
+import com.example.davidarisz.pokemonbuilder.FragmentFiles.PokedexFragment;
+
 public class PagerAdapter extends FragmentPagerAdapter {
     int numberOfTabs;
     public PagerAdapter(FragmentManager fm, int NumOfTabs) {

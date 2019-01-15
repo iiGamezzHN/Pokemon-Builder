@@ -20,11 +20,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MenuActivity" />
+        <activity android:name=".FragmentFiles.MenuActivity" />
         <activity android:name=".AddActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".FragmentFiles.MainActivity" />
         <activity android:name=".PokedexActivity" />
-        <activity android:name=".DetailPokedexActivity" />
+        <activity android:name=".PokedexDetailActivity" />
         <activity android:name=".ListDetailActivity"></activity>
     </application>
 

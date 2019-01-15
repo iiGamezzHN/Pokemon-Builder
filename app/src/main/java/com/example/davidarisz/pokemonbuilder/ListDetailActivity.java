@@ -48,7 +48,8 @@ public class ListDetailActivity extends AppCompatActivity {
         int sp_ev = savedPokemon.getSp_ev();
 
         TextView tv_name = findViewById(R.id.tv_name);
-        ImageView img_picture = findViewById(R.id.img_picture);
+        ImageView img_normal = findViewById(R.id.img_normal);
+        ImageView img_shiny = findViewById(R.id.img_shiny);
         TextView tv_item = findViewById(R.id.tv_item);
         TextView tv_ability = findViewById(R.id.tv_ability);
         TextView tv_move1 = findViewById(R.id.tv_move1);
@@ -69,8 +70,11 @@ public class ListDetailActivity extends AppCompatActivity {
         TextView tv_spd_ev = findViewById(R.id.tv_spd_ev);
         TextView tv_sp_ev = findViewById(R.id.tv_sp_ev);
 
+        String url2 = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/3.png";
+
         tv_name.setText(name);
-        Picasso.get().load(url).into(img_picture);
+        Picasso.get().load(url).into(img_normal);
+        Picasso.get().load(url2).into(img_shiny);
         tv_item.setText(item);
         tv_ability.setText(ability);
         tv_move1.setText(move1);

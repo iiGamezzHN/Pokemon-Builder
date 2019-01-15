@@ -32,7 +32,7 @@ public class PokedexActivity extends AppCompatActivity {
             // Sends you to the DetailActivity for the clicked dish
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(PokedexActivity.this, DetailPokedexActivity.class);
+                Intent intent = new Intent(PokedexActivity.this, PokedexDetailActivity.class);
                 String name = String.valueOf(pokemonNames.get(position));
                 intent.putExtra("nameTag", name);
                 intent.putStringArrayListExtra("namesTag", pokemonNames);

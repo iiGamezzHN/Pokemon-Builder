@@ -7,13 +7,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.davidarisz.pokemonbuilder.models.Pokemon;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class DetailPokedexActivity extends AppCompatActivity implements PokemonDataRequest.Callback {
+public class PokedexDetailActivity extends AppCompatActivity implements PokemonDataRequest.Callback {
     private ArrayList pokemonNames;
 
     @Override
@@ -25,7 +26,7 @@ public class DetailPokedexActivity extends AppCompatActivity implements PokemonD
         String name = intent.getStringExtra("nameTag");
         pokemonNames = intent.getStringArrayListExtra("namesTag");
 
-        PokemonDataRequest request = new PokemonDataRequest(DetailPokedexActivity.this, name);
+        PokemonDataRequest request = new PokemonDataRequest(PokedexDetailActivity.this, name);
         request.getData(this);
 
         Button button = findViewById(R.id.btn_pokedex_tab);
@@ -37,27 +38,33 @@ public class DetailPokedexActivity extends AppCompatActivity implements PokemonD
         String weight = String.valueOf(pokemon.getWeight());
         String height = String.valueOf(pokemon.getHeight());
 
-        String normal = "https://img.pokemondb.net/artwork/large/"+name+".jpg";
-        String shiny = "https://img.pokemondb.net/artwork/large/"+name+".jpg";
-//        String normal = pokemon.getSprites().getFront_default();
-//        String shiny = pokemon.getSprites().getFront_shiny();
+//        String normal = "https://img.pokemondb.net/artwork/large/"+name+".jpg";
+//        String shiny = "https://img.pokemondb.net/artwork/large/"+name+".jpg";
+        String normal = pokemon.getSprites().getFront_default();
+        String shiny = pokemon.getSprites().getFront_shiny();
 
         TextView tv_name = findViewById(R.id.tv_name);
         String name2 = name.substring(0,1).toUpperCase() + name.substring(1);
         tv_name.setText(name2);
 
-        ImageView iv_normal = findViewById(R.id.img_picture);
+        ImageView iv_normal = findViewById(R.id.img_normal);
         Picasso.get().load(normal).into(iv_normal);
 
-//        ImageView iv_shiny = findViewById(R.id.pd_detail_shiny);
-//        Picasso.get().load(shiny).resize(500, 500).into(iv_shiny);
+        ImageView iv_shiny = findViewById(R.id.img_shiny);
+        Picasso.get().load(shiny).into(iv_shiny);
 
         TextView tv_weight = findViewById(R.id.tv_weight);
-        String weight2 = "Height: " + weight;
+        weight = weight.substring(0,weight.length()-1) + "." + weight.substring(weight.length()-1);
+        String weight2 = "Weight: " + weight + " kg";
         tv_weight.setText(weight2);
 
         TextView tv_height = findViewById(R.id.tv_height);
-        String height2 = "Height: " + height;
+        if(height.length() < 2) {
+            height = "0" + height.substring(0, height.length() - 1) + "." + height.substring(height.length() - 1);
+        } else {
+            height = height.substring(0, height.length() - 1) + "." + height.substring(height.length() - 1);
+        }
+        String height2 = "Height: " + height + " m";
         tv_height.setText(height2);
     }
 

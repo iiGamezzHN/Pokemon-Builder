@@ -1,21 +1,14 @@
-package com.example.davidarisz.pokemonbuilder;
+package com.example.davidarisz.pokemonbuilder.FragmentFiles;
 
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.TableLayout;
 
-import com.example.davidarisz.pokemonbuilder.models.MoveItem;
-import com.example.davidarisz.pokemonbuilder.models.Pokemon;
-
-import java.util.ArrayList;
+import com.example.davidarisz.pokemonbuilder.PagerAdapter;
+import com.example.davidarisz.pokemonbuilder.R;
 
 public class MainActivity extends AppCompatActivity {
 //    private ArrayList<String> pokemonNames;
