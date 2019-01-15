@@ -27,6 +27,8 @@ public class ListDetailActivity extends AppCompatActivity {
 
         String name = savedPokemon.getName();
         String url = savedPokemon.getUrl();
+        String url_shiny = savedPokemon.getUrl_shiny();
+        String gender = savedPokemon.getGender();
         String item = savedPokemon.getItem();
         String ability = savedPokemon.getAbility();
         String move1 = savedPokemon.getMove1();
@@ -50,6 +52,7 @@ public class ListDetailActivity extends AppCompatActivity {
         TextView tv_name = findViewById(R.id.tv_name);
         ImageView img_normal = findViewById(R.id.img_normal);
         ImageView img_shiny = findViewById(R.id.img_shiny);
+        TextView tv_gender = findViewById(R.id.tv_gender);
         TextView tv_item = findViewById(R.id.tv_item);
         TextView tv_ability = findViewById(R.id.tv_ability);
         TextView tv_move1 = findViewById(R.id.tv_move1);
@@ -70,11 +73,10 @@ public class ListDetailActivity extends AppCompatActivity {
         TextView tv_spd_ev = findViewById(R.id.tv_spd_ev);
         TextView tv_sp_ev = findViewById(R.id.tv_sp_ev);
 
-        String url2 = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/3.png";
-
         tv_name.setText(name);
         Picasso.get().load(url).into(img_normal);
-        Picasso.get().load(url2).into(img_shiny);
+        Picasso.get().load(url_shiny).into(img_shiny);
+        tv_gender.setText(gender);
         tv_item.setText(item);
         tv_ability.setText(ability);
         tv_move1.setText(move1);
@@ -100,23 +102,29 @@ public class ListDetailActivity extends AppCompatActivity {
     }
 
     public void toList(View view) {
-        Intent intent = new Intent(this, ListActivity.class);
-        intent.putStringArrayListExtra("namesTag", pokemonNames);
-        startActivity(intent);
-        overridePendingTransition(0, 0);
+        if(pokemonNames != null) {
+            Intent intent = new Intent(this, ListActivity.class);
+            intent.putStringArrayListExtra("namesTag", pokemonNames);
+            startActivity(intent);
+            overridePendingTransition(0, 0);
+        }
     }
 
-    public void toSearch(View view) {
-        Intent intent = new Intent(this, AddActivity.class);
-        intent.putStringArrayListExtra("namesTag", pokemonNames);
-        startActivity(intent);
-        overridePendingTransition(0, 0);
+    public void toAdd(View view) {
+        if(pokemonNames != null) {
+            Intent intent = new Intent(this, AddActivity.class);
+            intent.putStringArrayListExtra("namesTag", pokemonNames);
+            startActivity(intent);
+            overridePendingTransition(0, 0);
+        }
     }
 
     public void toPokedex(View view) {
-        Intent intent = new Intent(this, PokedexActivity.class);
-        intent.putStringArrayListExtra("namesTag", pokemonNames);
-        startActivity(intent);
-        overridePendingTransition(0, 0);
+        if(pokemonNames != null) {
+            Intent intent = new Intent(this, PokedexActivity.class);
+            intent.putStringArrayListExtra("namesTag", pokemonNames);
+            startActivity(intent);
+            overridePendingTransition(0, 0);
+        }
     }
 }

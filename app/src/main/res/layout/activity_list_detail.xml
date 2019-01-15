@@ -26,7 +26,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/colorPrimary"
-            android:onClick="toSearch"
+            android:onClick="toAdd"
             android:text="@string/add_pokemon"
             android:textColor="@color/white" />
 
@@ -70,13 +70,13 @@
                 android:gravity="center">
                 <ImageView
                     android:id="@+id/img_normal"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:layout_marginEnd="16dp"/>
                 <ImageView
                     android:id="@+id/img_shiny"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"/>
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -88,83 +88,115 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/gender"
-                        android:layout_marginEnd="16dp"/>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/gender" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
                         android:text="@string/item" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
                         android:text="@string/ability" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
                         android:text="@string/move" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
                         android:text="@string/move" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
                         android:text="@string/move" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
                         android:text="@string/move" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
                         android:text="@string/nature" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/tv_gender"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp" />
+
                     <TextView
                         android:id="@+id/tv_item"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp" />
+
                     <TextView
                         android:id="@+id/tv_ability"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp" />
+
                     <TextView
                         android:id="@+id/tv_move1"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp" />
+
                     <TextView
                         android:id="@+id/tv_move2"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp" />
+
                     <TextView
                         android:id="@+id/tv_move3"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp" />
+
                     <TextView
                         android:id="@+id/tv_move4"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp" />
+
                     <TextView
                         android:id="@+id/tv_nature"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -322,7 +354,7 @@
                 android:layout_height="wrap_content"
                 android:stretchColumns="1,2">
 
-                <TableRow>
+                <TableRow android:layout_marginBottom="8dp">
 
                     <TextView />
 
@@ -335,14 +367,14 @@
                         android:text="@string/ev" />
                 </TableRow>
 
-                <TableRow>
+                <TableRow android:layout_marginBottom="8dp">
 
                     <TextView android:text="@string/hp" />
 
                     <TextView
                         android:id="@+id/tv_hp_iv"
                         android:gravity="center"
-                        android:hint="@string/et_hint"/>
+                        android:hint="@string/et_hint" />
 
                     <TextView
                         android:id="@+id/tv_hp_ev"
@@ -350,52 +382,52 @@
                         android:hint="@string/et_hint" />
                 </TableRow>
 
-                <TableRow>
+                <TableRow android:layout_marginBottom="8dp">
 
                     <TextView android:text="@string/attack" />
 
                     <TextView
                         android:id="@+id/tv_att_iv"
                         android:gravity="center"
-                        android:hint="@string/et_hint"/>
+                        android:hint="@string/et_hint" />
 
                     <TextView
                         android:id="@+id/tv_att_ev"
                         android:gravity="center"
-                        android:hint="@string/et_hint"/>
+                        android:hint="@string/et_hint" />
                 </TableRow>
 
-                <TableRow>
+                <TableRow android:layout_marginBottom="8dp">
 
                     <TextView android:text="@string/defense" />
 
                     <TextView
                         android:id="@+id/tv_def_iv"
                         android:gravity="center"
-                        android:hint="@string/et_hint"/>
+                        android:hint="@string/et_hint" />
 
                     <TextView
                         android:id="@+id/tv_def_ev"
                         android:gravity="center"
-                        android:hint="@string/et_hint"/>
+                        android:hint="@string/et_hint" />
                 </TableRow>
 
-                <TableRow>
+                <TableRow android:layout_marginBottom="8dp">
 
                     <TextView android:text="@string/special_attack" />
 
                     <TextView
                         android:id="@+id/tv_spa_iv"
                         android:gravity="center"
-                        android:hint="@string/et_hint"/>
+                        android:hint="@string/et_hint" />
 
                     <TextView
                         android:id="@+id/tv_spa_ev"
                         android:gravity="center"
-                        android:hint="@string/et_hint"/>
+                        android:hint="@string/et_hint" />
                 </TableRow>
 
-                <TableRow>
+                <TableRow android:layout_marginBottom="8dp">
 
                     <TextView
                         android:layout_marginEnd="16dp"
@@ -404,15 +436,15 @@
                     <TextView
                         android:id="@+id/tv_spd_iv"
                         android:gravity="center"
-                        android:hint="@string/et_hint"/>
+                        android:hint="@string/et_hint" />
 
                     <TextView
                         android:id="@+id/tv_spd_ev"
                         android:gravity="center"
-                        android:hint="@string/et_hint"/>
+                        android:hint="@string/et_hint" />
                 </TableRow>
 
-                <TableRow>
+                <TableRow android:layout_marginBottom="8dp">
 
                     <TextView android:text="@string/speed" />
 

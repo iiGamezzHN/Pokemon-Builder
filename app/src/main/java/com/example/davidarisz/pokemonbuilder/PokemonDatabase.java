@@ -32,14 +32,17 @@ public class PokemonDatabase extends SQLiteOpenHelper {
             "spa_ev" + " INTEGER NOT NULL, " +
             "spd_ev" + " INTEGER NOT NULL, " +
             "sp_ev" + " INTEGER NOT NULL, " +
-            "url" + " TEXT NOT NULL)";
+            "url" + " TEXT NOT NULL, " +
+            "url_shiny" + " TEXT NOT NULL, " +
+            "gender" + " TEXT NOT NULL)";
 
     private static final String SQL_DELETE_POKEMON = "DROP TABLE IF EXISTS " + "pokemon";
 
     private static final String sql = "INSERT INTO pokemon (name, item, ability, move1, move2, move3, move4, nature, " +
-            "hp_iv, att_iv, def_iv, spa_iv, spd_iv, sp_iv, hp_ev, att_ev, def_ev, spa_ev, spd_ev, sp_ev, url) " +
+            "hp_iv, att_iv, def_iv, spa_iv, spd_iv, sp_iv, hp_ev, att_ev, def_ev, spa_ev, spd_ev, sp_ev, url, url_shiny, gender) " +
             "VALUES('Charizard','Fire Orb','blaze','mega-punch','fire-punch','thunder punch','swords dance','adamant'" +
-            ",'1','2','3','4','5','6','7','8','9','10','11','12','https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png')" ;
+            ",'1','2','3','4','5','6','7','8','9','10','11','12','https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png'" +
+            ",'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/6.png','Male')" ;
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -97,12 +100,14 @@ public class PokemonDatabase extends SQLiteOpenHelper {
         contentValues.put("spd_ev",savedPokemon.getSpd_ev());
         contentValues.put("sp_ev",savedPokemon.getSp_ev());
         contentValues.put("url",savedPokemon.getUrl());
+        contentValues.put("url_shiny",savedPokemon.getUrl_shiny());
+        contentValues.put("gender",savedPokemon.getGender());
 
-        Log.d("dbTag", savedPokemon.getName());
-        Log.d("dbTag", savedPokemon.getNature());
-        Log.d("dbTag", savedPokemon.getItem());
-        Log.d("dbTag", savedPokemon.getMove1());
-        Log.d("dbTag", savedPokemon.getUrl());
+//        Log.d("dbTag", savedPokemon.getName());
+//        Log.d("dbTag", savedPokemon.getNature());
+//        Log.d("dbTag", savedPokemon.getItem());
+//        Log.d("dbTag", savedPokemon.getMove1());
+//        Log.d("dbTag", savedPokemon.getUrl());
 
         return getWritableDatabase().insertOrThrow("pokemon",null,contentValues);
     }

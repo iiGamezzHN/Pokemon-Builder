@@ -34,6 +34,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
     private TextView tv;
     public static String name;
     private String url;
+    private String url_shiny;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,14 +109,15 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         Spinner move3 = findViewById(R.id.spn_move3);
         Spinner move4 = findViewById(R.id.spn_move4);
         url = pokemon.getSprites().getFront_default();
+        url_shiny = pokemon.getSprites().getFront_shiny();
 
-        //Creating the ArrayAdapter instance having the country list
+        // Creating the ArrayAdapter instance having the country list
         ArrayAdapter movesAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, moves);
         movesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ArrayAdapter abilityAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, abilities);
         abilityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        //Setting the ArrayAdapter data on the spinners
+        // Setting the ArrayAdapter data on the spinners
         ability.setAdapter(abilityAdapter);
         move1.setAdapter(movesAdapter);
         move2.setAdapter(movesAdapter);
@@ -138,8 +140,8 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
 
         for(int i=0;i < items.size(); i++) {
             String itemName = items.get(i).toString();
-            ItemDataRequest itemDataRequest = new ItemDataRequest(getApplicationContext(), itemName);
-            itemDataRequest.getItemData(this);
+//            ItemDataRequest itemDataRequest = new ItemDataRequest(getApplicationContext(), itemName);
+//            itemDataRequest.getItemData(this);
         }
     }
 
@@ -171,13 +173,14 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         EditText et_spa_ev = findViewById(R.id.et_spa_ev);
         EditText et_spd_ev = findViewById(R.id.et_spd_ev);
         EditText et_sp_ev = findViewById(R.id.et_sp_ev);
+        String gender;
 
         if(chk_male.isChecked()) {
-            String gender = "Male";
+            gender = "Male";
         } else if (chk_female.isChecked()){
-            String gender = "Female";
+            gender = "Female";
         } else {
-            String gender = "Genderless";
+            gender = "Genderless";
         }
         String item = spn_item.getSelectedItem().toString();
         String ability = spn_ability.getSelectedItem().toString();
@@ -199,11 +202,8 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         int spd_ev = Integer.parseInt(et_spd_ev.getText().toString());
         int sp_ev = Integer.parseInt(et_sp_ev.getText().toString());
 
-//        String item = "Master ball";
-//        String nature = "Docile";
-
         SavedPokemon savedPokemon = new SavedPokemon(0,name,item,ability,move1,move2,move3,move4,nature,
-                hp_iv,att_iv,def_iv,spa_iv,spd_iv,sp_iv,hp_ev,att_ev,def_ev,spa_ev,spd_ev,sp_ev,url);
+                hp_iv,att_iv,def_iv,spa_iv,spd_iv,sp_iv,hp_ev,att_ev,def_ev,spa_ev,spd_ev,sp_ev,url, url_shiny,gender);
         Long aLong = db.insert(savedPokemon);
         Log.d("longTag", String.valueOf(aLong));
         Intent intent = new Intent(getApplicationContext(), ListActivity.class);
@@ -218,7 +218,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         overridePendingTransition(0,0);
     }
 
-    public void toSearch(View view) {
+    public void toAdd(View view) {
         // Do nothing
     }
 

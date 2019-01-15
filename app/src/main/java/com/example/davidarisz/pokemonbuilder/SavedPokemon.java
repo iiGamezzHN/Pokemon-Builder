@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 public class SavedPokemon implements Serializable {
     private int id, hp_iv, att_iv, def_iv, spa_iv, spd_iv, sp_iv, hp_ev, att_ev, def_ev, spa_ev, spd_ev, sp_ev;
-    private String name, item, ability, move1, move2, move3, move4, nature, url;
+    private String name, item, ability, move1, move2, move3, move4, nature, url, url_shiny, gender;
 
     public SavedPokemon(int id, String name, String item, String ability, String move1, String move2, String move3, String move4, String nature,
                         int hp_iv, int att_iv, int def_iv, int spa_iv, int spd_iv, int sp_iv, int hp_ev,
-                        int att_ev, int def_ev, int spa_ev, int spd_ev, int sp_ev,  String url) {
+                        int att_ev, int def_ev, int spa_ev, int spd_ev, int sp_ev,  String url, String url_shiny, String gender) {
         this.id = id;
         this.hp_iv = hp_iv;
         this.att_iv = att_iv;
@@ -31,6 +31,8 @@ public class SavedPokemon implements Serializable {
         this.move4 = move4;
         this.nature = nature;
         this.url = url;
+        this.url_shiny = url_shiny;
+        this.gender = gender;
     }
 
     public int getId() {
@@ -207,5 +209,21 @@ public class SavedPokemon implements Serializable {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getUrl_shiny() {
+        return url_shiny;
+    }
+
+    public void setUrl_shiny(String url_shiny) {
+        this.url_shiny = url_shiny;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }

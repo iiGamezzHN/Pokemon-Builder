@@ -26,7 +26,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/colorPrimary"
-            android:onClick="toSearch"
+            android:onClick="toAdd"
             android:text="@string/add_pokemon"
             android:textColor="@color/white" />
 

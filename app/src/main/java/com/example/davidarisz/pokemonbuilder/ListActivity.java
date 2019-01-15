@@ -68,12 +68,15 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
             int spd_ev = cursor.getInt(cursor.getColumnIndex("spd_ev"));
             int sp_ev = cursor.getInt(cursor.getColumnIndex("sp_ev"));
             String url = cursor.getString(cursor.getColumnIndex("url"));
+            String url_shiny = cursor.getString(cursor.getColumnIndex("url_shiny"));
+            String gender = cursor.getString(cursor.getColumnIndex("gender"));
 
             SavedPokemon savedPokemon = new SavedPokemon(0,name,item,ability,move1,move2,move3,move4,
-                    nature,hp_iv,att_iv,def_iv,spa_iv,spd_iv,sp_iv,hp_ev,att_ev,def_ev,spa_ev,spd_ev,sp_ev,url);
+                    nature,hp_iv,att_iv,def_iv,spa_iv,spd_iv,sp_iv,hp_ev,att_ev,def_ev,spa_ev,spd_ev,sp_ev,url,url_shiny,gender);
 
             Intent intent = new Intent(ListActivity.this, ListDetailActivity.class);
             intent.putExtra("savedTag", savedPokemon);
+            intent.putStringArrayListExtra("namesTag", pokemonNames);
             startActivity(intent);
             overridePendingTransition(0, 0);
         }
@@ -87,7 +90,7 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
         // Do nothing
     }
 
-    public void toSearch(View view) {
+    public void toAdd(View view) {
         if(pokemonNames == null) {
             Toast.makeText(this, "List not loaded yet", Toast.LENGTH_SHORT).show();
         } else {

@@ -75,7 +75,7 @@ public class PokedexDetailActivity extends AppCompatActivity implements PokemonD
         overridePendingTransition(0, 0);
     }
 
-    public void toSearch(View view) {
+    public void toAdd(View view) {
         Intent intent = new Intent(this, AddActivity.class);
         intent.putStringArrayListExtra("namesTag", pokemonNames);
         startActivity(intent);
