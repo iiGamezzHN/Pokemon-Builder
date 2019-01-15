@@ -1,4 +1,4 @@
-package com.example.davidarisz.pokemonbuilder;
+package com.example.davidarisz.pokemonbuilder.Requests;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,11 +9,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.davidarisz.pokemonbuilder.models.AbilityItem;
 import com.example.davidarisz.pokemonbuilder.models.Item;
-import com.example.davidarisz.pokemonbuilder.models.MoveItem;
-import com.example.davidarisz.pokemonbuilder.models.Pokemon;
-import com.example.davidarisz.pokemonbuilder.models.Sprites;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;

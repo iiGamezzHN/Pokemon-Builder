@@ -1,4 +1,4 @@
-package com.example.davidarisz.pokemonbuilder;
+package com.example.davidarisz.pokemonbuilder.Requests;
 
 import android.content.Context;
 import android.widget.Toast;

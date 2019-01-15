@@ -12,6 +12,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.davidarisz.pokemonbuilder.Requests.ItemDataRequest;
+import com.example.davidarisz.pokemonbuilder.Requests.ItemNamesRequest;
+import com.example.davidarisz.pokemonbuilder.Requests.NatureNamesRequest;
+import com.example.davidarisz.pokemonbuilder.Requests.PokemonDataRequest;
 import com.example.davidarisz.pokemonbuilder.models.AbilityItem;
 import com.example.davidarisz.pokemonbuilder.models.Item;
 import com.example.davidarisz.pokemonbuilder.models.MoveItem;

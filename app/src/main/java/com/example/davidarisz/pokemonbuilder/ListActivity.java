@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.davidarisz.pokemonbuilder.Requests.PokemonNamesRequest;
+
 import java.util.ArrayList;
 
 public class ListActivity extends AppCompatActivity implements PokemonNamesRequest.Callback {
