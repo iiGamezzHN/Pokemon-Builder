@@ -360,6 +360,25 @@
                         android:inputType="phone" />
                 </TableRow>
 
+                <TableRow>
+
+                    <TextView />
+
+                    <Button
+                        android:id="@+id/btn_reset_iv"
+                        android:gravity="center"
+                        android:text="Reset IV's"
+                        android:onClick="resetIV"
+                        android:textAllCaps="false"/>
+
+                    <Button
+                        android:id="@+id/btn_reset_ev"
+                        android:gravity="center"
+                        android:text="Reset EV's"
+                        android:onClick="resetEV"
+                        android:textAllCaps="false"/>
+                </TableRow>
+
             </TableLayout>
 
             <Button

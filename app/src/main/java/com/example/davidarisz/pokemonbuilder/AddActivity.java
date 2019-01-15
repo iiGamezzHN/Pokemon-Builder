@@ -35,6 +35,18 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
     public static String name;
     private String url;
     private String url_shiny;
+//    private EditText et_hp_iv;
+//    private EditText et_att_iv;
+//    private EditText et_def_iv;
+//    private EditText et_spa_iv;
+//    private EditText et_spd_iv;
+//    private EditText et_sp_iv;
+//    private EditText et_hp_ev;
+//    private EditText et_att_ev;
+//    private EditText et_def_ev;
+//    private EditText et_spa_ev;
+//    private EditText et_spd_ev;
+//    private EditText et_sp_ev;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -227,6 +239,38 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         intent.putStringArrayListExtra("namesTag", pokemonNames);
         startActivity(intent);
         overridePendingTransition(0,0);
+    }
+
+    public void resetIV(View view) {
+        EditText et_hp_iv = findViewById(R.id.et_hp_iv);
+        EditText et_att_iv = findViewById(R.id.et_att_iv);
+        EditText et_def_iv = findViewById(R.id.et_def_iv);
+        EditText et_spa_iv = findViewById(R.id.et_spa_iv);
+        EditText et_spd_iv = findViewById(R.id.et_spd_iv);
+        EditText et_sp_iv = findViewById(R.id.et_sp_iv);
+
+        et_hp_iv.setText(null);
+        et_att_iv.setText(null);
+        et_def_iv.setText(null);
+        et_spa_iv.setText(null);
+        et_spd_iv.setText(null);
+        et_sp_iv.setText(null);
+    }
+
+    public void resetEV(View view) {
+        EditText et_hp_ev = findViewById(R.id.et_hp_ev);
+        EditText et_att_ev = findViewById(R.id.et_att_ev);
+        EditText et_def_ev = findViewById(R.id.et_def_ev);
+        EditText et_spa_ev = findViewById(R.id.et_spa_ev);
+        EditText et_spd_ev = findViewById(R.id.et_spd_ev);
+        EditText et_sp_ev = findViewById(R.id.et_sp_ev);
+
+        et_hp_ev.setText(null);
+        et_att_ev.setText(null);
+        et_def_ev.setText(null);
+        et_spa_ev.setText(null);
+        et_spd_ev.setText(null);
+        et_sp_ev.setText(null);
     }
 
     @Override
