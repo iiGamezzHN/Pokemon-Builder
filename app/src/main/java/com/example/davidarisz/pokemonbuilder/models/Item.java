@@ -1,7 +1,9 @@
 package com.example.davidarisz.pokemonbuilder.models;
 
+import java.util.ArrayList;
+
 public class Item {
-    private EffectEntries effect_entries;
+    private ArrayList<EffectEntries> effect_entries;
     private String name;
     private String sprite = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/"+name+".png";
 
@@ -17,11 +19,11 @@ public class Item {
         }
     }
 
-    public EffectEntries getEffect_entries() {
+    public ArrayList<EffectEntries> getEffect_entries() {
         return effect_entries;
     }
 
-    public void setEffect_entries(EffectEntries effect_entries) {
+    public void setEffect_entries(ArrayList<EffectEntries> effect_entries) {
         this.effect_entries = effect_entries;
     }
 

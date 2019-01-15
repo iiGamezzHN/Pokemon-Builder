@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.davidarisz.pokemonbuilder.models.AbilityItem;
+import com.example.davidarisz.pokemonbuilder.models.Item;
 import com.example.davidarisz.pokemonbuilder.models.MoveItem;
 import com.example.davidarisz.pokemonbuilder.models.Pokemon;
 
@@ -24,7 +25,7 @@ import ir.mirrajabi.searchdialog.core.SearchResultListener;
 import ir.mirrajabi.searchdialog.core.Searchable;
 
 public class AddActivity extends AppCompatActivity implements PokemonDataRequest.Callback, NatureNamesRequest.Callback,
-        ItemNamesRequest.Callback {
+        ItemNamesRequest.Callback, ItemDataRequest.Callback {
     private ArrayList pokemonNames;
     private TextView tv;
     public static String name;
@@ -130,6 +131,16 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         ArrayAdapter itemAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, items);
         itemAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         item.setAdapter(itemAdapter);
+
+        for(int i=0;i < items.size(); i++) {
+            String itemName = items.get(i).toString();
+            ItemDataRequest itemDataRequest = new ItemDataRequest(getApplicationContext(), itemName);
+            itemDataRequest.getItemData(this);
+        }
+    }
+
+    public void gotItemData(Item item) {
+
     }
 
     public void addPokemon(View view) {
