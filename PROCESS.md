@@ -41,3 +41,11 @@ I already have code that I can run. I've already processed two API requests and 
 - Added an ItemRequest and a NatureRequest to get names to put in AddActivity
 - Alpha is basically finished
 - I need a way to display (and save) descriptions for items, natures and moves
+
+## Day 7
+- Made class models for Move, Item and Nature, to save the description from api requests
+- Made ItemDataRequest to request more information for individual items
+- ItemDataRequest is super slow. Need to find another way to implement it instead of looping through the entire list of items and getting info for them
+- Made a separate folder for all the request files
+- Added new columns "url_shiny" and "gender" to database
+- Added reset buttons for IV's and EV's
