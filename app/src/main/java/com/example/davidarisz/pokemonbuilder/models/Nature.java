@@ -1,8 +1,10 @@
 package com.example.davidarisz.pokemonbuilder.models;
 
+import java.util.ArrayList;
+
 public class Nature {
-    private DecreasedStat decreased_stat;
-    private IncreasedStat increased_stat;
+    private ArrayList<DecreasedStat> decreased_stat;
+    private ArrayList<IncreasedStat> increased_stat;
     private String name;
 
     public class DecreasedStat {
@@ -29,19 +31,19 @@ public class Nature {
         }
     }
 
-    public DecreasedStat getDecreased_stat() {
+    public ArrayList<DecreasedStat> getDecreased_stat() {
         return decreased_stat;
     }
 
-    public void setDecreased_stat(DecreasedStat decreased_stat) {
+    public void setDecreased_stat(ArrayList<DecreasedStat> decreased_stat) {
         this.decreased_stat = decreased_stat;
     }
 
-    public IncreasedStat getIncreased_stat() {
+    public ArrayList<IncreasedStat> getIncreased_stat() {
         return increased_stat;
     }
 
-    public void setIncreased_stat(IncreasedStat increased_stat) {
+    public void setIncreased_stat(ArrayList<IncreasedStat> increased_stat) {
         this.increased_stat = increased_stat;
     }
 
