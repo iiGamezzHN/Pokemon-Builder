@@ -1,7 +1,5 @@
 package com.example.davidarisz.pokemonbuilder.models;
 
-import android.text.TextUtils;
-
 public class Nature {
     private DecreasedStat decreased_stat;
     private IncreasedStat increased_stat;

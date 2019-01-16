@@ -15,6 +15,8 @@ import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class NatureDataRequest implements Response.Listener<JSONObject>, Response.ErrorListener {
 
     private Context context;
@@ -23,7 +25,7 @@ public class NatureDataRequest implements Response.Listener<JSONObject>, Respons
     private String name;
 
     public interface Callback {
-        void gotNatureData(Nature nature);
+        void gotNatureData(ArrayList natureData);
     }
 
     public NatureDataRequest(Context context, String name) {
@@ -55,6 +57,7 @@ public class NatureDataRequest implements Response.Listener<JSONObject>, Respons
     @Override
     public void onResponse(JSONObject response) {
         Nature nature = gson.fromJson(response.toString(), Nature.class);
+        ArrayList<String> natureData = new ArrayList<String>();
 
         String name = nature.getName();
         String decreased;
@@ -68,6 +71,10 @@ public class NatureDataRequest implements Response.Listener<JSONObject>, Respons
             increased = nature.getIncreasedStat().getName();
         }
 
-        activity.gotNatureData(nature);
+        natureData.add(name);
+        natureData.add(increased);
+        natureData.add(decreased);
+
+        activity.gotNatureData(natureData);
     }
 }

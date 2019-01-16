@@ -27,13 +27,13 @@ public class PokedexDetailActivity extends AppCompatActivity implements PokemonD
         pokemonNames = intent.getStringArrayListExtra("namesTag");
 
         PokemonDataRequest request = new PokemonDataRequest(PokedexDetailActivity.this, name);
-        request.getData(this);
+        request.getPokemonData(this);
 
         Button button = findViewById(R.id.btn_pokedex_tab);
         button.setBackgroundColor(getResources().getColor(R.color.selectedTab));
     }
 
-    public void gotData(Pokemon pokemon) {
+    public void gotPokemonData(Pokemon pokemon) {
         String name = pokemon.getName();
         String weight = String.valueOf(pokemon.getWeight());
         String height = String.valueOf(pokemon.getHeight());

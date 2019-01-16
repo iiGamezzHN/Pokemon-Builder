@@ -54,13 +54,14 @@ public class ItemDataRequest implements Response.Listener<JSONObject>, Response.
     @Override
     public void onResponse(JSONObject response) {
         Item item = gson.fromJson(response.toString(), Item.class);
+        String effect = "";
 
         for(Item.EffectEntries effectEntries : item.getEffect_entries()) {
-            Log.d("effectTag", effectEntries.getShort_effect());
+            effect = effectEntries.getShort_effect();
         }
-
         String name = item.getName();
         String sprite = item.getSprite();
+//        Log.d("effectTag", name + " effect: " + effect + ", sprite: " + sprite);
 
         activity.gotItemData(item);
     }

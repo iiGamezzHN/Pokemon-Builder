@@ -24,7 +24,7 @@ public class PokemonDataRequest implements Response.Listener<JSONObject>, Respon
     private String name;
 
     public interface Callback {
-        void gotData(Pokemon pokemon);
+        void gotPokemonData(Pokemon pokemon);
     }
 
     public PokemonDataRequest(Context context, String name) {
@@ -33,7 +33,7 @@ public class PokemonDataRequest implements Response.Listener<JSONObject>, Respon
     }
 
     // Makes a request to the api
-    public void getData(PokemonDataRequest.Callback activity) {
+    public void getPokemonData(PokemonDataRequest.Callback activity) {
         String url = "https://pokeapi.co/api/v2/pokemon/"+name+"/";
         RequestQueue queue = Volley.newRequestQueue(context);
 
@@ -72,6 +72,6 @@ public class PokemonDataRequest implements Response.Listener<JSONObject>, Respon
         Sprites sprites = pokemon.getSprites();
 //        System.out.println(String.format("back_default = %s", sprites.getBack_default()));
 
-        activity.gotData(pokemon);
+        activity.gotPokemonData(pokemon);
     }
 }

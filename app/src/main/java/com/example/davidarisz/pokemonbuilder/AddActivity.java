@@ -51,6 +51,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
 //    private EditText et_spa_ev;
 //    private EditText et_spd_ev;
 //    private EditText et_sp_ev;
+    private ArrayList<ArrayList<String>> natureData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,17 +85,6 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         });
     }
 
-    public void makeRequest () {
-        PokemonDataRequest pokemonData = new PokemonDataRequest(this, name);
-        pokemonData.getData(this);
-
-        NatureNamesRequest natures = new NatureNamesRequest(this);
-        natures.getNatureNames(this);
-
-        ItemNamesRequest items = new ItemNamesRequest(this);
-        items.getItemNames(this);
-    }
-
     private ArrayList<SearchModel> initData() {
         ArrayList<SearchModel> items = new ArrayList<>();
 
@@ -105,14 +95,32 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         return items;
     }
 
-    public void gotData (Pokemon pokemon) {
+    // Requests for individual pokemon data, nature names and item names
+    public void makeRequest () {
+        // Pokemon data
+        PokemonDataRequest pokemonData = new PokemonDataRequest(this, name);
+        pokemonData.getPokemonData(this);
+
+        // Nature names
+        NatureNamesRequest natures = new NatureNamesRequest(this);
+        natures.getNatureNames(this);
+
+        // Item names
+        ItemNamesRequest items = new ItemNamesRequest(this);
+        items.getItemNames(this);
+    }
+
+    // Pokemon data
+    public void gotPokemonData (Pokemon pokemon) {
         ArrayList<String> moves = new ArrayList<String>();
         ArrayList<String> abilities = new ArrayList<String>();
+        // Get all moves for pokemon
         for (MoveItem moveItem : pokemon.getMoves()) {
             String move = moveItem.getMove().getName();
             String move2 = move.substring(0,1).toUpperCase() + move.substring(1);
             moves.add(move2);
         }
+        // Get all abilities for pokemon
         for (AbilityItem abilityItem : pokemon.getAbilities()) {
             String ability = abilityItem.getAbility().getName();
             String ability2 = ability.substring(0,1).toUpperCase() + ability.substring(1);
@@ -141,38 +149,40 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         move4.setAdapter(movesAdapter);
     }
 
+    // Nature names
     public void gotNatureNames(ArrayList natures) {
-        Spinner nature = findViewById(R.id.spn_nature);
-        ArrayAdapter abilityAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, natures);
-        abilityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        nature.setAdapter(abilityAdapter);
+        // Set names to spinner
+//        Spinner nature = findViewById(R.id.spn_nature);
+//        ArrayAdapter abilityAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, natures);
+//        abilityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        nature.setAdapter(abilityAdapter);
 
+        // Test autocomplete EditText for nature names
         test(natures);
 
+        // Request for nature data
         for(int i=0;i < natures.size(); i++) {
             String natureName = natures.get(i).toString();
             NatureDataRequest natureDataRequest = new NatureDataRequest(getApplicationContext(), natureName);
             natureDataRequest.getNatureData(this);
         }
+
+        adaptNatures();
     }
 
-    public void gotNatureData(Nature nature) {
-
+    // Nature data
+    public void gotNatureData(ArrayList data) {
+        natureData.add(data);
     }
 
-    public void gotItemNames(ArrayList items) {
-        Spinner item = findViewById(R.id.spn_item);
-        ArrayAdapter itemAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, items);
-        itemAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        item.setAdapter(itemAdapter);
+    public void adaptNatures() {
+        Spinner nature = findViewById(R.id.spn_nature);
+        NatureAdapter natureAdapter = new NatureAdapter(this, natureData);
 
-        for(int i=0;i < items.size(); i++) {
-            String itemName = items.get(i).toString();
-//            ItemDataRequest itemDataRequest = new ItemDataRequest(getApplicationContext(), itemName);
-//            itemDataRequest.getItemData(this);
-        }
+        nature.setAdapter(natureAdapter);
     }
 
+    // Autocomplete EditText for nature names
     public void test(ArrayList natures) {
         final AutoCompleteTextView autoCompleteTextView = findViewById(R.id.auto_nature);
         ArrayAdapter itemAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, natures);
@@ -188,13 +198,30 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         });
     }
 
-    public void gotItemData(Item item) {
+    // Item names
+    public void gotItemNames(ArrayList items) {
+        // Set names to spinner
+        Spinner item = findViewById(R.id.spn_item);
+        ArrayAdapter itemAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, items);
+        itemAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        item.setAdapter(itemAdapter);
 
+        // Request for item data
+        ItemDataRequest itemDataRequest = new ItemDataRequest(getApplicationContext(), "chesto-berry");
+        itemDataRequest.getItemData(this);
     }
 
+    // Item data
+    public void gotItemData(Item item) {
+        // asdf
+    }
+
+    // Add complete pokemon to database
     public void addPokemon(View view) {
+        // Get database
         PokemonDatabase db = PokemonDatabase.getInstance(getApplicationContext());
 
+        // Get elements for layout
         CheckBox chk_male = findViewById(R.id.chk_male);
         CheckBox chk_female = findViewById(R.id.chk_female);
         Spinner spn_item = findViewById(R.id.spn_item);
@@ -218,6 +245,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         EditText et_sp_ev = findViewById(R.id.et_sp_ev);
         String gender;
 
+        // Check checkboxes
         if(chk_male.isChecked()) {
             gender = "Male";
         } else if (chk_female.isChecked()){
@@ -225,6 +253,8 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         } else {
             gender = "Genderless";
         }
+
+        // Set filled in elements
         String item = spn_item.getSelectedItem().toString();
         String ability = spn_ability.getSelectedItem().toString();
         String move1 = spn_move1.getSelectedItem().toString();
@@ -245,12 +275,14 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         int spd_ev = Integer.parseInt(et_spd_ev.getText().toString());
         int sp_ev = Integer.parseInt(et_sp_ev.getText().toString());
 
+        // Save pokemon to database
         SavedPokemon savedPokemon = new SavedPokemon(0,name,item,ability,move1,move2,move3,move4,nature,
                 hp_iv,att_iv,def_iv,spa_iv,spd_iv,sp_iv,hp_ev,att_ev,def_ev,spa_ev,spd_ev,sp_ev,url, url_shiny,gender);
         Long aLong = db.insert(savedPokemon);
         Log.d("longTag", String.valueOf(aLong));
         Intent intent = new Intent(getApplicationContext(), ListActivity.class);
         startActivity(intent);
+        // Get rid of opening animation of new activity
         overridePendingTransition(0,0);
     }
 
