@@ -56,15 +56,17 @@ public class NatureDataRequest implements Response.Listener<JSONObject>, Respons
     public void onResponse(JSONObject response) {
         Nature nature = gson.fromJson(response.toString(), Nature.class);
 
-        for(Nature.DecreasedStat decreasedStat : nature.getDecreased_stat()) {
-            Log.d("decreasedTag", decreasedStat.getName());
-        }
-
-        for(Nature.IncreasedStat increasedStat : nature.getIncreased_stat()) {
-            Log.d("decreasedTag", increasedStat.getName());
-        }
-
         String name = nature.getName();
+        String decreased;
+        String increased;
+
+        if (nature.getDecreasedStat() == null) {
+            decreased = "";
+            increased = "";
+        } else {
+            decreased = nature.getDecreasedStat().getName();
+            increased = nature.getIncreasedStat().getName();
+        }
 
         activity.gotNatureData(nature);
     }

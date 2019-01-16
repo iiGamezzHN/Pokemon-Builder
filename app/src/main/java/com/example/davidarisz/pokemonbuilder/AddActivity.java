@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -14,11 +16,13 @@ import android.widget.TextView;
 
 import com.example.davidarisz.pokemonbuilder.Requests.ItemDataRequest;
 import com.example.davidarisz.pokemonbuilder.Requests.ItemNamesRequest;
+import com.example.davidarisz.pokemonbuilder.Requests.NatureDataRequest;
 import com.example.davidarisz.pokemonbuilder.Requests.NatureNamesRequest;
 import com.example.davidarisz.pokemonbuilder.Requests.PokemonDataRequest;
 import com.example.davidarisz.pokemonbuilder.models.AbilityItem;
 import com.example.davidarisz.pokemonbuilder.models.Item;
 import com.example.davidarisz.pokemonbuilder.models.MoveItem;
+import com.example.davidarisz.pokemonbuilder.models.Nature;
 import com.example.davidarisz.pokemonbuilder.models.Pokemon;
 
 import java.util.ArrayList;
@@ -29,7 +33,7 @@ import ir.mirrajabi.searchdialog.core.SearchResultListener;
 import ir.mirrajabi.searchdialog.core.Searchable;
 
 public class AddActivity extends AppCompatActivity implements PokemonDataRequest.Callback, NatureNamesRequest.Callback,
-        ItemNamesRequest.Callback, ItemDataRequest.Callback {
+        ItemNamesRequest.Callback, ItemDataRequest.Callback, NatureDataRequest.Callback {
     private ArrayList pokemonNames;
     private TextView tv;
     public static String name;
@@ -142,6 +146,18 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         ArrayAdapter abilityAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, natures);
         abilityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         nature.setAdapter(abilityAdapter);
+
+        test(natures);
+
+        for(int i=0;i < natures.size(); i++) {
+            String natureName = natures.get(i).toString();
+            NatureDataRequest natureDataRequest = new NatureDataRequest(getApplicationContext(), natureName);
+            natureDataRequest.getNatureData(this);
+        }
+    }
+
+    public void gotNatureData(Nature nature) {
+
     }
 
     public void gotItemNames(ArrayList items) {
@@ -155,6 +171,21 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
 //            ItemDataRequest itemDataRequest = new ItemDataRequest(getApplicationContext(), itemName);
 //            itemDataRequest.getItemData(this);
         }
+    }
+
+    public void test(ArrayList natures) {
+        final AutoCompleteTextView autoCompleteTextView = findViewById(R.id.auto_nature);
+        ArrayAdapter itemAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, natures);
+        autoCompleteTextView.setAdapter(itemAdapter);
+
+        autoCompleteTextView.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                autoCompleteTextView.showDropDown();
+                return false;
+            }
+        });
     }
 
     public void gotItemData(Item item) {

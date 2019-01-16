@@ -1,10 +1,10 @@
 package com.example.davidarisz.pokemonbuilder.models;
 
-import java.util.ArrayList;
+import android.text.TextUtils;
 
 public class Nature {
-    private ArrayList<DecreasedStat> decreased_stat;
-    private ArrayList<IncreasedStat> increased_stat;
+    private DecreasedStat decreased_stat;
+    private IncreasedStat increased_stat;
     private String name;
 
     public class DecreasedStat {
@@ -19,6 +19,10 @@ public class Nature {
         }
     }
 
+    public void checkStat(String name) {
+
+    }
+
     public class IncreasedStat {
         private String name;
 
@@ -31,19 +35,19 @@ public class Nature {
         }
     }
 
-    public ArrayList<DecreasedStat> getDecreased_stat() {
+    public DecreasedStat getDecreasedStat() {
         return decreased_stat;
     }
 
-    public void setDecreased_stat(ArrayList<DecreasedStat> decreased_stat) {
+    public void setDecreasedStat(DecreasedStat decreased_stat) {
         this.decreased_stat = decreased_stat;
     }
 
-    public ArrayList<IncreasedStat> getIncreased_stat() {
+    public IncreasedStat getIncreasedStat() {
         return increased_stat;
     }
 
-    public void setIncreased_stat(ArrayList<IncreasedStat> increased_stat) {
+    public void setIncreasedStat(IncreasedStat increased_stat) {
         this.increased_stat = increased_stat;
     }
 

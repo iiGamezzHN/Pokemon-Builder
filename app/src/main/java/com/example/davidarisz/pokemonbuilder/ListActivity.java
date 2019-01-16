@@ -11,11 +11,12 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.davidarisz.pokemonbuilder.Requests.NatureNamesRequest;
 import com.example.davidarisz.pokemonbuilder.Requests.PokemonNamesRequest;
 
 import java.util.ArrayList;
 
-public class ListActivity extends AppCompatActivity implements PokemonNamesRequest.Callback {
+public class ListActivity extends AppCompatActivity implements PokemonNamesRequest.Callback, NatureNamesRequest.Callback {
     private ArrayList pokemonNames;
     private PokemonDatabase db;
     private ListAdapter adapter;
@@ -38,6 +39,10 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
 
         Button button = findViewById(R.id.btn_list_tab);
         button.setBackgroundColor(getResources().getColor(R.color.selectedTab));
+    }
+
+    public void gotNatureNames(ArrayList<String> pokemon) {
+        Log.d("namesTag", pokemon.toString());
     }
 
     private class ListViewClickListener implements AdapterView.OnItemClickListener {
