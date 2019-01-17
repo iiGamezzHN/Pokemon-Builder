@@ -9,18 +9,23 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.davidarisz.pokemonbuilder.Classes.ItemData;
+import com.example.davidarisz.pokemonbuilder.Classes.MoveData;
 import com.example.davidarisz.pokemonbuilder.Classes.NatureData;
 import com.example.davidarisz.pokemonbuilder.Classes.SavedPokemon;
 import com.example.davidarisz.pokemonbuilder.Databases.ItemDatabase;
+import com.example.davidarisz.pokemonbuilder.Databases.MoveDatabase;
 import com.example.davidarisz.pokemonbuilder.Databases.NatureDatabase;
 import com.example.davidarisz.pokemonbuilder.Databases.PokemonDatabase;
 import com.example.davidarisz.pokemonbuilder.Adapters.ListAdapter;
 import com.example.davidarisz.pokemonbuilder.R;
 import com.example.davidarisz.pokemonbuilder.Requests.ItemDataRequest;
 import com.example.davidarisz.pokemonbuilder.Requests.ItemNamesRequest;
+import com.example.davidarisz.pokemonbuilder.Requests.MoveDataRequest;
+import com.example.davidarisz.pokemonbuilder.Requests.MoveNamesRequest;
 import com.example.davidarisz.pokemonbuilder.Requests.NatureDataRequest;
 import com.example.davidarisz.pokemonbuilder.Requests.NatureNamesRequest;
 import com.example.davidarisz.pokemonbuilder.Requests.PokemonNamesRequest;
@@ -30,13 +35,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class ListActivity extends AppCompatActivity implements PokemonNamesRequest.Callback, NatureNamesRequest.Callback,
-    NatureDataRequest.Callback, ItemNamesRequest.Callback, ItemDataRequest.Callback {
+    NatureDataRequest.Callback, ItemNamesRequest.Callback, ItemDataRequest.Callback, MoveNamesRequest.Callback,
+    MoveDataRequest.Callback {
     private ArrayList pokemonNames;
     private PokemonDatabase db;
     private ListAdapter adapter;
     private Cursor cursor;
     private NatureDatabase natureDb;
     private ItemDatabase itemDb;
+    private MoveDatabase moveDb;
     private int nr;
     int counter;
 
@@ -72,6 +79,20 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
             ItemNamesRequest itemNamesRequest = new ItemNamesRequest(this);
             itemNamesRequest.getItemNames(this);
         }
+
+        moveDb = MoveDatabase.getInstance(getApplicationContext());
+        Toast.makeText(this, String.valueOf(moveDb.selectAll().getCount()), Toast.LENGTH_SHORT).show();
+        if(moveDb.selectAll().getCount() > 0) {
+            // Do nothing
+        } else {
+            TextView textView = findViewById(R.id.loading);
+            textView.setText("loading");
+            MoveNamesRequest moveNamesRequest = new MoveNamesRequest(this);
+            moveNamesRequest.getMoveNames(this);
+        }
+
+        MoveNamesRequest moveNamesRequest = new MoveNamesRequest(this);
+        moveNamesRequest.getMoveNames(this);
 
         PokemonNamesRequest request = new PokemonNamesRequest(this);
         request.getPokemon(this);
@@ -109,6 +130,30 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
 
     public void gotItemData(ItemData itemData) {
         itemDb.insert(itemData);
+    }
+
+    public void gotMoveNames(ArrayList<String> moves) {
+        counter = moves.size();
+        Toast.makeText(this, String.valueOf(counter), Toast.LENGTH_SHORT).show();
+        TextView textView = findViewById(R.id.loading);
+        for(int i = 0; i < moves.size(); i++) {
+            textView.setText("data loading");
+            String name = moves.get(1);
+//            Toast.makeText(this, String.valueOf(nr), Toast.LENGTH_SHORT).show();
+//            MoveDataRequest moveDataRequest = new MoveDataRequest(this, name);
+//            moveDataRequest.getMoveData(this);
+        }
+    }
+
+    public void gotMoveData(MoveData moveData) {
+        nr += 1;
+        moveDb.insert(moveData);
+        if(nr == counter) {
+            TextView textView = findViewById(R.id.loading);
+            textView.setText("done loading");
+            Toast.makeText(this, "done loading moves", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, String.valueOf(counter), Toast.LENGTH_SHORT).show();
+        }
     }
 
     private class ListViewClickListener implements AdapterView.OnItemClickListener {

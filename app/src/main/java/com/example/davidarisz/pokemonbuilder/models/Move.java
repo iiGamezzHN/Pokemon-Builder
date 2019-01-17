@@ -1,9 +1,11 @@
 package com.example.davidarisz.pokemonbuilder.models;
 
+import java.util.ArrayList;
+
 public class Move {
     private int accuracy;
     private DamageClass damage_class;
-    private EffectEntries effect_entries;
+    private ArrayList<EffectEntries> effect_entries;
     private int power;
     private String name;
     private int pp;
@@ -75,11 +77,11 @@ public class Move {
         this.damage_class = damage_class;
     }
 
-    public EffectEntries getEffect_entries() {
+    public ArrayList<EffectEntries> getEffect_entries() {
         return effect_entries;
     }
 
-    public void setEffect_entries(EffectEntries effect_entries) {
+    public void setEffect_entries(ArrayList<EffectEntries> effect_entries) {
         this.effect_entries = effect_entries;
     }
 

@@ -48,6 +48,10 @@ public class MoveDatabase extends SQLiteOpenHelper {
         }
     }
 
+    public Cursor selectAll() {
+        return getWritableDatabase().rawQuery("select * from moves",null);
+    }
+
     public Cursor selectMove(String name) {
         return getWritableDatabase().rawQuery("select * from moves WHERE name = ?", new String[]{ name }, null);
     }
