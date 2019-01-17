@@ -153,13 +153,13 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
     // Nature names
     public void gotNatureNames(ArrayList natures) {
         // Set names to spinner
-//        Spinner nature = findViewById(R.id.spn_nature);
-//        ArrayAdapter abilityAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, natures);
-//        abilityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        nature.setAdapter(abilityAdapter);
+        Spinner nature = findViewById(R.id.spn_nature);
+        ArrayAdapter abilityAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, natures);
+        abilityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        nature.setAdapter(abilityAdapter);
 
         // Test autocomplete EditText for nature names
-        test(natures);
+//        test(natures);
 
         // Request for nature data
         for(int i=0;i < natures.size(); i++) {
@@ -168,36 +168,36 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
             natureDataRequest.getNatureData(this);
         }
 
-        adaptNatures();
+//        adaptNatures();
     }
 
     // Nature data
     public void gotNatureData(ArrayList data) {
-        natureData.add(data);
+//        natureData.add(data);
     }
 
-    public void adaptNatures() {
-        Spinner nature = findViewById(R.id.spn_nature);
-        NatureAdapter natureAdapter = new NatureAdapter(this, natureData);
-
-        nature.setAdapter(natureAdapter);
-    }
+//    public void adaptNatures() {
+//        Spinner nature = findViewById(R.id.spn_nature);
+//        NatureAdapter natureAdapter = new NatureAdapter(this, natureData);
+//
+//        nature.setAdapter(natureAdapter);
+//    }
 
     // Autocomplete EditText for nature names
-    public void test(ArrayList natures) {
-        final AutoCompleteTextView autoCompleteTextView = findViewById(R.id.auto_nature);
-        ArrayAdapter itemAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, natures);
-        autoCompleteTextView.setAdapter(itemAdapter);
-
-        autoCompleteTextView.setOnTouchListener(new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                autoCompleteTextView.showDropDown();
-                return false;
-            }
-        });
-    }
+//    public void test(ArrayList natures) {
+//        final AutoCompleteTextView autoCompleteTextView = findViewById(R.id.auto_nature);
+//        ArrayAdapter itemAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, natures);
+//        autoCompleteTextView.setAdapter(itemAdapter);
+//
+//        autoCompleteTextView.setOnTouchListener(new View.OnTouchListener() {
+//
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                autoCompleteTextView.showDropDown();
+//                return false;
+//            }
+//        });
+//    }
 
     // Item names
     public void gotItemNames(ArrayList items) {

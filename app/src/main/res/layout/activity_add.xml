@@ -212,25 +212,25 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
-            <!--// Item-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="8dp">
+            <!--&lt;!&ndash;// Item&ndash;&gt;-->
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_marginBottom="8dp">-->
 
-                <TextView
-                    android:layout_width="60dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/item" />
+                <!--<TextView-->
+                    <!--android:layout_width="60dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginEnd="16dp"-->
+                    <!--android:text="@string/item" />-->
 
-                <AutoCompleteTextView
-                    android:id="@+id/auto_nature"
-                    android:layout_width="180dp"
-                    android:completionThreshold="1"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
+                <!--<AutoCompleteTextView-->
+                    <!--android:id="@+id/auto_nature"-->
+                    <!--android:layout_width="180dp"-->
+                    <!--android:completionThreshold="1"-->
+                    <!--android:layout_height="wrap_content" />-->
+            <!--</LinearLayout>-->
 
             <View
                 android:layout_width="fill_parent"
