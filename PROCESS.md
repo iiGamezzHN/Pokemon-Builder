@@ -49,3 +49,7 @@ I already have code that I can run. I've already processed two API requests and 
 - Made a separate folder for all the request files
 - Added new columns "url_shiny" and "gender" to database
 - Added reset buttons for IV's and EV's
+
+## Day 8
+- Load item and move data only once with API and save it in a database. This way the loading times should only be slow the very first time app is launched after installing (TO DO)
+- Tried different ways to load nature data, will need a database aswell
