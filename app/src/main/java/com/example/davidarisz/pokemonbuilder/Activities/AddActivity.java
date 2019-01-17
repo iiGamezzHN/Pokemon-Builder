@@ -40,18 +40,6 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
     public static String name;
     private String url;
     private String url_shiny;
-//    private EditText et_hp_iv;
-//    private EditText et_att_iv;
-//    private EditText et_def_iv;
-//    private EditText et_spa_iv;
-//    private EditText et_spd_iv;
-//    private EditText et_sp_iv;
-//    private EditText et_hp_ev;
-//    private EditText et_att_ev;
-//    private EditText et_def_ev;
-//    private EditText et_spa_ev;
-//    private EditText et_spd_ev;
-//    private EditText et_sp_ev;
     private ArrayList<ArrayList<String>> natureData;
 
     @Override

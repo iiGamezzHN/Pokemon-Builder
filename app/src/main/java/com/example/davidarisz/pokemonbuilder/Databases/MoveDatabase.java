@@ -7,26 +7,28 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
 
+import com.example.davidarisz.pokemonbuilder.Classes.MoveData;
 import com.example.davidarisz.pokemonbuilder.Classes.NatureData;
 
 public class MoveDatabase extends SQLiteOpenHelper {
 
-    private static final String SQL_CREATE_NATURES = "CREATE TABLE " + "natures" + " (" +
+    private static final String SQL_CREATE_MOVES = "CREATE TABLE " + "moves" + " (" +
             "_id" + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "name" + " TEXT NOT NULL, " +
-            "increased" + " TEXT NOT NULL, " +
-            "decreased" + " TEXT NOT NULL)";
+            "power" + " INTEGER NOT NULL, " +
+            "accuracy" + " INTEGER NOT NULL, " +
+            "pp" + " INTEGER NOT NULL)";
 
-    private static final String SQL_DELETE_NATURES = "DROP TABLE IF EXISTS " + "natures";
+    private static final String SQL_DELETE_MOVES = "DROP TABLE IF EXISTS " + "moves";
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(SQL_CREATE_NATURES);
+        db.execSQL(SQL_CREATE_MOVES);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(SQL_DELETE_NATURES);
+        db.execSQL(SQL_DELETE_MOVES);
         onCreate(db);
     }
 
@@ -41,26 +43,27 @@ public class MoveDatabase extends SQLiteOpenHelper {
             return instance;
         }
         else {
-            instance = new MoveDatabase(c, "natures", null, 1);
+            instance = new MoveDatabase(c, "moves", null, 1);
             return instance;
         }
     }
 
-    public Cursor selectAll() {
-        return getWritableDatabase().rawQuery("select * from natures",null);
+    public Cursor selectMove(String name) {
+        return getWritableDatabase().rawQuery("select * from moves WHERE name = ?", new String[]{ name }, null);
     }
 
-    public Long insert (NatureData natureData) {
+    public Long insert (MoveData moveData) {
         ContentValues contentValues = new ContentValues();
 
-        contentValues.put("name",natureData.getName());
-        contentValues.put("item",natureData.getIncreased());
-        contentValues.put("ability",natureData.getDecreased());
+        contentValues.put("name",moveData.getName());
+        contentValues.put("power",moveData.getPower());
+        contentValues.put("accuracy",moveData.getAccuracy());
+        contentValues.put("pp",moveData.getPp());
 
-        return getWritableDatabase().insert("natures",null,contentValues);
+        return getWritableDatabase().insert("moves",null,contentValues);
     }
 
     public long remove (int id) {
-        return getWritableDatabase().delete("natures","_id = ?", new String[] { String.valueOf(id) });
+        return getWritableDatabase().delete("moves","_id = ?", new String[] { String.valueOf(id) });
     }
 }
