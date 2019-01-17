@@ -54,8 +54,8 @@ public class NatureDatabase extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
 
         contentValues.put("name",natureData.getName());
-        contentValues.put("item",natureData.getIncreased());
-        contentValues.put("ability",natureData.getDecreased());
+        contentValues.put("increased",natureData.getIncreased());
+        contentValues.put("decreased",natureData.getDecreased());
 
         return getWritableDatabase().insert("natures",null,contentValues);
     }

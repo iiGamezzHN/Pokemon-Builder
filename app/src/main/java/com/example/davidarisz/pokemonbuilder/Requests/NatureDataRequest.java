@@ -9,6 +9,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.davidarisz.pokemonbuilder.Classes.NatureData;
 import com.example.davidarisz.pokemonbuilder.models.Item;
 import com.example.davidarisz.pokemonbuilder.models.Nature;
 import com.google.gson.Gson;
@@ -25,7 +26,7 @@ public class NatureDataRequest implements Response.Listener<JSONObject>, Respons
     private String name;
 
     public interface Callback {
-        void gotNatureData(ArrayList natureData);
+        void gotNatureData(NatureData natureData);
     }
 
     public NatureDataRequest(Context context, String name) {
@@ -57,7 +58,6 @@ public class NatureDataRequest implements Response.Listener<JSONObject>, Respons
     @Override
     public void onResponse(JSONObject response) {
         Nature nature = gson.fromJson(response.toString(), Nature.class);
-        ArrayList<String> natureData = new ArrayList<String>();
 
         String name = nature.getName();
         String decreased;
@@ -71,9 +71,7 @@ public class NatureDataRequest implements Response.Listener<JSONObject>, Respons
             increased = nature.getIncreasedStat().getName();
         }
 
-        natureData.add(name);
-        natureData.add(increased);
-        natureData.add(decreased);
+        NatureData natureData = new NatureData(name, increased, decreased);
 
         activity.gotNatureData(natureData);
     }

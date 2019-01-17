@@ -9,6 +9,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.davidarisz.pokemonbuilder.Classes.ItemData;
 import com.example.davidarisz.pokemonbuilder.models.Item;
 import com.google.gson.Gson;
 
@@ -22,7 +23,7 @@ public class ItemDataRequest implements Response.Listener<JSONObject>, Response.
     private String name;
 
     public interface Callback {
-        void gotItemData(Item item);
+        void gotItemData(ItemData itemData);
     }
 
     public ItemDataRequest(Context context, String name) {
@@ -61,8 +62,8 @@ public class ItemDataRequest implements Response.Listener<JSONObject>, Response.
         }
         String name = item.getName();
         String sprite = item.getSprite();
-//        Log.d("effectTag", name + " effect: " + effect + ", sprite: " + sprite);
+        ItemData itemData = new ItemData(name, effect, sprite);
 
-        activity.gotItemData(item);
+        activity.gotItemData(itemData);
     }
 }

@@ -11,25 +11,67 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.davidarisz.pokemonbuilder.Classes.ItemData;
+import com.example.davidarisz.pokemonbuilder.Classes.NatureData;
 import com.example.davidarisz.pokemonbuilder.Classes.SavedPokemon;
+import com.example.davidarisz.pokemonbuilder.Databases.ItemDatabase;
+import com.example.davidarisz.pokemonbuilder.Databases.NatureDatabase;
 import com.example.davidarisz.pokemonbuilder.Databases.PokemonDatabase;
 import com.example.davidarisz.pokemonbuilder.Adapters.ListAdapter;
 import com.example.davidarisz.pokemonbuilder.R;
+import com.example.davidarisz.pokemonbuilder.Requests.ItemDataRequest;
+import com.example.davidarisz.pokemonbuilder.Requests.ItemNamesRequest;
+import com.example.davidarisz.pokemonbuilder.Requests.NatureDataRequest;
 import com.example.davidarisz.pokemonbuilder.Requests.NatureNamesRequest;
 import com.example.davidarisz.pokemonbuilder.Requests.PokemonNamesRequest;
+import com.example.davidarisz.pokemonbuilder.models.Item;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ListActivity extends AppCompatActivity implements PokemonNamesRequest.Callback, NatureNamesRequest.Callback {
+public class ListActivity extends AppCompatActivity implements PokemonNamesRequest.Callback, NatureNamesRequest.Callback,
+    NatureDataRequest.Callback, ItemNamesRequest.Callback, ItemDataRequest.Callback {
     private ArrayList pokemonNames;
     private PokemonDatabase db;
     private ListAdapter adapter;
     private Cursor cursor;
+    private NatureDatabase natureDb;
+    private ItemDatabase itemDb;
+    private int nr;
+    int counter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+
+        natureDb = NatureDatabase.getInstance(getApplicationContext());
+        if(natureDb.selectAll().getCount() > 0) {
+            // Do nothing
+        } else {
+            NatureNamesRequest natureNamesRequest = new NatureNamesRequest(this);
+            natureNamesRequest.getNatureNames(this);
+        }
+
+        itemDb = ItemDatabase.getInstance(getApplicationContext());
+        if(itemDb.selectAll().getCount() > 0) {
+            // Do nothing
+//            Toast.makeText(this, String.valueOf(itemDb.selectAll().getCount()), Toast.LENGTH_SHORT).show();
+//            Cursor cursor = itemDb.selectAll();
+//            try {
+//                while (cursor.moveToNext()) {
+//                    String test = cursor.getString(cursor.getColumnIndex("name"));
+//                    String test1 = cursor.getString(cursor.getColumnIndex("effect"));
+//                    String test2 = cursor.getString(cursor.getColumnIndex("sprite"));
+////                    Toast.makeText(this, test+", "+test1+", "+test2, Toast.LENGTH_SHORT).show();
+//                }
+//            } finally {
+//                cursor.close();
+//            }
+        } else {
+            ItemNamesRequest itemNamesRequest = new ItemNamesRequest(this);
+            itemNamesRequest.getItemNames(this);
+        }
 
         PokemonNamesRequest request = new PokemonNamesRequest(this);
         request.getPokemon(this);
@@ -45,8 +87,28 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
         button.setBackgroundColor(getResources().getColor(R.color.selectedTab));
     }
 
-    public void gotNatureNames(ArrayList<String> pokemon) {
-        Log.d("namesTag", pokemon.toString());
+    public void gotNatureNames(ArrayList<String> natures) {
+        for(int i = 0; i < natures.size(); i++) {
+            String name = natures.get(i);
+            NatureDataRequest natureDataRequest = new NatureDataRequest(this, name);
+            natureDataRequest.getNatureData(this);
+        }
+    }
+
+    public void gotNatureData(NatureData natureData) {
+        natureDb.insert(natureData);
+    }
+
+    public void gotItemNames(ArrayList<String> items) {
+        for(int i = 0; i < items.size(); i++) {
+            String name = items.get(i);
+            ItemDataRequest itemDataRequest = new ItemDataRequest(this, name);
+            itemDataRequest.getItemData(this);
+        }
+    }
+
+    public void gotItemData(ItemData itemData) {
+        itemDb.insert(itemData);
     }
 
     private class ListViewClickListener implements AdapterView.OnItemClickListener {
@@ -133,9 +195,8 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
     public void onResume() {
         super.onResume();
         updateData();
+
 //        Toast.makeText(this, "onResume", Toast.LENGTH_SHORT).show();
-        String test = String.valueOf(db.selectAll().getCount());
-        Log.d("databaseTag", test);
     }
 
     private void updateData() { // Update the data

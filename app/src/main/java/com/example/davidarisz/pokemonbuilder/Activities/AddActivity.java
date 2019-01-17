@@ -11,9 +11,11 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.davidarisz.pokemonbuilder.Classes.SavedPokemon;
 import com.example.davidarisz.pokemonbuilder.Classes.SearchModel;
+import com.example.davidarisz.pokemonbuilder.Databases.NatureDatabase;
 import com.example.davidarisz.pokemonbuilder.Databases.PokemonDatabase;
 import com.example.davidarisz.pokemonbuilder.R;
 import com.example.davidarisz.pokemonbuilder.Requests.ItemDataRequest;
@@ -34,13 +36,12 @@ import ir.mirrajabi.searchdialog.core.SearchResultListener;
 import ir.mirrajabi.searchdialog.core.Searchable;
 
 public class AddActivity extends AppCompatActivity implements PokemonDataRequest.Callback, NatureNamesRequest.Callback,
-        ItemNamesRequest.Callback, ItemDataRequest.Callback, NatureDataRequest.Callback {
+        ItemNamesRequest.Callback {
     private ArrayList pokemonNames;
     private TextView tv;
     public static String name;
     private String url;
     private String url_shiny;
-    private ArrayList<ArrayList<String>> natureData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,16 +88,16 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
     // Requests for individual pokemon data, nature names and item names
     public void makeRequest () {
         // Pokemon data
-        PokemonDataRequest pokemonData = new PokemonDataRequest(this, name);
-        pokemonData.getPokemonData(this);
-
-        // Nature names
-        NatureNamesRequest natures = new NatureNamesRequest(this);
-        natures.getNatureNames(this);
-
-        // Item names
-        ItemNamesRequest items = new ItemNamesRequest(this);
-        items.getItemNames(this);
+//        PokemonDataRequest pokemonData = new PokemonDataRequest(this, name);
+//        pokemonData.getPokemonData(this);
+//
+//        // Nature names
+//        NatureNamesRequest natures = new NatureNamesRequest(this);
+//        natures.getNatureNames(this);
+//
+//        // Item names
+//        ItemNamesRequest items = new ItemNamesRequest(this);
+//        items.getItemNames(this);
     }
 
     // Pokemon data
@@ -152,8 +153,8 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         // Request for nature data
         for(int i=0;i < natures.size(); i++) {
             String natureName = natures.get(i).toString();
-            NatureDataRequest natureDataRequest = new NatureDataRequest(getApplicationContext(), natureName);
-            natureDataRequest.getNatureData(this);
+//            NatureDataRequest natureDataRequest = new NatureDataRequest(getApplicationContext(), natureName);
+//            natureDataRequest.getNatureData(this);
         }
 
 //        adaptNatures();
@@ -196,8 +197,8 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         item.setAdapter(itemAdapter);
 
         // Request for item data
-        ItemDataRequest itemDataRequest = new ItemDataRequest(getApplicationContext(), "chesto-berry");
-        itemDataRequest.getItemData(this);
+//        ItemDataRequest itemDataRequest = new ItemDataRequest(getApplicationContext(), "chesto-berry");
+//        itemDataRequest.getItemData(this);
     }
 
     // Item data
@@ -267,8 +268,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         // Save pokemon to database
         SavedPokemon savedPokemon = new SavedPokemon(0,name,item,ability,move1,move2,move3,move4,nature,
                 hp_iv,att_iv,def_iv,spa_iv,spd_iv,sp_iv,hp_ev,att_ev,def_ev,spa_ev,spd_ev,sp_ev,url, url_shiny,gender);
-        Long aLong = db.insert(savedPokemon);
-        Log.d("longTag", String.valueOf(aLong));
+        db.insert(savedPokemon);
         Intent intent = new Intent(getApplicationContext(), ListActivity.class);
         startActivity(intent);
         // Get rid of opening animation of new activity

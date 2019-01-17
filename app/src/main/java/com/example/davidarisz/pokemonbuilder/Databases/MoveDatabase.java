@@ -64,6 +64,7 @@ public class MoveDatabase extends SQLiteOpenHelper {
     }
 
     public long remove (int id) {
+//        context.deleteDatabase("moves");
         return getWritableDatabase().delete("moves","_id = ?", new String[] { String.valueOf(id) });
     }
 }

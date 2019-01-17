@@ -21,7 +21,7 @@ public class NatureNamesRequest implements Response.Listener<JSONObject>, Respon
     Callback activity;
 
     public interface Callback {
-        void gotNatureNames(ArrayList<String> pokemon);
+        void gotNatureNames(ArrayList<String> natures);
     }
 
     public NatureNamesRequest(Context context) {
