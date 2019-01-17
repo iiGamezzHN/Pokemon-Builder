@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.davidarisz.pokemonbuilder.Classes.SavedPokemon;
 import com.example.davidarisz.pokemonbuilder.Requests.NatureNamesRequest;
 import com.example.davidarisz.pokemonbuilder.Requests.PokemonNamesRequest;
 

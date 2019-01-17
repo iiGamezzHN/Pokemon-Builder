@@ -1,4 +1,4 @@
-package com.example.davidarisz.pokemonbuilder;
+package com.example.davidarisz.pokemonbuilder.Classes;
 
 import java.util.ArrayList;
 
