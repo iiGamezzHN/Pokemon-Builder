@@ -1,4 +1,4 @@
-package com.example.davidarisz.pokemonbuilder;
+package com.example.davidarisz.pokemonbuilder.Activities;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -12,6 +12,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.davidarisz.pokemonbuilder.Classes.SavedPokemon;
+import com.example.davidarisz.pokemonbuilder.Databases.PokemonDatabase;
+import com.example.davidarisz.pokemonbuilder.Adapters.ListAdapter;
+import com.example.davidarisz.pokemonbuilder.R;
 import com.example.davidarisz.pokemonbuilder.Requests.NatureNamesRequest;
 import com.example.davidarisz.pokemonbuilder.Requests.PokemonNamesRequest;
 

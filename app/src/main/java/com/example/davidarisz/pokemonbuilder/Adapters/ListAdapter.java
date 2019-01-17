@@ -1,4 +1,4 @@
-package com.example.davidarisz.pokemonbuilder;
+package com.example.davidarisz.pokemonbuilder.Adapters;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 
+import com.example.davidarisz.pokemonbuilder.R;
 import com.squareup.picasso.Picasso;
 
 public class ListAdapter extends ResourceCursorAdapter {

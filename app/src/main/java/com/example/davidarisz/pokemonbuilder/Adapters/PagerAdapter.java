@@ -1,4 +1,4 @@
-package com.example.davidarisz.pokemonbuilder;
+package com.example.davidarisz.pokemonbuilder.Adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

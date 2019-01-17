@@ -1,4 +1,4 @@
-package com.example.davidarisz.pokemonbuilder;
+package com.example.davidarisz.pokemonbuilder.Databases;
 
 import android.content.ContentValues;
 import android.content.Context;

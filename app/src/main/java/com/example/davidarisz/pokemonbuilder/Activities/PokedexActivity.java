@@ -1,4 +1,4 @@
-package com.example.davidarisz.pokemonbuilder;
+package com.example.davidarisz.pokemonbuilder.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+
+import com.example.davidarisz.pokemonbuilder.Adapters.PokedexAdapter;
+import com.example.davidarisz.pokemonbuilder.R;
 
 import java.util.ArrayList;
 

@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.davidarisz.pokemonbuilder.AddActivity;
+import com.example.davidarisz.pokemonbuilder.Activities.AddActivity;
 import com.example.davidarisz.pokemonbuilder.Requests.PokemonNamesRequest;
 import com.example.davidarisz.pokemonbuilder.R;
 

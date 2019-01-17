@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ListActivity">
+        <activity android:name=".Activities.ListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,11 +21,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".FragmentFiles.MenuActivity" />
-        <activity android:name=".AddActivity" />
+        <activity android:name=".Activities.AddActivity" />
         <activity android:name=".FragmentFiles.MainActivity" />
-        <activity android:name=".PokedexActivity" />
-        <activity android:name=".PokedexDetailActivity" />
-        <activity android:name=".ListDetailActivity"></activity>
+        <activity android:name=".Activities.PokedexActivity" />
+        <activity android:name=".Activities.PokedexDetailActivity" />
+        <activity android:name=".Activities.ListDetailActivity"></activity>
     </application>
 
 </manifest>

@@ -1,13 +1,11 @@
-package com.example.davidarisz.pokemonbuilder;
+package com.example.davidarisz.pokemonbuilder.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -16,6 +14,8 @@ import android.widget.TextView;
 
 import com.example.davidarisz.pokemonbuilder.Classes.SavedPokemon;
 import com.example.davidarisz.pokemonbuilder.Classes.SearchModel;
+import com.example.davidarisz.pokemonbuilder.Databases.PokemonDatabase;
+import com.example.davidarisz.pokemonbuilder.R;
 import com.example.davidarisz.pokemonbuilder.Requests.ItemDataRequest;
 import com.example.davidarisz.pokemonbuilder.Requests.ItemNamesRequest;
 import com.example.davidarisz.pokemonbuilder.Requests.NatureDataRequest;

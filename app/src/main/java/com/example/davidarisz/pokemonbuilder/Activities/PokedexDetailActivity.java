@@ -1,4 +1,4 @@
-package com.example.davidarisz.pokemonbuilder;
+package com.example.davidarisz.pokemonbuilder.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.davidarisz.pokemonbuilder.R;
 import com.example.davidarisz.pokemonbuilder.Requests.PokemonDataRequest;
 import com.example.davidarisz.pokemonbuilder.models.Pokemon;
 import com.squareup.picasso.Picasso;
