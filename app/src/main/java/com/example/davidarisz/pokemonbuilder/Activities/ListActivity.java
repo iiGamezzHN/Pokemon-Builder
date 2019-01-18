@@ -2,6 +2,7 @@ package com.example.davidarisz.pokemonbuilder.Activities;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,11 +47,20 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
     private MoveDatabase moveDb;
     private int nr;
     int counter;
+    private int times;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                Button button = findViewById(R.id.removing);
+                button.setVisibility(View.GONE);
+            }
+        }, 5000);   //5 seconds
 
         natureDb = NatureDatabase.getInstance(getApplicationContext());
         if(natureDb.selectAll().getCount() > 0) {
@@ -63,36 +73,31 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
         itemDb = ItemDatabase.getInstance(getApplicationContext());
         if(itemDb.selectAll().getCount() > 0) {
             // Do nothing
-//            Toast.makeText(this, String.valueOf(itemDb.selectAll().getCount()), Toast.LENGTH_SHORT).show();
-//            Cursor cursor = itemDb.selectAll();
-//            try {
-//                while (cursor.moveToNext()) {
-//                    String test = cursor.getString(cursor.getColumnIndex("name"));
-//                    String test1 = cursor.getString(cursor.getColumnIndex("effect"));
-//                    String test2 = cursor.getString(cursor.getColumnIndex("sprite"));
-////                    Toast.makeText(this, test+", "+test1+", "+test2, Toast.LENGTH_SHORT).show();
-//                }
-//            } finally {
-//                cursor.close();
-//            }
         } else {
+            Log.d("sizeTag", "Start itemsname request");
             ItemNamesRequest itemNamesRequest = new ItemNamesRequest(this);
             itemNamesRequest.getItemNames(this);
         }
 
         moveDb = MoveDatabase.getInstance(getApplicationContext());
-        Toast.makeText(this, String.valueOf(moveDb.selectAll().getCount()), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Begin Count: "+String.valueOf(moveDb.selectAll().getCount()), Toast.LENGTH_SHORT).show();
         if(moveDb.selectAll().getCount() > 0) {
             // Do nothing
+//            Toast.makeText(this, "Begin Count: "+String.valueOf(moveDb.selectAll().getCount()), Toast.LENGTH_SHORT).show();
+            Cursor cursor = natureDb.selectAll();
+
+            while (cursor.moveToNext()) {
+                String test = cursor.getString(cursor.getColumnIndex("name"));
+                String test1 = cursor.getString(cursor.getColumnIndex("increased"));
+                String test2 = cursor.getString(cursor.getColumnIndex("decreased"));
+//            int test3 = cursor.getInt(cursor.getColumnIndex("pp"));
+                String bla = test+", "+test1+", "+test2;
+                Log.d("natureDbTag", bla);
+            }
         } else {
-            TextView textView = findViewById(R.id.loading);
-            textView.setText("loading");
             MoveNamesRequest moveNamesRequest = new MoveNamesRequest(this);
             moveNamesRequest.getMoveNames(this);
         }
-
-        MoveNamesRequest moveNamesRequest = new MoveNamesRequest(this);
-        moveNamesRequest.getMoveNames(this);
 
         PokemonNamesRequest request = new PokemonNamesRequest(this);
         request.getPokemon(this);
@@ -108,7 +113,13 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
         button.setBackgroundColor(getResources().getColor(R.color.selectedTab));
     }
 
+    public void deleteDB(View view) {
+        moveDb.remove();
+        Toast.makeText(this, "Count: "+String.valueOf(moveDb.selectAll().getCount()), Toast.LENGTH_SHORT).show();
+    }
+
     public void gotNatureNames(ArrayList<String> natures) {
+        counter = natures.size();
         for(int i = 0; i < natures.size(); i++) {
             String name = natures.get(i);
             NatureDataRequest natureDataRequest = new NatureDataRequest(this, name);
@@ -118,9 +129,14 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
 
     public void gotNatureData(NatureData natureData) {
         natureDb.insert(natureData);
+        nr += 1;
+        if(nr == counter) {
+            Toast.makeText(this, "done loading natures", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void gotItemNames(ArrayList<String> items) {
+//        Log.d("sizeTag", "items: "+String.valueOf(items.size()));
         for(int i = 0; i < items.size(); i++) {
             String name = items.get(i);
             ItemDataRequest itemDataRequest = new ItemDataRequest(this, name);
@@ -133,26 +149,47 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
     }
 
     public void gotMoveNames(ArrayList<String> moves) {
-        counter = moves.size();
-        Toast.makeText(this, String.valueOf(counter), Toast.LENGTH_SHORT).show();
+//        counter = 10;
+        Log.d("sizeTag", "moves: "+String.valueOf(moves.size()));
         TextView textView = findViewById(R.id.loading);
-        for(int i = 0; i < moves.size(); i++) {
-            textView.setText("data loading");
-            String name = moves.get(1);
-//            Toast.makeText(this, String.valueOf(nr), Toast.LENGTH_SHORT).show();
+        textView.setText("data loading");
+        for(int i = 0; i < 100; i++) {
+            String name = moves.get(i);
 //            MoveDataRequest moveDataRequest = new MoveDataRequest(this, name);
 //            moveDataRequest.getMoveData(this);
+            Log.d("ammountTag", ""+i);
+        }
+//        times = 1;
+//        moveData2(moves);
+    }
+
+    public void moveData2(ArrayList<String> moves) {
+        for(int i = 100; i < 200; i++) {
+            String name = moves.get(i);
+            MoveDataRequest moveDataRequest = new MoveDataRequest(this, name);
+            moveDataRequest.getMoveData(this);
+            Log.d("ammountTag", ""+i);
+        }
+        moveData3(moves);
+    }
+
+    public void moveData3(ArrayList<String> moves) {
+        for(int i = 200; i < 300; i++) {
+            String name = moves.get(i);
+            MoveDataRequest moveDataRequest = new MoveDataRequest(this, name);
+            moveDataRequest.getMoveData(this);
+            Log.d("ammountTag", ""+i);
         }
     }
 
     public void gotMoveData(MoveData moveData) {
+//        moveDb.insert(moveData);
         nr += 1;
-        moveDb.insert(moveData);
-        if(nr == counter) {
-            TextView textView = findViewById(R.id.loading);
-            textView.setText("done loading");
-            Toast.makeText(this, "done loading moves", Toast.LENGTH_SHORT).show();
-            Toast.makeText(this, String.valueOf(counter), Toast.LENGTH_SHORT).show();
+        Log.d("ammountTag", "add to db "+nr);
+        Log.d("ammountTag", moveData.getName());
+
+        if(nr == 10) {
+            Log.d("ammountTag", "finished");
         }
     }
 

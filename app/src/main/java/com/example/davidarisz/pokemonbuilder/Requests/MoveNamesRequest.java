@@ -1,6 +1,7 @@
 package com.example.davidarisz.pokemonbuilder.Requests;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -29,7 +30,7 @@ public class MoveNamesRequest implements Response.Listener<JSONObject>, Response
 
     // Makes a request to the api
     public void getMoveNames(Callback activity) {
-        String url = "https://pokeapi.co/api/v2/move/";
+        String url = "https://pokeapi.co/api/v2/move/?limit=737";
         RequestQueue queue = Volley.newRequestQueue(context);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, null, this, this);

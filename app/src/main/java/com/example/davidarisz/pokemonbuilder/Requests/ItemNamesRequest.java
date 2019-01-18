@@ -1,6 +1,7 @@
 package com.example.davidarisz.pokemonbuilder.Requests;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -33,23 +34,23 @@ public class ItemNamesRequest implements Response.Listener<JSONObject>, Response
     public void getItemNames(Callback activity) {
         RequestQueue queue = Volley.newRequestQueue(context);
 
-        String url = "https://pokeapi.co/api/v2/item-category/3/";
-        String url2 = "https://pokeapi.co/api/v2/item-category/4/";
-        String url3 = "https://pokeapi.co/api/v2/item-category/5/";
-        String url4 = "https://pokeapi.co/api/v2/item-category/6/";
-        String url5 = "https://pokeapi.co/api/v2/item-category/7/";
-        String url6 = "https://pokeapi.co/api/v2/item-category/12/";
-        String url7 = "https://pokeapi.co/api/v2/item-category/13/";
-        String url8 = "https://pokeapi.co/api/v2/item-category/15/";
-        String url9 = "https://pokeapi.co/api/v2/item-category/16/";
-        String url10 = "https://pokeapi.co/api/v2/item-category/17/";
-        String url11 = "https://pokeapi.co/api/v2/item-category/18/";
-        String url12 = "https://pokeapi.co/api/v2/item-category/19/";
-        String url13 = "https://pokeapi.co/api/v2/item-category/36/";
-        String url14 = "https://pokeapi.co/api/v2/item-category/42/";
-        String url15 = "https://pokeapi.co/api/v2/item-category/44/";
-        String url16 = "https://pokeapi.co/api/v2/item-category/45/";
-        String url17 = "https://pokeapi.co/api/v2/item-category/46/";
+        String url = "https://pokeapi.co/api/v2/item-category/3/?limit=867";
+        String url2 = "https://pokeapi.co/api/v2/item-category/4/?limit=867";
+        String url3 = "https://pokeapi.co/api/v2/item-category/5/?limit=867";
+        String url4 = "https://pokeapi.co/api/v2/item-category/6/?limit=867";
+        String url5 = "https://pokeapi.co/api/v2/item-category/7/?limit=867";
+        String url6 = "https://pokeapi.co/api/v2/item-category/12/?limit=867";
+        String url7 = "https://pokeapi.co/api/v2/item-category/13/?limit=867";
+        String url8 = "https://pokeapi.co/api/v2/item-category/15/?limit=867";
+        String url9 = "https://pokeapi.co/api/v2/item-category/16/?limit=867";
+        String url10 = "https://pokeapi.co/api/v2/item-category/17/?limit=867";
+        String url11 = "https://pokeapi.co/api/v2/item-category/18/?limit=867";
+        String url12 = "https://pokeapi.co/api/v2/item-category/19/?limit=867";
+        String url13 = "https://pokeapi.co/api/v2/item-category/36/?limit=867";
+        String url14 = "https://pokeapi.co/api/v2/item-category/42/?limit=867";
+        String url15 = "https://pokeapi.co/api/v2/item-category/44/?limit=867";
+        String url16 = "https://pokeapi.co/api/v2/item-category/45/?limit=867";
+        String url17 = "https://pokeapi.co/api/v2/item-category/46/?limit=867";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, null, this, this);
         JsonObjectRequest jsonObjectRequest2 = new JsonObjectRequest(url2, null, this, this);

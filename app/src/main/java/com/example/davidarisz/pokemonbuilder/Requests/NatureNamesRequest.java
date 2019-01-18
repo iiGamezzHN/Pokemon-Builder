@@ -30,7 +30,7 @@ public class NatureNamesRequest implements Response.Listener<JSONObject>, Respon
 
     // Makes a request to the api
     public void getNatureNames(Callback activity) {
-        String url = "https://pokeapi.co/api/v2/nature/";
+        String url = "https://pokeapi.co/api/v2/nature/?limit=30";
         RequestQueue queue = Volley.newRequestQueue(context);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, null, this, this);

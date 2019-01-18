@@ -30,7 +30,7 @@ public class PokemonNamesRequest implements Response.Listener<JSONObject>, Respo
 
     // Makes a request to the api
     public void getPokemon(Callback activity) {
-        String url = "https://pokeapi.co/api/v2/pokemon/";
+        String url = "https://pokeapi.co/api/v2/pokemon/?limit=949";
         RequestQueue queue = Volley.newRequestQueue(context);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, null, this, this);
