@@ -47,24 +47,27 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
     private MoveDatabase moveDb;
     private int nr;
     int counter;
-    private int times;
+    private int limit;
+    private ArrayList movesArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                Button button = findViewById(R.id.removing);
-                button.setVisibility(View.GONE);
-            }
-        }, 5000);   //5 seconds
+//        Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            public void run() {
+//                Button button = findViewById(R.id.removing);
+//                button.setVisibility(View.GONE);
+//            }
+//        }, 5000);   //5 seconds
 
         natureDb = NatureDatabase.getInstance(getApplicationContext());
         if(natureDb.selectAll().getCount() > 0) {
-            // Do nothing
+            Toast.makeText(this, String.valueOf(natureDb.selectAll().getCount()), Toast.LENGTH_SHORT).show();
+            Button loadNature = findViewById(R.id.load_natures);
+            loadNature.setVisibility(View.GONE);
         } else {
             NatureNamesRequest natureNamesRequest = new NatureNamesRequest(this);
             natureNamesRequest.getNatureNames(this);
@@ -72,7 +75,9 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
 
         itemDb = ItemDatabase.getInstance(getApplicationContext());
         if(itemDb.selectAll().getCount() > 0) {
-            // Do nothing
+            Toast.makeText(this, String.valueOf(itemDb.selectAll().getCount()), Toast.LENGTH_SHORT).show();
+            Button loadNature = findViewById(R.id.load_items);
+            loadNature.setVisibility(View.GONE);
         } else {
             Log.d("sizeTag", "Start itemsname request");
             ItemNamesRequest itemNamesRequest = new ItemNamesRequest(this);
@@ -81,19 +86,27 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
 
         moveDb = MoveDatabase.getInstance(getApplicationContext());
 //        Toast.makeText(this, "Begin Count: "+String.valueOf(moveDb.selectAll().getCount()), Toast.LENGTH_SHORT).show();
-        if(moveDb.selectAll().getCount() > 0) {
+        if(moveDb.selectAll().getCount() > 650) {
             // Do nothing
+            Button loadMove1 = findViewById(R.id.load_moves1);
+            Button loadMove2 = findViewById(R.id.load_moves2);
+            Button loadMove3 = findViewById(R.id.load_moves3);
+            Button loadMove4 = findViewById(R.id.load_moves4);
+            loadMove1.setVisibility(View.GONE);
+            loadMove2.setVisibility(View.GONE);
+            loadMove3.setVisibility(View.GONE);
+            loadMove4.setVisibility(View.GONE);
 //            Toast.makeText(this, "Begin Count: "+String.valueOf(moveDb.selectAll().getCount()), Toast.LENGTH_SHORT).show();
-            Cursor cursor = natureDb.selectAll();
-
-            while (cursor.moveToNext()) {
-                String test = cursor.getString(cursor.getColumnIndex("name"));
-                String test1 = cursor.getString(cursor.getColumnIndex("increased"));
-                String test2 = cursor.getString(cursor.getColumnIndex("decreased"));
-//            int test3 = cursor.getInt(cursor.getColumnIndex("pp"));
-                String bla = test+", "+test1+", "+test2;
-                Log.d("natureDbTag", bla);
-            }
+//            Cursor cursor = natureDb.selectAll();
+//
+//            while (cursor.moveToNext()) {
+//                String test = cursor.getString(cursor.getColumnIndex("name"));
+//                String test1 = cursor.getString(cursor.getColumnIndex("increased"));
+//                String test2 = cursor.getString(cursor.getColumnIndex("decreased"));
+////            int test3 = cursor.getInt(cursor.getColumnIndex("pp"));
+//                String bla = test+", "+test1+", "+test2;
+//                Log.d("natureDbTag", bla);
+//            }
         } else {
             MoveNamesRequest moveNamesRequest = new MoveNamesRequest(this);
             moveNamesRequest.getMoveNames(this);
@@ -119,7 +132,6 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
     }
 
     public void gotNatureNames(ArrayList<String> natures) {
-        counter = natures.size();
         for(int i = 0; i < natures.size(); i++) {
             String name = natures.get(i);
             NatureDataRequest natureDataRequest = new NatureDataRequest(this, name);
@@ -129,38 +141,122 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
 
     public void gotNatureData(NatureData natureData) {
         natureDb.insert(natureData);
-        nr += 1;
-        if(nr == counter) {
-            Toast.makeText(this, "done loading natures", Toast.LENGTH_SHORT).show();
-        }
     }
 
     public void gotItemNames(ArrayList<String> items) {
+        counter = items.size();
 //        Log.d("sizeTag", "items: "+String.valueOf(items.size()));
         for(int i = 0; i < items.size(); i++) {
             String name = items.get(i);
             ItemDataRequest itemDataRequest = new ItemDataRequest(this, name);
             itemDataRequest.getItemData(this);
         }
+
     }
 
     public void gotItemData(ItemData itemData) {
         itemDb.insert(itemData);
+        nr += 1;
+        if(nr == counter) {
+            Toast.makeText(this, "done loading items", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void gotMoveNames(ArrayList<String> moves) {
 //        counter = 10;
-        Log.d("sizeTag", "moves: "+String.valueOf(moves.size()));
-        TextView textView = findViewById(R.id.loading);
-        textView.setText("data loading");
-        for(int i = 0; i < 100; i++) {
-            String name = moves.get(i);
-//            MoveDataRequest moveDataRequest = new MoveDataRequest(this, name);
-//            moveDataRequest.getMoveData(this);
-            Log.d("ammountTag", ""+i);
-        }
+        movesArray = moves;
+        Toast.makeText(this, "moves loaded", Toast.LENGTH_SHORT).show();
 //        times = 1;
 //        moveData2(moves);
+    }
+
+    public void loadMove1(View view) {
+        if(movesArray != null) {
+            nr = 0;
+            limit = 200;
+            for (int i = nr; i < limit; i++) {
+                String name = (String) movesArray.get(i);
+                MoveDataRequest moveDataRequest = new MoveDataRequest(this, name);
+                moveDataRequest.getMoveData(this);
+                Log.d("ammountTag", "" + i);
+            }
+        } else {
+            Toast.makeText(this, "moves not loaded", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void loadMove2(View view) {
+        if(movesArray != null) {
+            nr = 200;
+            limit = 400;
+            for (int i = nr; i < limit; i++) {
+                String name = (String) movesArray.get(i);
+                MoveDataRequest moveDataRequest = new MoveDataRequest(this, name);
+                moveDataRequest.getMoveData(this);
+                Log.d("ammountTag", "" + i);
+            }
+        } else {
+            Toast.makeText(this, "moves not loaded", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void loadMove3(View view) {
+        if(movesArray != null) {
+            nr = 400;
+            limit = 600;
+            for (int i = nr; i < limit; i++) {
+                String name = (String) movesArray.get(i);
+                MoveDataRequest moveDataRequest = new MoveDataRequest(this, name);
+                moveDataRequest.getMoveData(this);
+                Log.d("ammountTag", "" + i);
+            }
+        } else {
+            Toast.makeText(this, "moves not loaded", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void loadMove4(View view) {
+        if(movesArray != null) {
+            nr = 600;
+            limit = movesArray.size()-18;
+            for (int i = nr; i < limit; i++) {
+                String name = (String) movesArray.get(i);
+                MoveDataRequest moveDataRequest = new MoveDataRequest(this, name);
+                moveDataRequest.getMoveData(this);
+                Log.d("ammountTag", "" + i);
+                Log.d("sizeTag", "moves: " + String.valueOf(movesArray.size()));
+            }
+        } else {
+            Toast.makeText(this, "moves not loaded", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void gotMoveData(MoveData moveData) {
+        moveDb.insert(moveData);
+        nr += 1;
+        Log.d("ammountTag", "add to db "+nr);
+        Log.d("ammountTag", moveData.getName());
+
+        if(nr == limit) {
+            if(limit == 200) {
+                Button move1 = findViewById(R.id.load_moves1);
+                move1.setVisibility(View.GONE);
+            }
+            if(limit == 400) {
+                Button move2 = findViewById(R.id.load_moves2);
+                move2.setVisibility(View.GONE);
+            }
+            if(limit == 600) {
+                Button move3 = findViewById(R.id.load_moves3);
+                move3.setVisibility(View.GONE);
+            }
+            if(limit == movesArray.size()) {
+                Button move4 = findViewById(R.id.load_moves4);
+                move4.setVisibility(View.GONE);
+            }
+
+            Log.d("ammountTag", "finished");
+        }
     }
 
     public void moveData2(ArrayList<String> moves) {
@@ -179,17 +275,6 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
             MoveDataRequest moveDataRequest = new MoveDataRequest(this, name);
             moveDataRequest.getMoveData(this);
             Log.d("ammountTag", ""+i);
-        }
-    }
-
-    public void gotMoveData(MoveData moveData) {
-//        moveDb.insert(moveData);
-        nr += 1;
-        Log.d("ammountTag", "add to db "+nr);
-        Log.d("ammountTag", moveData.getName());
-
-        if(nr == 10) {
-            Log.d("ammountTag", "finished");
         }
     }
 

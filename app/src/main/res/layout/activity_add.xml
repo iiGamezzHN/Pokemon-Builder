@@ -116,7 +116,7 @@
 
                 <Spinner
                     android:id="@+id/spn_item"
-                    android:layout_width="180dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
@@ -250,11 +250,12 @@
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
-                    android:text="@string/nature" />
+                    android:text="@string/nature"
+                    android:layout_gravity="center_vertical"/>
 
                 <Spinner
                     android:id="@+id/spn_nature"
-                    android:layout_width="150dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
 

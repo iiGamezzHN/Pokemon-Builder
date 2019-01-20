@@ -1,6 +1,7 @@
 package com.example.davidarisz.pokemonbuilder.Activities;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,8 +14,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.davidarisz.pokemonbuilder.Adapters.ItemAdapter;
+import com.example.davidarisz.pokemonbuilder.Adapters.NatureAdapter;
 import com.example.davidarisz.pokemonbuilder.Classes.SavedPokemon;
 import com.example.davidarisz.pokemonbuilder.Classes.SearchModel;
+import com.example.davidarisz.pokemonbuilder.Databases.ItemDatabase;
 import com.example.davidarisz.pokemonbuilder.Databases.NatureDatabase;
 import com.example.davidarisz.pokemonbuilder.Databases.PokemonDatabase;
 import com.example.davidarisz.pokemonbuilder.R;
@@ -87,9 +91,25 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
 
     // Requests for individual pokemon data, nature names and item names
     public void makeRequest () {
+        NatureDatabase natureDb = NatureDatabase.getInstance(getApplicationContext());
+        Spinner natures = findViewById(R.id.spn_nature);
+        NatureAdapter natureAdapter = new NatureAdapter(this, natureDb.selectAll());
+        natures.setAdapter(natureAdapter);
         // Pokemon data
-//        PokemonDataRequest pokemonData = new PokemonDataRequest(this, name);
-//        pokemonData.getPokemonData(this);
+        PokemonDataRequest pokemonData = new PokemonDataRequest(this, name);
+        pokemonData.getPokemonData(this);
+
+        ItemDatabase itemDb = ItemDatabase.getInstance(getApplicationContext());
+        Spinner items = findViewById(R.id.spn_item);
+        ItemAdapter itemAdapter = new ItemAdapter(this, itemDb.selectAll());
+        items.setAdapter(itemAdapter);
+
+        Cursor cursor = itemDb.selectAll();
+
+        while (cursor.moveToNext()) {
+            String test = cursor.getString(cursor.getColumnIndex("sprite"));
+            Log.d("natureDbTag", test);
+        }
 //
 //        // Nature names
 //        NatureNamesRequest natures = new NatureNamesRequest(this);

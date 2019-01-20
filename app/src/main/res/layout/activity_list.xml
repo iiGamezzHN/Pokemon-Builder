@@ -41,22 +41,15 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/loading"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="bla"
-        android:gravity="center"/>
-
     <Button
-        android:id="@+id/natures"
+        android:id="@+id/load_natures"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="natures"
         android:onClick="deleteDB"/>
 
     <Button
-        android:id="@+id/items"
+        android:id="@+id/load_items"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="items"
@@ -67,32 +60,32 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/moves1"
+            android:id="@+id/load_moves1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="moves1"
-            android:onClick="deleteDB"/>
+            android:onClick="loadMove1"/>
 
         <Button
-            android:id="@+id/moves2"
+            android:id="@+id/load_moves2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="moves2"
-            android:onClick="deleteDB"/>
+            android:onClick="loadMove2"/>
 
         <Button
-            android:id="@+id/moves3"
+            android:id="@+id/load_moves3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="moves3"
-            android:onClick="deleteDB"/>
+            android:onClick="loadMove3"/>
 
         <Button
-            android:id="@+id/moves4"
+            android:id="@+id/load_moves4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="moves4"
-            android:onClick="deleteDB"/>
+            android:onClick="loadMove4"/>
     </LinearLayout>
 
     <ListView
