@@ -14,14 +14,17 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.davidarisz.pokemonbuilder.Adapters.AbilityAdapter;
 import com.example.davidarisz.pokemonbuilder.Adapters.ItemAdapter;
 import com.example.davidarisz.pokemonbuilder.Adapters.NatureAdapter;
+import com.example.davidarisz.pokemonbuilder.Classes.AbilityData;
 import com.example.davidarisz.pokemonbuilder.Classes.SavedPokemon;
 import com.example.davidarisz.pokemonbuilder.Classes.SearchModel;
 import com.example.davidarisz.pokemonbuilder.Databases.ItemDatabase;
 import com.example.davidarisz.pokemonbuilder.Databases.NatureDatabase;
 import com.example.davidarisz.pokemonbuilder.Databases.PokemonDatabase;
 import com.example.davidarisz.pokemonbuilder.R;
+import com.example.davidarisz.pokemonbuilder.Requests.AbilityDataRequest;
 import com.example.davidarisz.pokemonbuilder.Requests.ItemDataRequest;
 import com.example.davidarisz.pokemonbuilder.Requests.ItemNamesRequest;
 import com.example.davidarisz.pokemonbuilder.Requests.NatureDataRequest;
@@ -39,13 +42,12 @@ import ir.mirrajabi.searchdialog.core.BaseSearchDialogCompat;
 import ir.mirrajabi.searchdialog.core.SearchResultListener;
 import ir.mirrajabi.searchdialog.core.Searchable;
 
-public class AddActivity extends AppCompatActivity implements PokemonDataRequest.Callback, NatureNamesRequest.Callback,
-        ItemNamesRequest.Callback {
+public class AddActivity extends AppCompatActivity implements PokemonDataRequest.Callback, AbilityDataRequest.Callback {
     private ArrayList pokemonNames;
+    private ArrayList<AbilityData> abilities = new ArrayList<>();
     private TextView tv;
-    public static String name;
-    private String url;
-    private String url_shiny;
+    private String name, url, url_shiny;
+    private int nr_abilities, nr_loop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,33 +93,27 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
 
     // Requests for individual pokemon data, nature names and item names
     public void makeRequest () {
-        NatureDatabase natureDb = NatureDatabase.getInstance(getApplicationContext());
-        Spinner natures = findViewById(R.id.spn_nature);
-        NatureAdapter natureAdapter = new NatureAdapter(this, natureDb.selectAll());
-        natures.setAdapter(natureAdapter);
         // Pokemon data
         PokemonDataRequest pokemonData = new PokemonDataRequest(this, name);
         pokemonData.getPokemonData(this);
 
+        // Item Data
         ItemDatabase itemDb = ItemDatabase.getInstance(getApplicationContext());
         Spinner items = findViewById(R.id.spn_item);
         ItemAdapter itemAdapter = new ItemAdapter(this, itemDb.selectAll());
         items.setAdapter(itemAdapter);
 
-        Cursor cursor = itemDb.selectAll();
+        // Nature data
+        NatureDatabase natureDb = NatureDatabase.getInstance(getApplicationContext());
+        Spinner natures = findViewById(R.id.spn_nature);
+        NatureAdapter natureAdapter = new NatureAdapter(this, natureDb.selectAll());
+        natures.setAdapter(natureAdapter);
 
-        while (cursor.moveToNext()) {
-            String test = cursor.getString(cursor.getColumnIndex("sprite"));
-            Log.d("natureDbTag", test);
-        }
-//
-//        // Nature names
-//        NatureNamesRequest natures = new NatureNamesRequest(this);
-//        natures.getNatureNames(this);
-//
-//        // Item names
-//        ItemNamesRequest items = new ItemNamesRequest(this);
-//        items.getItemNames(this);
+//        Cursor cursor = itemDb.selectAll();
+//        while (cursor.moveToNext()) {
+//            String test = cursor.getString(cursor.getColumnIndex("sprite"));
+//            Log.d("natureDbTag", test);
+//        }
     }
 
     // Pokemon data
@@ -131,13 +127,17 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
             moves.add(move2);
         }
         // Get all abilities for pokemon
+        nr_abilities = pokemon.getAbilities().size();
         for (AbilityItem abilityItem : pokemon.getAbilities()) {
             String ability = abilityItem.getAbility().getName();
-            String ability2 = ability.substring(0,1).toUpperCase() + ability.substring(1);
-            abilities.add(ability2);
+            Boolean hidden = abilityItem.is_hidden();
+
+            AbilityDataRequest abilityDataRequest = new AbilityDataRequest(this, ability, hidden);
+            abilityDataRequest.getAbilityData(this);
         }
 
-        Spinner ability = findViewById(R.id.spn_ability);
+        Log.d("loopTag", "After loop");
+
         Spinner move1 = findViewById(R.id.spn_move1);
         Spinner move2 = findViewById(R.id.spn_move2);
         Spinner move3 = findViewById(R.id.spn_move3);
@@ -152,78 +152,24 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         abilityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // Setting the ArrayAdapter data on the spinners
-        ability.setAdapter(abilityAdapter);
+//        ability.setAdapter(abilityAdapter);
         move1.setAdapter(movesAdapter);
         move2.setAdapter(movesAdapter);
         move3.setAdapter(movesAdapter);
         move4.setAdapter(movesAdapter);
     }
 
-    // Nature names
-    public void gotNatureNames(ArrayList natures) {
-        // Set names to spinner
-        Spinner nature = findViewById(R.id.spn_nature);
-        ArrayAdapter abilityAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, natures);
-        abilityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        nature.setAdapter(abilityAdapter);
+    public void gotAbilityData(AbilityData abilityData) {
+        nr_loop += 1;
+        Log.d("loopTag", "During loop");
+        abilities.add(abilityData);
+        if(nr_loop == nr_abilities) {
+            Log.d("loopTag", ""+abilities.size());
+            Spinner ability = findViewById(R.id.spn_ability);
+            AbilityAdapter abilityAdapter = new AbilityAdapter(this, R.layout.spinner_ability_row, R.id.tv_name, R.id.tv_description, abilities);
 
-        // Test autocomplete EditText for nature names
-//        test(natures);
-
-        // Request for nature data
-        for(int i=0;i < natures.size(); i++) {
-            String natureName = natures.get(i).toString();
-//            NatureDataRequest natureDataRequest = new NatureDataRequest(getApplicationContext(), natureName);
-//            natureDataRequest.getNatureData(this);
+            ability.setAdapter(abilityAdapter);
         }
-
-//        adaptNatures();
-    }
-
-    // Nature data
-    public void gotNatureData(ArrayList data) {
-//        natureData.add(data);
-    }
-
-//    public void adaptNatures() {
-//        Spinner nature = findViewById(R.id.spn_nature);
-//        NatureAdapter natureAdapter = new NatureAdapter(this, natureData);
-//
-//        nature.setAdapter(natureAdapter);
-//    }
-
-    // Autocomplete EditText for nature names
-//    public void test(ArrayList natures) {
-//        final AutoCompleteTextView autoCompleteTextView = findViewById(R.id.auto_nature);
-//        ArrayAdapter itemAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, natures);
-//        autoCompleteTextView.setAdapter(itemAdapter);
-//
-//        autoCompleteTextView.setOnTouchListener(new View.OnTouchListener() {
-//
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                autoCompleteTextView.showDropDown();
-//                return false;
-//            }
-//        });
-//    }
-
-    // Item names
-    public void gotItemNames(ArrayList items) {
-        // Set names to spinner
-        Spinner item = findViewById(R.id.spn_item);
-        ArrayAdapter itemAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, items);
-        itemAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        item.setAdapter(itemAdapter);
-
-        // Request for item data
-//        ItemDataRequest itemDataRequest = new ItemDataRequest(getApplicationContext(), "chesto-berry");
-//        itemDataRequest.getItemData(this);
-    }
-
-    // Item data
-    public void gotItemData(Item item) {
-        // asdf
     }
 
     // Add complete pokemon to database

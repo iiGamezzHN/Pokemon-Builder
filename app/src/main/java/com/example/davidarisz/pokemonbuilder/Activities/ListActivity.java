@@ -75,17 +75,15 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
 
         itemDb = ItemDatabase.getInstance(getApplicationContext());
         if(itemDb.selectAll().getCount() > 0) {
-            Toast.makeText(this, String.valueOf(itemDb.selectAll().getCount()), Toast.LENGTH_SHORT).show();
             Button loadNature = findViewById(R.id.load_items);
             loadNature.setVisibility(View.GONE);
         } else {
-            Log.d("sizeTag", "Start itemsname request");
             ItemNamesRequest itemNamesRequest = new ItemNamesRequest(this);
             itemNamesRequest.getItemNames(this);
         }
 
         moveDb = MoveDatabase.getInstance(getApplicationContext());
-//        Toast.makeText(this, "Begin Count: "+String.valueOf(moveDb.selectAll().getCount()), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Begin Count: "+String.valueOf(moveDb.selectAll().getCount()), Toast.LENGTH_SHORT).show();
         if(moveDb.selectAll().getCount() > 650) {
             // Do nothing
             Button loadMove1 = findViewById(R.id.load_moves1);
@@ -96,9 +94,8 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
             loadMove2.setVisibility(View.GONE);
             loadMove3.setVisibility(View.GONE);
             loadMove4.setVisibility(View.GONE);
-//            Toast.makeText(this, "Begin Count: "+String.valueOf(moveDb.selectAll().getCount()), Toast.LENGTH_SHORT).show();
+
 //            Cursor cursor = natureDb.selectAll();
-//
 //            while (cursor.moveToNext()) {
 //                String test = cursor.getString(cursor.getColumnIndex("name"));
 //                String test1 = cursor.getString(cursor.getColumnIndex("increased"));
