@@ -41,19 +41,26 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/load_natures"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="natures"
-        android:onClick="loadNatures"/>
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/load_items"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="items"
-        android:onClick="loadItems"/>
+        <Button
+            android:id="@+id/load_natures"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="natures"
+            android:onClick="loadNatures"/>
+
+        <Button
+            android:id="@+id/load_items"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="items"
+            android:onClick="loadItems"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -88,12 +95,41 @@
             android:onClick="loadMove4"/>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/load_moves5"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/load_moves5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="moves5"
+            android:onClick="loadMove5"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="del idb"
+            android:onClick="deleteDB"/>
+
+    </LinearLayout>
+
+
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
+
+    <TextView
+        android:id="@+id/tv_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="moves5"
-        android:onClick="loadMove5"/>
+        android:layout_marginStart="16dp"/>
 
     <ListView
         android:id="@+id/lv_saved_pokemon"

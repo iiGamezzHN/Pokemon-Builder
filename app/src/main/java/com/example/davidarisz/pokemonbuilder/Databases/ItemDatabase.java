@@ -60,7 +60,9 @@ public class ItemDatabase extends SQLiteOpenHelper {
         return getWritableDatabase().insert("items",null,contentValues);
     }
 
-    public long remove (int id) {
-        return getWritableDatabase().delete("items","_id = ?", new String[] { String.valueOf(id) });
+    public void remove () {
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL(SQL_DELETE_ITEMS);
+        onCreate(db);
     }
 }
