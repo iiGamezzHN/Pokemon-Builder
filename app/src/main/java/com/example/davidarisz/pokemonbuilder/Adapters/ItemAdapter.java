@@ -3,15 +3,16 @@ package com.example.davidarisz.pokemonbuilder.Adapters;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
+import android.view.ViewGroup;
+import android.widget.Filterable;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 
 import com.example.davidarisz.pokemonbuilder.R;
-import com.squareup.picasso.Picasso;
 
-public class ItemAdapter extends ResourceCursorAdapter {
+public class ItemAdapter extends ResourceCursorAdapter implements Filterable {
 
     public ItemAdapter(Context context, Cursor c) {
         super(context, R.layout.spinner_item_row, c);
@@ -26,13 +27,25 @@ public class ItemAdapter extends ResourceCursorAdapter {
         String sprite = cursor.getString(cursor.getColumnIndex("sprite"));
 
 //        ImageView img_sprite = view.findViewById(R.id.img_item);
-        TextView tv_name = view.findViewById(R.id.tv_name);
-        TextView tv_description = view.findViewById(R.id.tv_description);
+        TextView tv_name = view.findViewById(R.id.tv_name_item);
+        TextView tv_description = view.findViewById(R.id.tv_description_item);
 
         Log.d("imageTag", sprite);
 
-//        Picasso.get().load(sprite).resize(300,300).centerCrop().into(img_sprite);
         tv_name.setText(name2);
         tv_description.setText(effect2);
+    }
+
+    @Override
+    public View newView(Context context, Cursor cursor, ViewGroup parent) {
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View v = inflater.inflate(R.layout.spinner_item_row, parent, false);
+        bindView(v, context, cursor);
+        return v;
+    }
+
+    @Override
+    public String convertToString(Cursor cursor) {
+        return cursor.getString(cursor.getColumnIndex("name"));
     }
 }

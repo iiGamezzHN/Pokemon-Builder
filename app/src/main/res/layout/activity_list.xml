@@ -46,14 +46,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="natures"
-        android:onClick="deleteDB"/>
+        android:onClick="loadNatures"/>
 
     <Button
         android:id="@+id/load_items"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="items"
-        android:onClick="deleteDB"/>
+        android:onClick="loadItems"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -87,6 +87,13 @@
             android:text="moves4"
             android:onClick="loadMove4"/>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/load_moves5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="moves5"
+        android:onClick="loadMove5"/>
 
     <ListView
         android:id="@+id/lv_saved_pokemon"

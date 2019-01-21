@@ -5,8 +5,11 @@ import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -16,8 +19,11 @@ import android.widget.Toast;
 
 import com.example.davidarisz.pokemonbuilder.Adapters.AbilityAdapter;
 import com.example.davidarisz.pokemonbuilder.Adapters.ItemAdapter;
+import com.example.davidarisz.pokemonbuilder.Adapters.ItemArrayAdapter;
+import com.example.davidarisz.pokemonbuilder.Adapters.ItemArrayAdapter2;
 import com.example.davidarisz.pokemonbuilder.Adapters.NatureAdapter;
 import com.example.davidarisz.pokemonbuilder.Classes.AbilityData;
+import com.example.davidarisz.pokemonbuilder.Classes.ItemData;
 import com.example.davidarisz.pokemonbuilder.Classes.SavedPokemon;
 import com.example.davidarisz.pokemonbuilder.Classes.SearchModel;
 import com.example.davidarisz.pokemonbuilder.Databases.ItemDatabase;
@@ -93,15 +99,40 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
 
     // Requests for individual pokemon data, nature names and item names
     public void makeRequest () {
+        ArrayList<ItemData> items = new ArrayList<>();
         // Pokemon data
         PokemonDataRequest pokemonData = new PokemonDataRequest(this, name);
         pokemonData.getPokemonData(this);
 
         // Item Data
         ItemDatabase itemDb = ItemDatabase.getInstance(getApplicationContext());
-        Spinner items = findViewById(R.id.spn_item);
-        ItemAdapter itemAdapter = new ItemAdapter(this, itemDb.selectAll());
-        items.setAdapter(itemAdapter);
+        Cursor cursor = itemDb.selectAll();
+        while (cursor.moveToNext()) {
+            String item_name = cursor.getString(cursor.getColumnIndex("name"));
+            String item_effect = cursor.getString(cursor.getColumnIndex("effect"));
+            String item_sprite = cursor.getString(cursor.getColumnIndex("sprite"));
+            ItemData itemData = new ItemData(item_name, item_effect, item_sprite);
+//            Log.d("cursorTag", item_name+item_effect+sprite);
+            items.add(itemData);
+        }
+
+        ItemData test = items.get(1);
+        Log.d("cursorTag", test.getName()+test.getEffect()+test.getSprite());
+
+        Log.d("adapterTag", ""+items.size());
+        final AutoCompleteTextView auto_items = findViewById(R.id.auto_items);
+        ItemArrayAdapter2 itemAdapter = new ItemArrayAdapter2(this, items);
+//        ItemAdapter itemAdapter = new ItemAdapter(this, itemDb.selectAll());
+        auto_items.setAdapter(itemAdapter);
+        auto_items.setDropDownWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+        auto_items.showDropDown();
+        auto_items.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event){
+                auto_items.showDropDown();
+                return false;
+            }
+        });
 
         // Nature data
         NatureDatabase natureDb = NatureDatabase.getInstance(getApplicationContext());
@@ -148,8 +179,8 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         // Creating the ArrayAdapter instance having the country list
         ArrayAdapter movesAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, moves);
         movesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        ArrayAdapter abilityAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, abilities);
-        abilityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        ArrayAdapter abilityAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, abilities);
+//        abilityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // Setting the ArrayAdapter data on the spinners
 //        ability.setAdapter(abilityAdapter);
@@ -166,8 +197,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         if(nr_loop == nr_abilities) {
             Log.d("loopTag", ""+abilities.size());
             Spinner ability = findViewById(R.id.spn_ability);
-            AbilityAdapter abilityAdapter = new AbilityAdapter(this, R.layout.spinner_ability_row, R.id.tv_name, R.id.tv_description, abilities);
-
+            AbilityAdapter abilityAdapter = new AbilityAdapter(this, R.layout.spinner_ability_row, R.id.tv_name_ability, abilities);
             ability.setAdapter(abilityAdapter);
         }
     }
@@ -180,7 +210,8 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         // Get elements for layout
         CheckBox chk_male = findViewById(R.id.chk_male);
         CheckBox chk_female = findViewById(R.id.chk_female);
-        Spinner spn_item = findViewById(R.id.spn_item);
+//        Spinner spn_item = findViewById(R.id.spn_item);
+        AutoCompleteTextView auto_item = findViewById(R.id.auto_items);
         Spinner spn_ability = findViewById(R.id.spn_ability);
         Spinner spn_move1 = findViewById(R.id.spn_move1);
         Spinner spn_move2 = findViewById(R.id.spn_move2);
@@ -211,7 +242,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         }
 
         // Set filled in elements
-        String item = spn_item.getSelectedItem().toString();
+        String item = auto_item.toString();
         String ability = spn_ability.getSelectedItem().toString();
         String move1 = spn_move1.getSelectedItem().toString();
         String move2 = spn_move2.getSelectedItem().toString();
