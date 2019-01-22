@@ -72,9 +72,10 @@ I already have code that I can run. I've already processed two API requests and 
 ### Day 11 - Monday
 - AutoCompleteTextView finally works for items
 - Still need to do the AutoCompleteTextView for moves
-- I want some sort of progressbar for the loading of data into the database. Right now you have no feedback on how much is already done
+- I want some sort of progressbar for the loading of data into the databa
 - Still need to do better layout for Pokedex Details
 - Still need to do better layout for list of saved pokemon
 - Still need search or sort function for Pokedex/Search pokemon/List of saved Pokemon
 - Still need button to add pokemon from pokedex
 - Still need button to go to pokedex from saved pokemon
+- Made progressbars for everything that needs to be loaded into a database
