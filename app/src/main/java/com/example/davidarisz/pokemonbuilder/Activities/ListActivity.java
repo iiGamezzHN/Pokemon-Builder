@@ -54,9 +54,9 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        progressBar = findViewById(R.id.progress_bar);
+        progressBar = findViewById(R.id.progress_bar_list);
         progressBar.setVisibility(View.GONE);
-        tv_progress = findViewById(R.id.tv_progress);
+        tv_progress = findViewById(R.id.tv_progress_list);
         tv_progress.setVisibility(View.GONE);
 
         natureDb = NatureDatabase.getInstance(getApplicationContext());
@@ -192,13 +192,13 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
     }
 
     public void loadMove1(View view) {
+        progressBar.setVisibility(View.VISIBLE);
+        tv_progress.setVisibility(View.VISIBLE);
+        tv_progress.setText("Loading Items...");
         if(movesArray != null) {
             nr = 0;
             limit = 150;
             tot_count = limit;
-            progressBar.setVisibility(View.VISIBLE);
-            tv_progress.setVisibility(View.VISIBLE);
-            tv_progress.setText("Loading Items...");
             progressBar.setMax(limit);
             progressBar.setProgress(nr);
             progress = progressBar.getProgress() + "/" + limit;
@@ -211,17 +211,19 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
             }
         } else {
             Toast.makeText(this, "moves not loaded", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.GONE);
+            tv_progress.setVisibility(View.GONE);
         }
     }
 
     public void loadMove2(View view) {
+        progressBar.setVisibility(View.VISIBLE);
+        tv_progress.setVisibility(View.VISIBLE);
+        tv_progress.setText("Loading Items...");
         if(movesArray != null) {
             nr = 150;
             limit = 300;
             tot_count = limit-nr;
-            progressBar.setVisibility(View.VISIBLE);
-            tv_progress.setVisibility(View.VISIBLE);
-            tv_progress.setText("Loading Items...");
             progressBar.setMax(limit-nr);
             progressBar.setProgress(0);
             progress = progressBar.getProgress() + "/" + (limit-nr);
@@ -234,17 +236,19 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
             }
         } else {
             Toast.makeText(this, "moves not loaded", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.GONE);
+            tv_progress.setVisibility(View.GONE);
         }
     }
 
     public void loadMove3(View view) {
+        progressBar.setVisibility(View.VISIBLE);
+        tv_progress.setVisibility(View.VISIBLE);
+        tv_progress.setText("Loading Items...");
         if(movesArray != null) {
             nr = 300;
             limit = 450;
             tot_count = limit-nr;
-            progressBar.setVisibility(View.VISIBLE);
-            tv_progress.setVisibility(View.VISIBLE);
-            tv_progress.setText("Loading Items...");
             progressBar.setMax(limit-nr);
             progressBar.setProgress(0);
             progress = progressBar.getProgress() + "/" + (limit-nr);
@@ -257,17 +261,19 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
             }
         } else {
             Toast.makeText(this, "moves not loaded", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.GONE);
+            tv_progress.setVisibility(View.GONE);
         }
     }
 
     public void loadMove4(View view) {
+        progressBar.setVisibility(View.VISIBLE);
+        tv_progress.setVisibility(View.VISIBLE);
+        tv_progress.setText("Loading Items...");
         if(movesArray != null) {
             nr = 450;
             limit = 600;
             tot_count = limit-nr;
-            progressBar.setVisibility(View.VISIBLE);
-            tv_progress.setVisibility(View.VISIBLE);
-            tv_progress.setText("Loading Items...");
             progressBar.setMax(limit-nr);
             progressBar.setProgress(0);
             progress = progressBar.getProgress() + "/" + (limit-nr);
@@ -281,17 +287,19 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
             }
         } else {
             Toast.makeText(this, "moves not loaded", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.GONE);
+            tv_progress.setVisibility(View.GONE);
         }
     }
 
     public void loadMove5(View view) {
+        progressBar.setVisibility(View.VISIBLE);
+        tv_progress.setVisibility(View.VISIBLE);
+        tv_progress.setText("Loading Items...");
         if(movesArray != null) {
             nr = 600;
             limit = movesArray.size()-18;
             tot_count = limit-nr;
-            progressBar.setVisibility(View.VISIBLE);
-            tv_progress.setVisibility(View.VISIBLE);
-            tv_progress.setText("Loading Items...");
             progressBar.setMax(limit-nr);
             progressBar.setProgress(0);
             progress = progressBar.getProgress() + "/" + (limit-nr);
@@ -305,6 +313,8 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
             }
         } else {
             Toast.makeText(this, "moves not loaded", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.GONE);
+            tv_progress.setVisibility(View.GONE);
         }
     }
 

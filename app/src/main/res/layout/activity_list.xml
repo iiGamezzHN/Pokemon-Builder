@@ -115,9 +115,8 @@
     </LinearLayout>
 
 
-
     <ProgressBar
-        android:id="@+id/progress_bar"
+        android:id="@+id/progress_bar_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -126,7 +125,7 @@
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
 
     <TextView
-        android:id="@+id/tv_progress"
+        android:id="@+id/tv_progress_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"/>

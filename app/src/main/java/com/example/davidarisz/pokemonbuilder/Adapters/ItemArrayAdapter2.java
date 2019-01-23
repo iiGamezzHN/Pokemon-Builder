@@ -1,7 +1,6 @@
 package com.example.davidarisz.pokemonbuilder.Adapters;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -17,19 +16,19 @@ import java.util.List;
 import com.example.davidarisz.pokemonbuilder.Classes.ItemData;
 import com.example.davidarisz.pokemonbuilder.R;
 
-
+// The basis of this code was taken from: https://codinginflow.com/tutorials/android/custom-autocompletetextview/part-2-adapter
 public class ItemArrayAdapter2 extends ArrayAdapter<ItemData> {
-    private List<ItemData> countryListFull;
+    private List<ItemData> items;
 
-    public ItemArrayAdapter2(@NonNull Context context, @NonNull List<ItemData> countryList) {
-        super(context, 0, countryList);
-        countryListFull = new ArrayList<>(countryList);
+    public ItemArrayAdapter2(@NonNull Context context, @NonNull List<ItemData> items) {
+        super(context, 0, items);
+        this.items = new ArrayList<>(items);
     }
 
     @NonNull
     @Override
     public Filter getFilter() {
-        return countryFilter;
+        return itemsFilter;
     }
 
     @NonNull
@@ -37,37 +36,37 @@ public class ItemArrayAdapter2 extends ArrayAdapter<ItemData> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.spinner_item_row, parent, false
+                    R.layout.autocomplete_item_row, parent, false
             );
         }
 
         TextView textViewName = convertView.findViewById(R.id.tv_name_item);
         TextView textViewDescription = convertView.findViewById(R.id.tv_description_item);
 
-        ItemData countryItem = getItem(position);
+        ItemData item = getItem(position);
 
-        if (countryItem != null) {
-            String name = countryItem.getName();
+        if (item != null) {
+            String name = item.getName();
             String name2 = name.substring(0,1).toUpperCase() + name.substring(1);
             textViewName.setText(name2);
-            textViewDescription.setText(countryItem.getEffect());
+            textViewDescription.setText(item.getEffect());
         }
 
         return convertView;
     }
 
-    private Filter countryFilter = new Filter() {
+    private Filter itemsFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             FilterResults results = new FilterResults();
             List<ItemData> suggestions = new ArrayList<>();
 
             if (constraint == null || constraint.length() == 0) {
-                suggestions.addAll(countryListFull);
+                suggestions.addAll(items);
             } else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
-                for (ItemData item : countryListFull) {
+                for (ItemData item : items) {
                     if (item.getName().toLowerCase().contains(filterPattern)) {
                         suggestions.add(item);
                     }
