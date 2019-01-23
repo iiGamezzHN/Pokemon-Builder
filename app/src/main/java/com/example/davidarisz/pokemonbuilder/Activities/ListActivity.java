@@ -44,7 +44,7 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
     private NatureDatabase natureDb;
     private ItemDatabase itemDb;
     private MoveDatabase moveDb;
-    private int nr, counter, limit;
+    private int nr, counter, limit, tot_count;
     private ProgressBar progressBar;
     private TextView tv_progress;
     private String progress;
@@ -195,6 +195,7 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
         if(movesArray != null) {
             nr = 0;
             limit = 150;
+            tot_count = limit;
             progressBar.setVisibility(View.VISIBLE);
             tv_progress.setVisibility(View.VISIBLE);
             tv_progress.setText("Loading Items...");
@@ -217,6 +218,7 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
         if(movesArray != null) {
             nr = 150;
             limit = 300;
+            tot_count = limit-nr;
             progressBar.setVisibility(View.VISIBLE);
             tv_progress.setVisibility(View.VISIBLE);
             tv_progress.setText("Loading Items...");
@@ -239,6 +241,7 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
         if(movesArray != null) {
             nr = 300;
             limit = 450;
+            tot_count = limit-nr;
             progressBar.setVisibility(View.VISIBLE);
             tv_progress.setVisibility(View.VISIBLE);
             tv_progress.setText("Loading Items...");
@@ -261,6 +264,7 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
         if(movesArray != null) {
             nr = 450;
             limit = 600;
+            tot_count = limit-nr;
             progressBar.setVisibility(View.VISIBLE);
             tv_progress.setVisibility(View.VISIBLE);
             tv_progress.setText("Loading Items...");
@@ -284,6 +288,7 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
         if(movesArray != null) {
             nr = 600;
             limit = movesArray.size()-18;
+            tot_count = limit-nr;
             progressBar.setVisibility(View.VISIBLE);
             tv_progress.setVisibility(View.VISIBLE);
             tv_progress.setText("Loading Items...");
@@ -307,7 +312,7 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
         moveDb.insert(moveData);
         nr += 1;
         progressBar.incrementProgressBy(1);
-        progress = progressBar.getProgress() + "/" + (limit-nr);
+        progress = progressBar.getProgress() + "/" + tot_count;
         tv_progress.setText(progress);
         Log.d("ammountTag", "add to db "+nr);
         Log.d("ammountTag", moveData.getName());
@@ -337,7 +342,7 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
                 progressBar.setVisibility(View.GONE);
                 tv_progress.setVisibility(View.GONE);
             }
-            if(limit == movesArray.size()) {
+            if(limit == movesArray.size()-18) {
                 Button move5 = findViewById(R.id.load_moves5);
                 move5.setVisibility(View.GONE);
                 progressBar.setVisibility(View.GONE);

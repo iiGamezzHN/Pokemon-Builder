@@ -52,8 +52,8 @@ public class MoveDatabase extends SQLiteOpenHelper {
         return getWritableDatabase().rawQuery("select * from moves",null);
     }
 
-    public Cursor selectMove(String name) {
-        return getWritableDatabase().rawQuery("select * from moves WHERE name = ?", new String[]{ name }, null);
+    public Cursor selectMove(String move) {
+        return getWritableDatabase().rawQuery("select * from moves WHERE name = ?", new String[] { move });
     }
 
     public Long insert (MoveData moveData) {

@@ -47,7 +47,9 @@ public class ItemArrayAdapter2 extends ArrayAdapter<ItemData> {
         ItemData countryItem = getItem(position);
 
         if (countryItem != null) {
-            textViewName.setText(countryItem.getName());
+            String name = countryItem.getName();
+            String name2 = name.substring(0,1).toUpperCase() + name.substring(1);
+            textViewName.setText(name2);
             textViewDescription.setText(countryItem.getEffect());
         }
 

@@ -2,8 +2,10 @@ package com.example.davidarisz.pokemonbuilder.Activities;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,8 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.davidarisz.pokemonbuilder.Adapters.AbilityAdapter;
-import com.example.davidarisz.pokemonbuilder.Adapters.ItemAdapter;
-import com.example.davidarisz.pokemonbuilder.Adapters.ItemArrayAdapter;
 import com.example.davidarisz.pokemonbuilder.Adapters.ItemArrayAdapter2;
 import com.example.davidarisz.pokemonbuilder.Adapters.NatureAdapter;
 import com.example.davidarisz.pokemonbuilder.Classes.AbilityData;
@@ -27,17 +27,13 @@ import com.example.davidarisz.pokemonbuilder.Classes.ItemData;
 import com.example.davidarisz.pokemonbuilder.Classes.SavedPokemon;
 import com.example.davidarisz.pokemonbuilder.Classes.SearchModel;
 import com.example.davidarisz.pokemonbuilder.Databases.ItemDatabase;
+import com.example.davidarisz.pokemonbuilder.Databases.MoveDatabase;
 import com.example.davidarisz.pokemonbuilder.Databases.NatureDatabase;
 import com.example.davidarisz.pokemonbuilder.Databases.PokemonDatabase;
 import com.example.davidarisz.pokemonbuilder.R;
 import com.example.davidarisz.pokemonbuilder.Requests.AbilityDataRequest;
-import com.example.davidarisz.pokemonbuilder.Requests.ItemDataRequest;
-import com.example.davidarisz.pokemonbuilder.Requests.ItemNamesRequest;
-import com.example.davidarisz.pokemonbuilder.Requests.NatureDataRequest;
-import com.example.davidarisz.pokemonbuilder.Requests.NatureNamesRequest;
 import com.example.davidarisz.pokemonbuilder.Requests.PokemonDataRequest;
 import com.example.davidarisz.pokemonbuilder.models.AbilityItem;
-import com.example.davidarisz.pokemonbuilder.models.Item;
 import com.example.davidarisz.pokemonbuilder.models.MoveItem;
 import com.example.davidarisz.pokemonbuilder.models.Pokemon;
 
@@ -51,21 +47,47 @@ import ir.mirrajabi.searchdialog.core.Searchable;
 public class AddActivity extends AppCompatActivity implements PokemonDataRequest.Callback, AbilityDataRequest.Callback {
     private ArrayList pokemonNames;
     private ArrayList<AbilityData> abilities = new ArrayList<>();
-    private TextView tv;
+    private TextView tv_name;
     private String name, url, url_shiny;
     private int nr_abilities, nr_loop;
+    private String item = "";
+    private String ability = "";
+    private String move1 = "";
+    private String move2 = "";
+    private String move3 = "";
+    private String move4 = "";
+    private String nature = "";
+    private String gender = "";
+    private int hp_iv, att_iv, def_iv, spa_iv, spd_iv, sp_iv, hp_ev, att_ev, def_ev, spa_ev, spd_ev, sp_ev;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
         pokemonNames = getIntent().getStringArrayListExtra("namesTag");
+        hp_iv= att_iv= def_iv= spa_iv= spd_iv= sp_iv= hp_ev= att_ev= def_ev= spa_ev= spd_ev= sp_ev-1;
+        if(getIntent().getStringExtra("addName") != null) {
+            name = getIntent().getStringExtra("addName");
+            Toast.makeText(this, name, Toast.LENGTH_SHORT).show();
+            String name2 = name.substring(0,1).toUpperCase() + name.substring(1);
+            tv_name = findViewById(R.id.tv_name);
+            String adding = "Adding: " + name2;
+            tv_name.setText(adding);
+
+            // Not doing this causes error: Unable to add window -- token null is not valid; is your activity running?
+            // On auto_items.showDropDown()
+            new Handler().postDelayed(new Runnable() {
+                public void run() {
+                    makeRequest();
+                }
+            }, 1000);
+        } else {
+            tv_name = findViewById(R.id.tv_name);
+            tv_name.setText("Adding: ");
+        }
 
         Button button = findViewById(R.id.btn_add_tab);
         button.setBackgroundColor(getResources().getColor(R.color.selectedTab));
-
-        tv = findViewById(R.id.tv_name);
-        tv.setText("Adding: ");
 
         findViewById(R.id.btn_search).setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -76,9 +98,9 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
                         baseSearchDialogCompat.dismiss();
                         name = searchable.getTitle();
                         String name2 = name.substring(0,1).toUpperCase() + name.substring(1);
-                        tv = findViewById(R.id.tv_name);
+                        tv_name = findViewById(R.id.tv_name);
                         String adding = "Adding: " + name2;
-                        tv.setText(adding);
+                        tv_name.setText(adding);
 
                         makeRequest();
                     }
@@ -121,7 +143,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
 
         Log.d("adapterTag", ""+items.size());
         final AutoCompleteTextView auto_items = findViewById(R.id.auto_items);
-        ItemArrayAdapter2 itemAdapter = new ItemArrayAdapter2(this, items);
+        ItemArrayAdapter2 itemAdapter = new ItemArrayAdapter2(AddActivity.this, items);
 //        ItemAdapter itemAdapter = new ItemAdapter(this, itemDb.selectAll());
         auto_items.setAdapter(itemAdapter);
         auto_items.setDropDownWidth(ViewGroup.LayoutParams.MATCH_PARENT);
@@ -139,24 +161,37 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         Spinner natures = findViewById(R.id.spn_nature);
         NatureAdapter natureAdapter = new NatureAdapter(this, natureDb.selectAll());
         natures.setAdapter(natureAdapter);
-
-//        Cursor cursor = itemDb.selectAll();
-//        while (cursor.moveToNext()) {
-//            String test = cursor.getString(cursor.getColumnIndex("sprite"));
-//            Log.d("natureDbTag", test);
-//        }
     }
 
     // Pokemon data
     public void gotPokemonData (Pokemon pokemon) {
         ArrayList<String> moves = new ArrayList<String>();
         ArrayList<String> abilities = new ArrayList<String>();
+        MoveDatabase moveDb = MoveDatabase.getInstance(getApplicationContext());
         // Get all moves for pokemon
         for (MoveItem moveItem : pokemon.getMoves()) {
             String move = moveItem.getMove().getName();
             String move2 = move.substring(0,1).toUpperCase() + move.substring(1);
             moves.add(move2);
+
+            Cursor cursor = moveDb.selectMove(move);
+            while (cursor.moveToNext()) {
+                int power = cursor.getInt(cursor.getColumnIndex("power"));
+                int accuracy = cursor.getInt(cursor.getColumnIndex("accuracy"));
+                int pp = cursor.getInt(cursor.getColumnIndex("pp"));
+                Log.d("moveTag", move+", "+power+", "+accuracy+", "+pp);
+            }
         }
+
+        Cursor cursor1 = moveDb.selectMove("pound");
+        while (cursor1.moveToNext()) {
+            Log.d("moveDbTag", "" + cursor1.getCount());
+            Log.d("moveDbTag", "" + cursor1.getColumnCount());
+            Log.d("moveDbTag", "" + cursor1.getString(cursor1.getColumnIndex("name")));
+        }
+
+
+
         // Get all abilities for pokemon
         nr_abilities = pokemon.getAbilities().size();
         for (AbilityItem abilityItem : pokemon.getAbilities()) {
@@ -202,14 +237,25 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         }
     }
 
-    // Add complete pokemon to database
-    public void addPokemon(View view) {
-        // Get database
-        PokemonDatabase db = PokemonDatabase.getInstance(getApplicationContext());
+    public boolean isAnyStringNullOrEmpty(String... strings) {
+        for (String s : strings)
+            if (s == null || s.isEmpty())
+                return true;
+        return false;
+    }
 
+    public boolean isAnyIntNullOrEmpty(int... ints) {
+        for (int i : ints)
+            if (i == -1 || i >= 32)
+                return true;
+        return false;
+    }
+
+    public void checkInputs(View view) {
         // Get elements for layout
         CheckBox chk_male = findViewById(R.id.chk_male);
         CheckBox chk_female = findViewById(R.id.chk_female);
+        CheckBox chk_genderless = findViewById(R.id.chk_genderless);
 //        Spinner spn_item = findViewById(R.id.spn_item);
         AutoCompleteTextView auto_item = findViewById(R.id.auto_items);
         Spinner spn_ability = findViewById(R.id.spn_ability);
@@ -230,46 +276,72 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         EditText et_spa_ev = findViewById(R.id.et_spa_ev);
         EditText et_spd_ev = findViewById(R.id.et_spd_ev);
         EditText et_sp_ev = findViewById(R.id.et_sp_ev);
-        String gender;
 
         // Check checkboxes
-        if(chk_male.isChecked()) {
+        if (chk_male.isChecked()) {
             gender = "Male";
-        } else if (chk_female.isChecked()){
+        } else if (chk_female.isChecked()) {
             gender = "Female";
-        } else {
+        } else if (chk_genderless.isChecked()) {
             gender = "Genderless";
+        } else {
+            gender = "";
         }
 
         // Set filled in elements
-        String item = auto_item.toString();
-        String ability = spn_ability.getSelectedItem().toString();
-        String move1 = spn_move1.getSelectedItem().toString();
-        String move2 = spn_move2.getSelectedItem().toString();
-        String move3 = spn_move3.getSelectedItem().toString();
-        String move4 = spn_move4.getSelectedItem().toString();
-        String nature = spn_nature.getSelectedItem().toString();
-        int hp_iv = Integer.parseInt(et_hp_iv.getText().toString());
-        int att_iv = Integer.parseInt(et_att_iv.getText().toString());
-        int def_iv = Integer.parseInt(et_def_iv.getText().toString());
-        int spa_iv = Integer.parseInt(et_spa_iv.getText().toString());
-        int spd_iv = Integer.parseInt(et_spd_iv.getText().toString());
-        int sp_iv = Integer.parseInt(et_sp_iv.getText().toString());
-        int hp_ev = Integer.parseInt(et_hp_ev.getText().toString());
-        int att_ev = Integer.parseInt(et_att_ev.getText().toString());
-        int def_ev = Integer.parseInt(et_def_ev.getText().toString());
-        int spa_ev = Integer.parseInt(et_spa_ev.getText().toString());
-        int spd_ev = Integer.parseInt(et_spd_ev.getText().toString());
-        int sp_ev = Integer.parseInt(et_sp_ev.getText().toString());
+        item = auto_item.toString();
+        ability = spn_ability.getSelectedItem().toString();
+        move1 = spn_move1.getSelectedItem().toString();
+        move2 = spn_move2.getSelectedItem().toString();
+        move3 = spn_move3.getSelectedItem().toString();
+        move4 = spn_move4.getSelectedItem().toString();
+        nature = spn_nature.getSelectedItem().toString();
+
+        if(TextUtils.isEmpty(et_hp_iv.getText()) || TextUtils.isEmpty(et_att_iv.getText()) ||
+                TextUtils.isEmpty(et_def_iv.getText()) || TextUtils.isEmpty(et_spa_iv.getText()) ||
+                TextUtils.isEmpty(et_spd_iv.getText()) || TextUtils.isEmpty(et_sp_iv.getText()) ||
+                TextUtils.isEmpty(et_hp_ev.getText()) || TextUtils.isEmpty(et_att_ev.getText()) ||
+                TextUtils.isEmpty(et_def_ev.getText()) || TextUtils.isEmpty(et_spa_ev.getText()) ||
+                TextUtils.isEmpty(et_spd_ev.getText()) || TextUtils.isEmpty(et_sp_ev.getText())) {
+            Toast.makeText(this, "Oops, you forgot to fill in some IV's/EV's!", Toast.LENGTH_SHORT).show();
+        } else {
+            hp_iv = Integer.parseInt(et_hp_iv.getText().toString());
+            att_iv = Integer.parseInt(et_att_iv.getText().toString());
+            def_iv = Integer.parseInt(et_def_iv.getText().toString());
+            spa_iv = Integer.parseInt(et_spa_iv.getText().toString());
+            spd_iv = Integer.parseInt(et_spd_iv.getText().toString());
+            sp_iv = Integer.parseInt(et_sp_iv.getText().toString());
+            hp_ev = Integer.parseInt(et_hp_ev.getText().toString());
+            att_ev = Integer.parseInt(et_att_ev.getText().toString());
+            def_ev = Integer.parseInt(et_def_ev.getText().toString());
+            spa_ev = Integer.parseInt(et_spa_ev.getText().toString());
+            spd_ev = Integer.parseInt(et_spd_ev.getText().toString());
+            sp_ev = Integer.parseInt(et_sp_ev.getText().toString());
+        }
+
+        if (isAnyStringNullOrEmpty(item, ability, move1, move2, move3, move4, nature, gender)) {
+            Toast.makeText(AddActivity.this, "Oops, you forgot to fill in some fields!", Toast.LENGTH_SHORT).show();
+        } else if (isAnyIntNullOrEmpty(hp_iv, att_iv, def_iv, spa_iv, spd_iv, sp_iv, hp_ev, att_ev, def_ev, spa_ev, spd_ev, sp_ev)) {
+            Toast.makeText(this, "Oops, you forgot to fill", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "adding to db", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // Add complete pokemon to database
+    public void addPokemon(View view) {
+
+        // Get database
+        PokemonDatabase db = PokemonDatabase.getInstance(getApplicationContext());
 
         // Save pokemon to database
-        SavedPokemon savedPokemon = new SavedPokemon(0,name,item,ability,move1,move2,move3,move4,nature,
-                hp_iv,att_iv,def_iv,spa_iv,spd_iv,sp_iv,hp_ev,att_ev,def_ev,spa_ev,spd_ev,sp_ev,url, url_shiny,gender);
-        db.insert(savedPokemon);
+//        SavedPokemon savedPokemon = new SavedPokemon(0, name, item, ability, move1, move2, move3, move4, nature,
+//                hp_iv, att_iv, def_iv, spa_iv, spd_iv, sp_iv, hp_ev, att_ev, def_ev, spa_ev, spd_ev, sp_ev, url, url_shiny, gender);
+//        db.insert(savedPokemon);
         Intent intent = new Intent(getApplicationContext(), ListActivity.class);
         startActivity(intent);
         // Get rid of opening animation of new activity
-        overridePendingTransition(0,0);
+        overridePendingTransition(0, 0);
     }
 
     public void toList(View view) {

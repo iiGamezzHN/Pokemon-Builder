@@ -64,12 +64,13 @@
                 android:id="@+id/img_normal"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:layout_marginEnd="16dp"/>
+                android:layout_margin="8dp"/>
 
             <ImageView
                 android:id="@+id/img_shiny"
                 android:layout_width="150dp"
-                android:layout_height="150dp"/>
+                android:layout_height="150dp"
+                android:layout_margin="8dp"/>
 
         </LinearLayout>
 
@@ -97,9 +98,7 @@
         android:layout_margin="16dp"
         android:clickable="true"
         android:focusable="true"
-        android:onClick="toInput"
-        android:tint="@color/colorPrimaryDark"
-        app:backgroundTint="?attr/colorPrimary"
+        android:src="@drawable/pokeball2"
         app:srcCompat="@android:drawable/ic_input_add" />
 
 </android.support.design.widget.CoordinatorLayout>
