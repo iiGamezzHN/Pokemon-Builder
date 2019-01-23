@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
 
 import com.example.davidarisz.pokemonbuilder.Classes.MoveData;
-import com.example.davidarisz.pokemonbuilder.Classes.NatureData;
 
 public class MoveDatabase extends SQLiteOpenHelper {
 
@@ -17,7 +16,10 @@ public class MoveDatabase extends SQLiteOpenHelper {
             "name" + " TEXT NOT NULL, " +
             "power" + " INTEGER NOT NULL, " +
             "accuracy" + " INTEGER NOT NULL, " +
-            "pp" + " INTEGER NOT NULL)";
+            "pp" + " INTEGER NOT NULL, " +
+            "category" + " STRING NOT NULL, " +
+            "effect" + " STRING NOT NULL, " +
+            "type" + " STRING NOT NULL)";
 
     private static final String SQL_DELETE_MOVES = "DROP TABLE IF EXISTS " + "moves";
 
@@ -63,6 +65,9 @@ public class MoveDatabase extends SQLiteOpenHelper {
         contentValues.put("power",moveData.getPower());
         contentValues.put("accuracy",moveData.getAccuracy());
         contentValues.put("pp",moveData.getPp());
+        contentValues.put("category",moveData.getCategory());
+        contentValues.put("effect",moveData.getEffect());
+        contentValues.put("type",moveData.getType());
 
         return getWritableDatabase().insert("moves",null,contentValues);
     }

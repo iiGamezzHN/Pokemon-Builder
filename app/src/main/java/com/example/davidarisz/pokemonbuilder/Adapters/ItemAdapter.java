@@ -15,7 +15,7 @@ import com.example.davidarisz.pokemonbuilder.R;
 public class ItemAdapter extends ResourceCursorAdapter implements Filterable {
 
     public ItemAdapter(Context context, Cursor c) {
-        super(context, R.layout.spinner_item_row, c);
+        super(context, R.layout.autocomplete_item_row, c);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class ItemAdapter extends ResourceCursorAdapter implements Filterable {
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View v = inflater.inflate(R.layout.spinner_item_row, parent, false);
+        View v = inflater.inflate(R.layout.autocomplete_item_row, parent, false);
         bindView(v, context, cursor);
         return v;
     }

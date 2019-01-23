@@ -21,9 +21,11 @@ import android.widget.Toast;
 
 import com.example.davidarisz.pokemonbuilder.Adapters.AbilityAdapter;
 import com.example.davidarisz.pokemonbuilder.Adapters.ItemArrayAdapter2;
+import com.example.davidarisz.pokemonbuilder.Adapters.MoveAdapter;
 import com.example.davidarisz.pokemonbuilder.Adapters.NatureAdapter;
 import com.example.davidarisz.pokemonbuilder.Classes.AbilityData;
 import com.example.davidarisz.pokemonbuilder.Classes.ItemData;
+import com.example.davidarisz.pokemonbuilder.Classes.MoveData;
 import com.example.davidarisz.pokemonbuilder.Classes.SavedPokemon;
 import com.example.davidarisz.pokemonbuilder.Classes.SearchModel;
 import com.example.davidarisz.pokemonbuilder.Databases.ItemDatabase;
@@ -144,10 +146,9 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         Log.d("adapterTag", ""+items.size());
         final AutoCompleteTextView auto_items = findViewById(R.id.auto_items);
         ItemArrayAdapter2 itemAdapter = new ItemArrayAdapter2(AddActivity.this, items);
-//        ItemAdapter itemAdapter = new ItemAdapter(this, itemDb.selectAll());
         auto_items.setAdapter(itemAdapter);
         auto_items.setDropDownWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-        auto_items.showDropDown();
+//        auto_items.showDropDown();
         auto_items.setOnTouchListener(new View.OnTouchListener(){
             @Override
             public boolean onTouch(View v, MotionEvent event){
@@ -165,32 +166,52 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
 
     // Pokemon data
     public void gotPokemonData (Pokemon pokemon) {
-        ArrayList<String> moves = new ArrayList<String>();
+        ArrayList<MoveData> moves = new ArrayList<>();
         ArrayList<String> abilities = new ArrayList<String>();
         MoveDatabase moveDb = MoveDatabase.getInstance(getApplicationContext());
         // Get all moves for pokemon
         for (MoveItem moveItem : pokemon.getMoves()) {
             String move = moveItem.getMove().getName();
             String move2 = move.substring(0,1).toUpperCase() + move.substring(1);
-            moves.add(move2);
 
             Cursor cursor = moveDb.selectMove(move);
             while (cursor.moveToNext()) {
                 int power = cursor.getInt(cursor.getColumnIndex("power"));
                 int accuracy = cursor.getInt(cursor.getColumnIndex("accuracy"));
                 int pp = cursor.getInt(cursor.getColumnIndex("pp"));
-                Log.d("moveTag", move+", "+power+", "+accuracy+", "+pp);
+                String category = cursor.getString(cursor.getColumnIndex("category"));
+                String effect = cursor.getString(cursor.getColumnIndex("effect"));
+                String type = cursor.getString(cursor.getColumnIndex("type"));
+//                Log.d("moveTag", move+", "+power+", "+accuracy+", "+pp);
+                MoveData moveData = new MoveData(move2,power,accuracy,pp,category,effect,type);
+                moves.add(moveData);
             }
         }
 
-        Cursor cursor1 = moveDb.selectMove("pound");
-        while (cursor1.moveToNext()) {
-            Log.d("moveDbTag", "" + cursor1.getCount());
-            Log.d("moveDbTag", "" + cursor1.getColumnCount());
-            Log.d("moveDbTag", "" + cursor1.getString(cursor1.getColumnIndex("name")));
-        }
+        MoveAdapter moveAdapter = new MoveAdapter(AddActivity.this, moves);
+        final AutoCompleteTextView auto_moves1 = findViewById(R.id.auto_move1);
+        final AutoCompleteTextView auto_moves2 = findViewById(R.id.auto_move2);
+        final AutoCompleteTextView auto_moves3 = findViewById(R.id.auto_move3);
+        final AutoCompleteTextView auto_moves4 = findViewById(R.id.auto_move4);
 
+        auto_moves1.setAdapter(moveAdapter);
+        auto_moves2.setAdapter(moveAdapter);
+        auto_moves3.setAdapter(moveAdapter);
+        auto_moves4.setAdapter(moveAdapter);
 
+        auto_moves1.setDropDownWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+        auto_moves2.setDropDownWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+        auto_moves3.setDropDownWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+        auto_moves4.setDropDownWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+//        auto_moves1.showDropDown();
+
+        auto_moves1.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event){
+                auto_moves1.showDropDown();
+                return false;
+            }
+        });
 
         // Get all abilities for pokemon
         nr_abilities = pokemon.getAbilities().size();
@@ -204,10 +225,9 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
 
         Log.d("loopTag", "After loop");
 
-        Spinner move1 = findViewById(R.id.spn_move1);
-        Spinner move2 = findViewById(R.id.spn_move2);
-        Spinner move3 = findViewById(R.id.spn_move3);
-        Spinner move4 = findViewById(R.id.spn_move4);
+//        Spinner move2 = findViewById(R.id.spn_move2);
+//        Spinner move3 = findViewById(R.id.spn_move3);
+//        Spinner move4 = findViewById(R.id.spn_move4);
         url = pokemon.getSprites().getFront_default();
         url_shiny = pokemon.getSprites().getFront_shiny();
 
@@ -219,10 +239,9 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
 
         // Setting the ArrayAdapter data on the spinners
 //        ability.setAdapter(abilityAdapter);
-        move1.setAdapter(movesAdapter);
-        move2.setAdapter(movesAdapter);
-        move3.setAdapter(movesAdapter);
-        move4.setAdapter(movesAdapter);
+//        move2.setAdapter(movesAdapter);
+//        move3.setAdapter(movesAdapter);
+//        move4.setAdapter(movesAdapter);
     }
 
     public void gotAbilityData(AbilityData abilityData) {

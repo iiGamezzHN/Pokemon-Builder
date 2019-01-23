@@ -61,7 +61,7 @@ public class NatureAdapter extends ResourceCursorAdapter {
         TextView tv_description = view.findViewById(R.id.tv_inc_dec);
 
         tv_name.setText(name2);
-        String description = "+ "+increased+" - "+decreased;
+        String description = "+ "+increased+"    - "+decreased;
         tv_description.setText(description);
     }
 }

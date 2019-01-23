@@ -79,3 +79,8 @@ I already have code that I can run. I've already processed two API requests and 
 - Still need button to add pokemon from pokedex
 - Still need button to go to pokedex from saved pokemon
 - Made progressbars for everything that needs to be loaded into a database
+
+## Day 12 - Tuesday
+- Can now add pokemon from PokedexDetails activity
+- Need checks for AddActivity so you can't add pokemon when parts are empty/not filled in correctly
+- Need to expand move database with effect and damage class

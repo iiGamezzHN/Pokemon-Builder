@@ -63,8 +63,15 @@ public class MoveDataRequest implements Response.Listener<JSONObject>, Response.
         int power = move.getPower();
         int accuracy = move.getAccuracy();
         int pp = move.getPp();
+        String categorie = move.getDamage_class().getName();
+        String effect = "";
+        String type = move.getType().getName();
 
-        MoveData moveData = new MoveData(name, power, accuracy, pp);
+        for(Move.EffectEntries effectEntries : move.getEffect_entries()) {
+            effect = effectEntries.getShort_effect();
+        }
+
+        MoveData moveData = new MoveData(name, power, accuracy, pp, categorie, effect, type);
 
         activity.gotMoveData(moveData);
     }
