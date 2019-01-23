@@ -22,7 +22,7 @@ public class ListAdapter extends ResourceCursorAdapter {
         String item = cursor.getString(cursor.getColumnIndex("item"));
         String url = cursor.getString(cursor.getColumnIndex("url"));
 
-        TextView list_name = view.findViewById(R.id.tv_name);
+        TextView list_name = view.findViewById(R.id.tv_name); // TODO, show boosts and type
         TextView list_item = view.findViewById(R.id.tv_item);
         ImageView list_picture = view.findViewById(R.id.img_picture);
 

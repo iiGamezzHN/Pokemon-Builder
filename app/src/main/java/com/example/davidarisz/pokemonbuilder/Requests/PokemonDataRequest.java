@@ -1,6 +1,7 @@
 package com.example.davidarisz.pokemonbuilder.Requests;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -12,6 +13,7 @@ import com.example.davidarisz.pokemonbuilder.models.AbilityItem;
 import com.example.davidarisz.pokemonbuilder.models.MoveItem;
 import com.example.davidarisz.pokemonbuilder.models.Pokemon;
 import com.example.davidarisz.pokemonbuilder.models.Sprites;
+import com.example.davidarisz.pokemonbuilder.models.StatsItem;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
@@ -57,20 +59,9 @@ public class PokemonDataRequest implements Response.Listener<JSONObject>, Respon
     public void onResponse(JSONObject response) {
         Pokemon pokemon = gson.fromJson(response.toString(), Pokemon.class);
 
-        for (AbilityItem abilityItem : pokemon.getAbilities()) {
-//            System.out.println(
-//                    String.format("DAVID IS HOMO. Ohja %s heeft deze ability: %s", pokemon.getName(), abilityItem.getAbility().getName())
-//                    );
+        for (StatsItem statsItem : pokemon.getStats()) {
+            Log.d("statTag", ""+statsItem.getBase_stat());
         }
-
-        for (MoveItem moveItem : pokemon.getMoves()) {
-//            System.out.println(
-//                    String.format("%s heeft deze move: %s", pokemon.getName(), moveItem.getMove().getName())
-//                    );
-        }
-
-        Sprites sprites = pokemon.getSprites();
-//        System.out.println(String.format("back_default = %s", sprites.getBack_default()));
 
         activity.gotPokemonData(pokemon);
     }

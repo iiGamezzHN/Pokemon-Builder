@@ -74,19 +74,138 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_weight"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/type1"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Bug"
+                android:textAlignment="textEnd"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/"/>
+
+            <TextView
+                android:id="@+id/type2"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Dragon"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_marginStart="16dp"
-            android:text="@string/weight" />
+            android:layout_marginEnd="16dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/weight"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/tv_hp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hp"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/tv_att"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Att"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/tv_def"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Def"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_height"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/height"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/tv_sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sp"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/tv_spa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SpA"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/tv_spd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SpD"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_height"
+        android:id="@+id/tv_ability_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ability name"
+        android:layout_marginStart="16sp"/>
+
+        <TextView
+            android:id="@+id/tv_ability_effect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@string/height" />
+            android:text="Ability effect"
+            android:layout_marginStart="16sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Held item: "
+            android:layout_marginStart="16dp"/>
+
+        <LinearLayout
+            android:id="@+id/add_ability_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        </LinearLayout>
 
     </LinearLayout>
 

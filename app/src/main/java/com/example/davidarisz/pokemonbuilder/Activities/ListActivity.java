@@ -73,7 +73,7 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
             loadNature.setVisibility(View.GONE);
         }
 
-        moveDb = MoveDatabase.getInstance(getApplicationContext());
+        moveDb = MoveDatabase.getInstance(getApplicationContext()); // TODO, check which button is already loaded
         Toast.makeText(this, "Moves: "+String.valueOf(moveDb.selectAll().getCount()), Toast.LENGTH_SHORT).show();
         if(moveDb.selectAll().getCount() > 660) {
             Button loadMove1 = findViewById(R.id.load_moves1);

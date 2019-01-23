@@ -264,7 +264,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         Spinner spn_move3 = findViewById(R.id.spn_move3);
         Spinner spn_move4 = findViewById(R.id.spn_move4);
         Spinner spn_nature = findViewById(R.id.spn_nature);
-        EditText et_hp_iv = findViewById(R.id.et_hp_iv);
+        EditText et_hp_iv = findViewById(R.id.et_hp_iv); // TODO, maybe show base stats
         EditText et_att_iv = findViewById(R.id.et_att_iv);
         EditText et_def_iv = findViewById(R.id.et_def_iv);
         EditText et_spa_iv = findViewById(R.id.et_spa_iv);
@@ -295,10 +295,10 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         move2 = spn_move2.getSelectedItem().toString();
         move3 = spn_move3.getSelectedItem().toString();
         move4 = spn_move4.getSelectedItem().toString();
-        nature = spn_nature.getSelectedItem().toString();
+        nature = spn_nature.getSelectedItem().toString(); // TODO, show what gets a boost and what doesn't
 
-        if(TextUtils.isEmpty(et_hp_iv.getText()) || TextUtils.isEmpty(et_att_iv.getText()) ||
-                TextUtils.isEmpty(et_def_iv.getText()) || TextUtils.isEmpty(et_spa_iv.getText()) ||
+        if(TextUtils.isEmpty(et_hp_iv.getText()) || TextUtils.isEmpty(et_att_iv.getText()) || // TODO, complete the checks for all inputs
+                TextUtils.isEmpty(et_def_iv.getText()) || TextUtils.isEmpty(et_spa_iv.getText()) || // TODO, fix these checks
                 TextUtils.isEmpty(et_spd_iv.getText()) || TextUtils.isEmpty(et_sp_iv.getText()) ||
                 TextUtils.isEmpty(et_hp_ev.getText()) || TextUtils.isEmpty(et_att_ev.getText()) ||
                 TextUtils.isEmpty(et_def_ev.getText()) || TextUtils.isEmpty(et_spa_ev.getText()) ||

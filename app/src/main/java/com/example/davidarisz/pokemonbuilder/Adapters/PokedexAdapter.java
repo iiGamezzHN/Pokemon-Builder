@@ -28,7 +28,7 @@ public class PokedexAdapter extends ArrayAdapter<String> {
         String name = getItem(position);
 
         TextView textView = convertView.findViewById(R.id.tv_name);
-        textView.setText(name); // Set the name to a TextView
+        textView.setText(name); // TODO, Show pokeball icon/ id in front of name
 
         return convertView;
     }
