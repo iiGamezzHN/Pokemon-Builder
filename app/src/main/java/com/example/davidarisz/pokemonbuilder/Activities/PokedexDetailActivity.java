@@ -55,7 +55,8 @@ public class PokedexDetailActivity extends AppCompatActivity implements PokemonD
 
     public void gotPokemonData(Pokemon pokemon) {
         String name = pokemon.getName();
-        String name2 = name.substring(0,1).toUpperCase() + name.substring(1);
+        String id = "#"+String.valueOf(pokemon.getId());
+        String name2 = id+" - "+name.substring(0,1).toUpperCase() + name.substring(1);
         String weight = String.valueOf(pokemon.getWeight());
         String height = String.valueOf(pokemon.getHeight());
         String normal, shiny;
