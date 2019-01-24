@@ -1,6 +1,7 @@
 package com.example.davidarisz.pokemonbuilder.Activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,6 +25,8 @@ import java.util.ArrayList;
 public class PokedexDetailActivity extends AppCompatActivity implements PokemonDataRequest.Callback {
     private ArrayList pokemonNames;
     private TextView tv_name;
+    private TextView tv_type1;
+    private TextView tv_type2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,9 @@ public class PokedexDetailActivity extends AppCompatActivity implements PokemonD
         Intent intent = getIntent();
         final String name = intent.getStringExtra("nameTag");
         pokemonNames = intent.getStringArrayListExtra("namesTag");
+        tv_name = findViewById(R.id.tv_name);
+        tv_type1 = findViewById(R.id.type1);
+        tv_type2 = findViewById(R.id.type2);
 
         PokemonDataRequest request = new PokemonDataRequest(PokedexDetailActivity.this, name);
         request.getPokemonData(this);
@@ -83,9 +89,9 @@ public class PokedexDetailActivity extends AppCompatActivity implements PokemonD
 
         for(TypesItem typesItem : pokemon.getTypes()) { // TODO, make this into blocks with color
             if(typesItem.getSlot() == 1) {
-                type1 = typesItem.getType().getName();
+                type1 = typesItem.getType().getName().substring(0,1).toUpperCase() + typesItem.getType().getName().substring(1);
             } else if(typesItem.getSlot() == 2) {
-                type2 = typesItem.getType().getName();
+                type2 = typesItem.getType().getName().substring(0,1).toUpperCase() + typesItem.getType().getName().substring(1);
             }
         }
 
@@ -131,12 +137,9 @@ public class PokedexDetailActivity extends AppCompatActivity implements PokemonD
             item2 = "Held item: "+item.substring(0,1).toUpperCase() + item.substring(1);
         }
 
-        tv_name = findViewById(R.id.tv_name);
         ImageView iv_normal = findViewById(R.id.img_normal);
         ImageView iv_shiny = findViewById(R.id.img_shiny);
         TextView tv_weight = findViewById(R.id.tv_weight);
-        TextView tv_type1 = findViewById(R.id.type1);
-        TextView tv_type2 = findViewById(R.id.type2);
         TextView tv_height = findViewById(R.id.tv_height);
         TextView tv_hp = findViewById(R.id.tv_hp);
         TextView tv_att = findViewById(R.id.tv_att);
@@ -156,7 +159,10 @@ public class PokedexDetailActivity extends AppCompatActivity implements PokemonD
         tv_weight.setText(weight2);
         tv_height.setText(height2);
         tv_type1.setText(type1);
+        tv_type1.setTextColor(Color.parseColor("#ffffff"));
         tv_type2.setText(type2);
+        tv_type2.setTextColor(Color.parseColor("#ffffff"));
+        setTypeColors(type1, type2);
         tv_hp.setText(hp);
         tv_att.setText(att);
         tv_def.setText(def);
@@ -166,6 +172,83 @@ public class PokedexDetailActivity extends AppCompatActivity implements PokemonD
         tv_item.setText(item2);
 
         // TODO, add abilities dynamically or make views visible when there's more than 1
+    }
+
+    public void setTypeColors(String type1, String type2) {
+        // Set colors
+        if(type1.equals("Normal")) {
+        } else if(type1.equals("Fire")) {
+            tv_type1.setBackgroundColor(Color.parseColor("#f08030"));
+        } else if(type1.equals("Water")) {
+            tv_type1.setBackgroundColor(Color.parseColor("#6890f0"));
+        } else if(type1.equals("Grass")) {
+            tv_type1.setBackgroundColor(Color.parseColor("#78c850"));
+        } else if(type1.equals("Electric")) {
+            tv_type1.setBackgroundColor(Color.parseColor("#f8d030"));
+        } else if(type1.equals("Ice")) {
+            tv_type1.setBackgroundColor(Color.parseColor("#98d8d8"));
+        } else if(type1.equals("Fighting")) {
+            tv_type1.setBackgroundColor(Color.parseColor("#c03028"));
+        } else if(type1.equals("Poison")) {
+            tv_type1.setBackgroundColor(Color.parseColor("#a040a0"));
+        } else if(type1.equals("Ground")) {
+            tv_type1.setBackgroundColor(Color.parseColor("#e0c068"));
+        } else if(type1.equals("Flying")) {
+            tv_type1.setBackgroundColor(Color.parseColor("#a890f0"));
+        } else if(type1.equals("Psychic")) {
+            tv_type1.setBackgroundColor(Color.parseColor("#f85888"));
+        } else if(type1.equals("Bug")) {
+            tv_type1.setBackgroundColor(Color.parseColor("#a8b820"));
+        } else if(type1.equals("Rock")) {
+            tv_type1.setBackgroundColor(Color.parseColor("#b8a038"));
+        } else if(type1.equals("Ghost")) {
+            tv_type1.setBackgroundColor(Color.parseColor("#705898"));
+        } else if(type1.equals("Dark")) {
+            tv_type1.setBackgroundColor(Color.parseColor("#705848"));
+        } else if(type1.equals("Dragon")) {
+            tv_type1.setBackgroundColor(Color.parseColor("#7038f8"));
+        } else if(type1.equals("Steel")) {
+            tv_type1.setBackgroundColor(Color.parseColor("#b8b8d0"));
+        } else if(type1.equals("Fairy")) {
+            tv_type1.setBackgroundColor(Color.parseColor("#f0b6bc"));
+        }
+
+        if(type2.equals("Normal")) {
+        } else if(type2.equals("Fire")) {
+            tv_type2.setBackgroundColor(Color.parseColor("#f08030"));
+        } else if(type2.equals("Water")) {
+            tv_type2.setBackgroundColor(Color.parseColor("#6890f0"));
+        } else if(type2.equals("Grass")) {
+            tv_type2.setBackgroundColor(Color.parseColor("#78c850"));
+        } else if(type2.equals("Electric")) {
+            tv_type2.setBackgroundColor(Color.parseColor("#f8d030"));
+        } else if(type2.equals("Ice")) {
+            tv_type2.setBackgroundColor(Color.parseColor("#98d8d8"));
+        } else if(type2.equals("Fighting")) {
+            tv_type2.setBackgroundColor(Color.parseColor("#c03028"));
+        } else if(type2.equals("Poison")) {
+            tv_type2.setBackgroundColor(Color.parseColor("#a040a0"));
+        } else if(type2.equals("Ground")) {
+            tv_type2.setBackgroundColor(Color.parseColor("#e0c068"));
+        } else if(type2.equals("Flying")) {
+            tv_type2.setBackgroundColor(Color.parseColor("#a890f0"));
+        } else if(type2.equals("Psychic")) {
+            tv_type2.setBackgroundColor(Color.parseColor("#f85888"));
+        } else if(type2.equals("Bug")) {
+            tv_type2.setBackgroundColor(Color.parseColor("#a8b820"));
+        } else if(type2.equals("Rock")) {
+            tv_type2.setBackgroundColor(Color.parseColor("#b8a038"));
+        } else if(type2.equals("Ghost")) {
+            tv_type2.setBackgroundColor(Color.parseColor("#705898"));
+        } else if(type2.equals("Dark")) {
+            tv_type2.setBackgroundColor(Color.parseColor("#705848"));
+        } else if(type2.equals("Dragon")) {
+            tv_type2.setBackgroundColor(Color.parseColor("#7038f8"));
+        } else if(type2.equals("Steel")) {
+            tv_type2.setBackgroundColor(Color.parseColor("#b8b8d0"));
+        } else if(type2.equals("Fairy")) {
+            tv_type2.setBackgroundColor(Color.parseColor("#f0b6bc"));
+        }
     }
 
     public void toList(View view) {
