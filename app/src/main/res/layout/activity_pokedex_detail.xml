@@ -78,7 +78,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_marginBottom="16dp">
 
             <TextView
                 android:id="@+id/type1"
@@ -117,29 +118,33 @@
                     android:id="@+id/tv_weight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/weight"
-                    android:layout_weight="1"/>
+                    android:layout_marginBottom="8dp"
+                    android:layout_weight="1"
+                    android:text="@string/weight" />
 
                 <TextView
                     android:id="@+id/tv_hp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hp"
-                    android:layout_weight="1"/>
+                    android:layout_marginBottom="8dp"
+                    android:layout_weight="1"
+                    android:text="Hp" />
 
                 <TextView
                     android:id="@+id/tv_att"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Att"
-                    android:layout_weight="1"/>
+                    android:layout_marginBottom="8dp"
+                    android:layout_weight="1"
+                    android:text="Att" />
 
                 <TextView
                     android:id="@+id/tv_def"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Def"
-                    android:layout_weight="1"/>
+                    android:layout_marginBottom="8dp"
+                    android:layout_weight="1"
+                    android:text="Def" />
 
             </LinearLayout>
 
@@ -153,48 +158,55 @@
                     android:id="@+id/tv_height"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/height"
-                    android:layout_weight="1"/>
+                    android:layout_marginBottom="8dp"
+                    android:layout_weight="1"
+                    android:text="@string/height" />
 
                 <TextView
                     android:id="@+id/tv_sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sp"
-                    android:layout_weight="1"/>
+                    android:layout_marginBottom="8dp"
+                    android:layout_weight="1"
+                    android:text="Sp" />
 
                 <TextView
                     android:id="@+id/tv_spa"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SpA"
-                    android:layout_weight="1"/>
+                    android:layout_marginBottom="8dp"
+                    android:layout_weight="1"
+                    android:text="SpA" />
 
                 <TextView
                     android:id="@+id/tv_spd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SpD"
-                    android:layout_weight="1"/>
+                    android:layout_marginBottom="8dp"
+                    android:layout_weight="1"
+                    android:text="SpD" />
 
             </LinearLayout>
         </LinearLayout>
 
         <TextView
-        android:id="@+id/tv_ability_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Ability name"
-        android:layout_marginStart="16sp"/>
+            android:id="@+id/tv_ability_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16sp"
+            android:layout_marginBottom="8dp"
+            android:text="Ability name" />
 
         <TextView
             android:id="@+id/tv_ability_effect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ability effect"
-            android:layout_marginStart="16sp"/>
+            android:layout_marginStart="16sp"
+            android:layout_marginBottom="8dp"
+            android:text="Ability effect" />
 
         <TextView
+            android:id="@+id/held_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Held item: "

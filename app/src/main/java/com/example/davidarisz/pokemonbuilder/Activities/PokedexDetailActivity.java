@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.davidarisz.pokemonbuilder.R;
 import com.example.davidarisz.pokemonbuilder.Requests.PokemonDataRequest;
+import com.example.davidarisz.pokemonbuilder.models.HeldItem;
 import com.example.davidarisz.pokemonbuilder.models.Pokemon;
 import com.example.davidarisz.pokemonbuilder.models.StatsItem;
 import com.example.davidarisz.pokemonbuilder.models.TypesItem;
@@ -58,8 +59,15 @@ public class PokedexDetailActivity extends AppCompatActivity implements PokemonD
 
     public void gotPokemonData(Pokemon pokemon) {
         String name = pokemon.getName();
-        String id = "#"+String.valueOf(pokemon.getId());
-        String name2 = id+" - "+name.substring(0,1).toUpperCase() + name.substring(1);
+        int id = pokemon.getId();
+        String name2;
+        if(String.valueOf(id).length() == 1) {
+            name2 = "#00"+id+" - "+name.substring(0,1).toUpperCase() + name.substring(1);
+        } else if(String.valueOf(id).length() == 2) {
+            name2 = "#0"+id+" - "+name.substring(0,1).toUpperCase() + name.substring(1);
+        } else {
+            name2 = "#"+id+" - "+name.substring(0,1).toUpperCase() + name.substring(1);
+        }
         String weight = String.valueOf(pokemon.getWeight());
         String height = String.valueOf(pokemon.getHeight());
         String normal, shiny, hp, att, def, spa, spd, sp, type1, type2; // TODO, ask if this is a good way
@@ -117,6 +125,11 @@ public class PokedexDetailActivity extends AppCompatActivity implements PokemonD
             height = height.substring(0, height.length() - 1) + "." + height.substring(height.length() - 1);
         }
         String height2 = "Height: " + height + " m";
+        String item2 = "Held item: None";
+        for(HeldItem heldItem : pokemon.getHeld_items()) {
+            String item = heldItem.getItem().getName();
+            item2 = "Held item: "+item.substring(0,1).toUpperCase() + item.substring(1);
+        }
 
         tv_name = findViewById(R.id.tv_name);
         ImageView iv_normal = findViewById(R.id.img_normal);
@@ -131,6 +144,7 @@ public class PokedexDetailActivity extends AppCompatActivity implements PokemonD
         TextView tv_spa = findViewById(R.id.tv_spa);
         TextView tv_spd = findViewById(R.id.tv_spd);
         TextView tv_sp = findViewById(R.id.tv_sp);
+        TextView tv_item = findViewById(R.id.held_item);
 
         tv_name.setText(name2);
         Picasso.get().load(normal).resize(300,300).into(iv_normal);
@@ -149,6 +163,7 @@ public class PokedexDetailActivity extends AppCompatActivity implements PokemonD
         tv_spa.setText(spa);
         tv_spd.setText(spd);
         tv_sp.setText(sp);
+        tv_item.setText(item2);
 
         // TODO, add abilities dynamically or make views visible when there's more than 1
     }

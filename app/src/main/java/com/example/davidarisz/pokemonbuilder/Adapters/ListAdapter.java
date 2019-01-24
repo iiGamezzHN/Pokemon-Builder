@@ -24,7 +24,7 @@ public class ListAdapter extends ResourceCursorAdapter {
 
         TextView list_name = view.findViewById(R.id.tv_name); // TODO, show boosts and type
         TextView list_item = view.findViewById(R.id.tv_item);
-        ImageView list_picture = view.findViewById(R.id.img_picture);
+        ImageView list_picture = view.findViewById(R.id.img_picture_list);
 
         list_name.setText(name);
         list_item.setText(item);

@@ -3,14 +3,13 @@ package com.example.davidarisz.pokemonbuilder.models;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Pokemon {
     private ArrayList<AbilityItem> abilities;
     private int base_experience;
     private ArrayList<GameIndexItem> game_indices;
     private int height;
-//    private ArrayList<String> held_items;
+    private ArrayList<HeldItem> held_items;
     private int id;
     private boolean is_default;
     private String location_area_encounters;
@@ -56,13 +55,13 @@ public class Pokemon {
         this.height = height;
     }
 
-//    public ArrayList<String> getHeld_items() {
-//        return held_items;
-//    }
-//
-//    public void setHeld_items(ArrayList<String> held_items) {
-//        this.held_items = held_items;
-//    }
+    public ArrayList<HeldItem> getHeld_items() {
+        return held_items;
+    }
+
+    public void setHeld_items(ArrayList<HeldItem> held_items) {
+        this.held_items = held_items;
+    }
 
     public int getId() {
         return id;

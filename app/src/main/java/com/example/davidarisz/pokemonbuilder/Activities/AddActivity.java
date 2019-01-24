@@ -188,6 +188,8 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
             }
         }
 
+        Log.d("sizeTag", "nr of moves: "+moves.size());
+
         MoveAdapter moveAdapter = new MoveAdapter(AddActivity.this, moves);
         final AutoCompleteTextView auto_moves1 = findViewById(R.id.auto_move1);
         final AutoCompleteTextView auto_moves2 = findViewById(R.id.auto_move2);
@@ -281,10 +283,10 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
 //        Spinner spn_item = findViewById(R.id.spn_item);
         AutoCompleteTextView auto_item = findViewById(R.id.auto_items);
         Spinner spn_ability = findViewById(R.id.spn_ability);
-        Spinner spn_move1 = findViewById(R.id.spn_move1);
-        Spinner spn_move2 = findViewById(R.id.spn_move2);
-        Spinner spn_move3 = findViewById(R.id.spn_move3);
-        Spinner spn_move4 = findViewById(R.id.spn_move4);
+        AutoCompleteTextView auto_move1 = findViewById(R.id.auto_move1);
+        AutoCompleteTextView auto_move2 = findViewById(R.id.auto_move2);
+        AutoCompleteTextView auto_move3 = findViewById(R.id.auto_move3);
+        AutoCompleteTextView auto_move4 = findViewById(R.id.auto_move4);
         Spinner spn_nature = findViewById(R.id.spn_nature);
         EditText et_hp_iv = findViewById(R.id.et_hp_iv); // TODO, maybe show base stats
         EditText et_att_iv = findViewById(R.id.et_att_iv);
@@ -313,10 +315,10 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         // Set filled in elements
         item = auto_item.toString();
         ability = spn_ability.getSelectedItem().toString();
-        move1 = spn_move1.getSelectedItem().toString();  // TODO, fix this so i can add pokemon again
-        move2 = spn_move2.getSelectedItem().toString();
-        move3 = spn_move3.getSelectedItem().toString();
-        move4 = spn_move4.getSelectedItem().toString();
+        move1 = auto_move1.toString();  // TODO, fix this so i can add pokemon again
+        move2 = auto_move2.toString();
+        move3 = auto_move3.toString();
+        move4 = auto_move4.toString();
         nature = spn_nature.getSelectedItem().toString(); // TODO, show what gets a boost and what doesn't
 
         if(TextUtils.isEmpty(et_hp_iv.getText()) || TextUtils.isEmpty(et_att_iv.getText()) || // TODO, complete the checks for all inputs
@@ -347,6 +349,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
             Toast.makeText(this, "Oops, you forgot to fill", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "adding to db", Toast.LENGTH_SHORT).show();
+            addPokemon(view);
         }
     }
 
@@ -357,9 +360,9 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         PokemonDatabase db = PokemonDatabase.getInstance(getApplicationContext());
 
         // Save pokemon to database
-//        SavedPokemon savedPokemon = new SavedPokemon(0, name, item, ability, move1, move2, move3, move4, nature,
-//                hp_iv, att_iv, def_iv, spa_iv, spd_iv, sp_iv, hp_ev, att_ev, def_ev, spa_ev, spd_ev, sp_ev, url, url_shiny, gender);
-//        db.insert(savedPokemon);
+        SavedPokemon savedPokemon = new SavedPokemon(0, name, item, ability, move1, move2, move3, move4, nature,
+                hp_iv, att_iv, def_iv, spa_iv, spd_iv, sp_iv, hp_ev, att_ev, def_ev, spa_ev, spd_ev, sp_ev, url, url_shiny, gender);
+        db.insert(savedPokemon);
         Intent intent = new Intent(getApplicationContext(), ListActivity.class);
         startActivity(intent);
         // Get rid of opening animation of new activity
