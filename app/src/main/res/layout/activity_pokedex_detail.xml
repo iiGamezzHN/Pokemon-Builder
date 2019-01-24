@@ -218,8 +218,8 @@
         android:clickable="true"
         android:focusable="true"
         android:src="@drawable/pokeball3"
+        android:backgroundTint="#a3a3a3"
         app:borderWidth="0dp"
-        app:fabSize="normal"
-        android:backgroundTint="@android:color/transparent" />
+        app:fabSize="normal" />
 
 </android.support.design.widget.CoordinatorLayout>

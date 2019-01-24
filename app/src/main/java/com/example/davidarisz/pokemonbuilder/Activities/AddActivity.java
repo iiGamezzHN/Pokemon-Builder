@@ -203,12 +203,32 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         auto_moves2.setDropDownWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         auto_moves3.setDropDownWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         auto_moves4.setDropDownWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-//        auto_moves1.showDropDown();
 
         auto_moves1.setOnTouchListener(new View.OnTouchListener(){
             @Override
             public boolean onTouch(View v, MotionEvent event){
                 auto_moves1.showDropDown();
+                return false;
+            }
+        });
+        auto_moves2.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event){
+                auto_moves2.showDropDown();
+                return false;
+            }
+        });
+        auto_moves3.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event){
+                auto_moves3.showDropDown();
+                return false;
+            }
+        });
+        auto_moves4.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event){
+                auto_moves4.showDropDown();
                 return false;
             }
         });
@@ -223,25 +243,8 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
             abilityDataRequest.getAbilityData(this);
         }
 
-        Log.d("loopTag", "After loop");
-
-//        Spinner move2 = findViewById(R.id.spn_move2);
-//        Spinner move3 = findViewById(R.id.spn_move3);
-//        Spinner move4 = findViewById(R.id.spn_move4);
         url = pokemon.getSprites().getFront_default();
         url_shiny = pokemon.getSprites().getFront_shiny();
-
-        // Creating the ArrayAdapter instance having the country list
-        ArrayAdapter movesAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, moves);
-        movesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        ArrayAdapter abilityAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, abilities);
-//        abilityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // Setting the ArrayAdapter data on the spinners
-//        ability.setAdapter(abilityAdapter);
-//        move2.setAdapter(movesAdapter);
-//        move3.setAdapter(movesAdapter);
-//        move4.setAdapter(movesAdapter);
     }
 
     public void gotAbilityData(AbilityData abilityData) {

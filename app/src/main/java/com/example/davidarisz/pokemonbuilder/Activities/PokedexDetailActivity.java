@@ -30,7 +30,7 @@ public class PokedexDetailActivity extends AppCompatActivity implements PokemonD
         setContentView(R.layout.activity_pokedex_detail);
 
         Intent intent = getIntent();
-        String name = intent.getStringExtra("nameTag");
+        final String name = intent.getStringExtra("nameTag");
         pokemonNames = intent.getStringArrayListExtra("namesTag");
 
         PokemonDataRequest request = new PokemonDataRequest(PokedexDetailActivity.this, name);
@@ -46,7 +46,7 @@ public class PokedexDetailActivity extends AppCompatActivity implements PokemonD
             public void onClick(View view) {
                 Toast.makeText(PokedexDetailActivity.this, "Clicked button", Toast.LENGTH_SHORT).show();
 
-                String pass_name = tv_name.getText().toString();
+                String pass_name = name;
                 String pass_name2 = pass_name.substring(0,1).toLowerCase() + pass_name.substring(1);
                 Intent intent = new Intent(getApplicationContext(), AddActivity.class);
                 intent.putExtra("addName", pass_name2);
