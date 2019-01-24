@@ -1,27 +1,45 @@
 package com.example.davidarisz.pokemonbuilder.Classes;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import com.example.davidarisz.pokemonbuilder.Activities.ListDetailActivity;
 import com.example.davidarisz.pokemonbuilder.Activities.PokedexDetailActivity;
-import com.example.davidarisz.pokemonbuilder.R;
 
-public class SetTypeColors { // TODO, ask if this is a good way to avoid huge walls of text
+public class SetTypeColors extends AppCompatActivity { // TODO, ask if this is a good way to avoid huge walls of text
     private Context context;
     private String type1;
     private String type2;
+    private int resource1;
+    private int resource2;
+    private String activity;
 
-    public SetTypeColors(Context context, String type1, String type2) {
+    public SetTypeColors(Context context, String type1, String type2, int resource1, int resource2,
+                         String activity) {
         this.context = context;
         this.type1 = type1;
         this.type2 = type2;
+        this.resource1 = resource1;
+        this.resource2 = resource2;
+        this.activity = activity;
         setColors();
     }
 
     public void setColors() {
-        TextView tv_type1 = (TextView) ((PokedexDetailActivity)context).findViewById(R.id.type1);
-        TextView tv_type2 = ((PokedexDetailActivity)context).findViewById(R.id.type2);
+        TextView tv_type1 = null;
+        TextView tv_type2 = null;
+
+        if(activity.equals("pokedex")) {
+            tv_type1 = ((PokedexDetailActivity)context).findViewById(resource1);
+            tv_type2 = ((PokedexDetailActivity)context).findViewById(resource2);
+        } else if(activity.equals("list")) {
+            tv_type1 = ((ListDetailActivity)context).findViewById(resource1);
+            tv_type2 = ((ListDetailActivity)context).findViewById(resource2);
+        }
+
 
         if(type1.equals("Normal")) {
         } else if(type1.equals("Fire")) {

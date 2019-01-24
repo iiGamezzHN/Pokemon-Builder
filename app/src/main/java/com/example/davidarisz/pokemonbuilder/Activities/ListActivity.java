@@ -75,18 +75,27 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
 
         moveDb = MoveDatabase.getInstance(getApplicationContext()); // TODO, check which button is already loaded
         Toast.makeText(this, "Moves: "+String.valueOf(moveDb.selectAll().getCount()), Toast.LENGTH_SHORT).show();
-        if(moveDb.selectAll().getCount() > 660) {
+        if(moveDb.selectMove("swords-dance").getCount() == 1) {
             Button loadMove1 = findViewById(R.id.load_moves1);
-            Button loadMove2 = findViewById(R.id.load_moves2);
-            Button loadMove3 = findViewById(R.id.load_moves3);
-            Button loadMove4 = findViewById(R.id.load_moves4);
-            Button loadMove5 = findViewById(R.id.load_moves5);
             loadMove1.setVisibility(View.GONE);
+        }
+        if(moveDb.selectMove("sleep-talk").getCount() == 1) {
+            Button loadMove2 = findViewById(R.id.load_moves2);
             loadMove2.setVisibility(View.GONE);
+        }
+        if(moveDb.selectMove("drain-punch").getCount() == 1) {
+            Button loadMove3 = findViewById(R.id.load_moves3);
             loadMove3.setVisibility(View.GONE);
+        }
+        if(moveDb.selectMove("work-up").getCount() == 1) {
+            Button loadMove4 = findViewById(R.id.load_moves4);
             loadMove4.setVisibility(View.GONE);
+        }
+        if(moveDb.selectMove("thousand-waves").getCount() == 1) {
+            Button loadMove5 = findViewById(R.id.load_moves5);
             loadMove5.setVisibility(View.GONE);
-        } else {
+        }
+        if(moveDb.selectAll().getCount() < 660) {
             MoveNamesRequest moveNamesRequest = new MoveNamesRequest(this);
             moveNamesRequest.getMoveNames(this);
         }
@@ -283,7 +292,6 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
                 MoveDataRequest moveDataRequest = new MoveDataRequest(this, name);
                 moveDataRequest.getMoveData(this);
                 Log.d("ammountTag", "" + i);
-                Log.d("sizeTag", "moves: " + String.valueOf(movesArray.size()));
             }
         } else {
             Toast.makeText(this, "moves not loaded", Toast.LENGTH_SHORT).show();
@@ -309,7 +317,6 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
                 MoveDataRequest moveDataRequest = new MoveDataRequest(this, name);
                 moveDataRequest.getMoveData(this);
                 Log.d("ammountTag", "" + i);
-                Log.d("sizeTag", "moves: " + String.valueOf(movesArray.size()));
             }
         } else {
             Toast.makeText(this, "moves not loaded", Toast.LENGTH_SHORT).show();
@@ -392,9 +399,12 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
             String url = cursor.getString(cursor.getColumnIndex("url"));
             String url_shiny = cursor.getString(cursor.getColumnIndex("url_shiny"));
             String gender = cursor.getString(cursor.getColumnIndex("gender"));
+            String type1 = cursor.getString(cursor.getColumnIndex("type1"));
+            String type2 = cursor.getString(cursor.getColumnIndex("type2"));
 
-            SavedPokemon savedPokemon = new SavedPokemon(0,name,item,ability,move1,move2,move3,move4,
-                    nature,hp_iv,att_iv,def_iv,spa_iv,spd_iv,sp_iv,hp_ev,att_ev,def_ev,spa_ev,spd_ev,sp_ev,url,url_shiny,gender);
+            SavedPokemon savedPokemon = new SavedPokemon(0, name, item, ability, move1, move2,
+                    move3, move4, nature, hp_iv, att_iv, def_iv, spa_iv, spd_iv, sp_iv, hp_ev,
+                    att_ev, def_ev, spa_ev, spd_ev, sp_ev, url, url_shiny, gender, type1, type2);
 
             Intent intent = new Intent(ListActivity.this, ListDetailActivity.class);
             intent.putExtra("savedTag", savedPokemon);

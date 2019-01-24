@@ -1,6 +1,7 @@
 package com.example.davidarisz.pokemonbuilder.Activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,13 +10,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.davidarisz.pokemonbuilder.Classes.SavedPokemon;
+import com.example.davidarisz.pokemonbuilder.Classes.SetTypeColors;
 import com.example.davidarisz.pokemonbuilder.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class ListDetailActivity extends AppCompatActivity {
-    ArrayList pokemonNames;
+    private ArrayList pokemonNames;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,8 @@ public class ListDetailActivity extends AppCompatActivity {
         String name = savedPokemon.getName();
         String url = savedPokemon.getUrl();
         String url_shiny = savedPokemon.getUrl_shiny();
+        String type1 = savedPokemon.getType1();
+        String type2 = savedPokemon.getType2();
         String gender = savedPokemon.getGender();
         String item = savedPokemon.getItem();
         String ability = savedPokemon.getAbility();
@@ -53,6 +57,8 @@ public class ListDetailActivity extends AppCompatActivity {
         TextView tv_name = findViewById(R.id.tv_name);
         ImageView img_normal = findViewById(R.id.img_normal);
         ImageView img_shiny = findViewById(R.id.img_shiny);
+        TextView tv_type1 = findViewById(R.id.tv_type1_list_detail);
+        TextView tv_type2 = findViewById(R.id.tv_type2_list_detail);
         TextView tv_gender = findViewById(R.id.tv_gender);
         TextView tv_item = findViewById(R.id.tv_item);
         TextView tv_ability = findViewById(R.id.tv_ability);
@@ -77,6 +83,10 @@ public class ListDetailActivity extends AppCompatActivity {
         tv_name.setText(name);
         Picasso.get().load(url).into(img_normal);
         Picasso.get().load(url_shiny).into(img_shiny);
+        tv_type1.setText(type1);
+        tv_type1.setTextColor(Color.parseColor("#ffffff"));
+        tv_type2.setText(type2);
+        tv_type2.setTextColor(Color.parseColor("#ffffff"));
         tv_gender.setText(gender);
         tv_item.setText(item);
         tv_ability.setText(ability);
@@ -100,6 +110,9 @@ public class ListDetailActivity extends AppCompatActivity {
 
         Button button = findViewById(R.id.btn_list_tab);
         button.setBackgroundColor(getResources().getColor(R.color.selectedTab));
+
+        new SetTypeColors(this, type1, type2, R.id.tv_type1_list_detail,
+                R.id.tv_type2_list_detail, "list");
     }
 
     public void toList(View view) {

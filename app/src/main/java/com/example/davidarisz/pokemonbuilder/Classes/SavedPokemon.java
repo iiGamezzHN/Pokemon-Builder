@@ -4,11 +4,13 @@ import java.io.Serializable;
 
 public class SavedPokemon implements Serializable {
     private int id, hp_iv, att_iv, def_iv, spa_iv, spd_iv, sp_iv, hp_ev, att_ev, def_ev, spa_ev, spd_ev, sp_ev;
-    private String name, item, ability, move1, move2, move3, move4, nature, url, url_shiny, gender;
+    private String name, item, ability, move1, move2, move3, move4, nature, url, url_shiny, gender, type1, type2;
 
-    public SavedPokemon(int id, String name, String item, String ability, String move1, String move2, String move3, String move4, String nature,
-                        int hp_iv, int att_iv, int def_iv, int spa_iv, int spd_iv, int sp_iv, int hp_ev,
-                        int att_ev, int def_ev, int spa_ev, int spd_ev, int sp_ev,  String url, String url_shiny, String gender) {
+    public SavedPokemon(int id, String name, String item, String ability, String move1, String move2,
+                        String move3, String move4, String nature, int hp_iv, int att_iv, int def_iv,
+                        int spa_iv, int spd_iv, int sp_iv, int hp_ev, int att_ev, int def_ev, int spa_ev,
+                        int spd_ev, int sp_ev,  String url, String url_shiny, String gender, String type1,
+                        String type2) {
         this.id = id;
         this.hp_iv = hp_iv;
         this.att_iv = att_iv;
@@ -33,6 +35,8 @@ public class SavedPokemon implements Serializable {
         this.url = url;
         this.url_shiny = url_shiny;
         this.gender = gender;
+        this.type1 = type1;
+        this.type2 = type2;
     }
 
     public int getId() {
@@ -225,5 +229,21 @@ public class SavedPokemon implements Serializable {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public String getType1() {
+        return type1;
+    }
+
+    public void setType1(String type1) {
+        this.type1 = type1;
+    }
+
+    public String getType2() {
+        return type2;
+    }
+
+    public void setType2(String type2) {
+        this.type2 = type2;
     }
 }

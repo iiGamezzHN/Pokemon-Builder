@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -38,6 +39,7 @@ import com.example.davidarisz.pokemonbuilder.Requests.PokemonDataRequest;
 import com.example.davidarisz.pokemonbuilder.models.AbilityItem;
 import com.example.davidarisz.pokemonbuilder.models.MoveItem;
 import com.example.davidarisz.pokemonbuilder.models.Pokemon;
+import com.example.davidarisz.pokemonbuilder.models.TypesItem;
 
 import java.util.ArrayList;
 
@@ -52,15 +54,9 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
     private TextView tv_name;
     private String name, url, url_shiny;
     private int nr_abilities, nr_loop;
-    private String item = "";
-    private String ability = "";
-    private String move1 = "";
-    private String move2 = "";
-    private String move3 = "";
-    private String move4 = "";
-    private String nature = "";
-    private String gender = "";
+    private String item, ability, move1, move2, move3, move4, nature, gender, type1, type2 = "";
     private int hp_iv, att_iv, def_iv, spa_iv, spd_iv, sp_iv, hp_ev, att_ev, def_ev, spa_ev, spd_ev, sp_ev;
+    private ItemArrayAdapter2 itemAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,7 +141,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
 
         Log.d("adapterTag", ""+items.size());
         final AutoCompleteTextView auto_items = findViewById(R.id.auto_items);
-        ItemArrayAdapter2 itemAdapter = new ItemArrayAdapter2(AddActivity.this, items);
+        itemAdapter = new ItemArrayAdapter2(AddActivity.this, items);
         auto_items.setAdapter(itemAdapter);
         auto_items.setDropDownWidth(ViewGroup.LayoutParams.MATCH_PARENT);
 //        auto_items.showDropDown();
@@ -154,6 +150,14 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
             public boolean onTouch(View v, MotionEvent event){
                 auto_items.showDropDown();
                 return false;
+            }
+        });
+        auto_items.setOnItemClickListener(new AdapterView.OnItemClickListener() { // TODO, set clicklisteners for items and moves to get l
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                ItemData test = itemAdapter.getItem(position);
+                Log.d("itemTag", "name: "+test.getName());
+                Log.d("itemTag", "effect: "+test.getEffect());
             }
         });
 
@@ -247,6 +251,15 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
 
         url = pokemon.getSprites().getFront_default();
         url_shiny = pokemon.getSprites().getFront_shiny();
+
+        //Get all types for pokemon
+        for(TypesItem typesItem : pokemon.getTypes()) {
+            if(typesItem.getSlot() == 1) {
+                type1 = typesItem.getType().getName();
+            } else if (typesItem.getSlot() == 2) {
+                type2 = typesItem.getType().getName();
+            }
+        }
     }
 
     public void gotAbilityData(AbilityData abilityData) {
@@ -345,7 +358,8 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
 
         if (isAnyStringNullOrEmpty(item, ability, move1, move2, move3, move4, nature, gender)) {
             Toast.makeText(AddActivity.this, "Oops, you forgot to fill in some fields!", Toast.LENGTH_SHORT).show();
-        } else if (isAnyIntNullOrEmpty(hp_iv, att_iv, def_iv, spa_iv, spd_iv, sp_iv, hp_ev, att_ev, def_ev, spa_ev, spd_ev, sp_ev)) {
+        } else if (isAnyIntNullOrEmpty(hp_iv, att_iv, def_iv, spa_iv, spd_iv, sp_iv, hp_ev, att_ev,
+                def_ev, spa_ev, spd_ev, sp_ev)) {
             Toast.makeText(this, "Oops, you forgot to fill", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "adding to db", Toast.LENGTH_SHORT).show();
@@ -360,8 +374,9 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         PokemonDatabase db = PokemonDatabase.getInstance(getApplicationContext());
 
         // Save pokemon to database
-        SavedPokemon savedPokemon = new SavedPokemon(0, name, item, ability, move1, move2, move3, move4, nature,
-                hp_iv, att_iv, def_iv, spa_iv, spd_iv, sp_iv, hp_ev, att_ev, def_ev, spa_ev, spd_ev, sp_ev, url, url_shiny, gender);
+        SavedPokemon savedPokemon = new SavedPokemon(0, name, item, ability, move1, move2, move3,
+                move4, nature, hp_iv, att_iv, def_iv, spa_iv, spd_iv, sp_iv, hp_ev, att_ev, def_ev,
+                spa_ev, spd_ev, sp_ev, url, url_shiny, gender, type1, type2);
         db.insert(savedPokemon);
         Intent intent = new Intent(getApplicationContext(), ListActivity.class);
         startActivity(intent);
