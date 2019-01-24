@@ -310,7 +310,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         // Set filled in elements
         item = auto_item.toString();
         ability = spn_ability.getSelectedItem().toString();
-        move1 = spn_move1.getSelectedItem().toString();
+        move1 = spn_move1.getSelectedItem().toString();  // TODO, fix this so i can add pokemon again
         move2 = spn_move2.getSelectedItem().toString();
         move3 = spn_move3.getSelectedItem().toString();
         move4 = spn_move4.getSelectedItem().toString();
