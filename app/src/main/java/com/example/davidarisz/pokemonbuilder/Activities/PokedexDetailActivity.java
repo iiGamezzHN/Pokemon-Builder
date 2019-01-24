@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.davidarisz.pokemonbuilder.Classes.SetTypeColors;
 import com.example.davidarisz.pokemonbuilder.R;
 import com.example.davidarisz.pokemonbuilder.Requests.PokemonDataRequest;
 import com.example.davidarisz.pokemonbuilder.models.HeldItem;
@@ -162,7 +163,7 @@ public class PokedexDetailActivity extends AppCompatActivity implements PokemonD
         tv_type1.setTextColor(Color.parseColor("#ffffff"));
         tv_type2.setText(type2);
         tv_type2.setTextColor(Color.parseColor("#ffffff"));
-        setTypeColors(type1, type2);
+        new SetTypeColors(this, type1, type2);
         tv_hp.setText(hp);
         tv_att.setText(att);
         tv_def.setText(def);
