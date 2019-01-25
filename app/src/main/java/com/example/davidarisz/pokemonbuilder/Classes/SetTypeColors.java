@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import com.example.davidarisz.pokemonbuilder.Activities.ListActivity;
 import com.example.davidarisz.pokemonbuilder.Activities.ListDetailActivity;
 import com.example.davidarisz.pokemonbuilder.Activities.PokedexDetailActivity;
 
@@ -32,16 +33,20 @@ public class SetTypeColors extends AppCompatActivity { // TODO, ask if this is a
         TextView tv_type1 = null;
         TextView tv_type2 = null;
 
-        if(activity.equals("pokedex")) {
+        if (activity.equals("pokedex")) {
             tv_type1 = ((PokedexDetailActivity)context).findViewById(resource1);
             tv_type2 = ((PokedexDetailActivity)context).findViewById(resource2);
-        } else if(activity.equals("list")) {
+        } else if (activity.equals("list")) {
             tv_type1 = ((ListDetailActivity)context).findViewById(resource1);
             tv_type2 = ((ListDetailActivity)context).findViewById(resource2);
+        } else if (activity.equals("adapter")) {
+            tv_type1 = ((ListActivity)context).findViewById(resource1);
+            tv_type2 = ((ListActivity)context).findViewById(resource2);
         }
 
 
         if(type1.equals("Normal")) {
+            tv_type1.setBackgroundColor(Color.parseColor("#a8a878"));
         } else if(type1.equals("Fire")) {
             tv_type1.setBackgroundColor(Color.parseColor("#f08030"));
         } else if(type1.equals("Water")) {
@@ -79,6 +84,7 @@ public class SetTypeColors extends AppCompatActivity { // TODO, ask if this is a
         }
 
         if(type2.equals("Normal")) {
+            tv_type1.setBackgroundColor(Color.parseColor("#a8a878"));
         } else if(type2.equals("Fire")) {
             tv_type2.setBackgroundColor(Color.parseColor("#f08030"));
         } else if(type2.equals("Water")) {

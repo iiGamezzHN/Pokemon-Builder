@@ -23,9 +23,9 @@ public class ListDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_detail);
+
         Intent intent = getIntent();
         pokemonNames = intent.getStringArrayListExtra("namesTag");
-
         SavedPokemon savedPokemon = (SavedPokemon) getIntent().getSerializableExtra("savedTag");
 
         String name = savedPokemon.getName();
@@ -84,6 +84,8 @@ public class ListDetailActivity extends AppCompatActivity {
         Picasso.get().load(url).into(img_normal);
         if (url_shiny != "") {
             Picasso.get().load(url_shiny).into(img_shiny);
+        } else {
+            img_shiny.setVisibility(View.GONE);
         }
         tv_type1.setText(type1);
         tv_type1.setTextColor(Color.parseColor("#ffffff"));
