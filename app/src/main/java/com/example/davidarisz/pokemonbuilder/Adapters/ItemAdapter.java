@@ -1,51 +1,94 @@
 package com.example.davidarisz.pokemonbuilder.Adapters;
 
 import android.content.Context;
-import android.database.Cursor;
-import android.util.Log;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filterable;
-import android.widget.ResourceCursorAdapter;
+import android.widget.ArrayAdapter;
+import android.widget.Filter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.example.davidarisz.pokemonbuilder.Classes.ItemData;
 import com.example.davidarisz.pokemonbuilder.R;
 
-public class ItemAdapter extends ResourceCursorAdapter implements Filterable {
+// The basis of this code was taken from: https://codinginflow.com/tutorials/android/custom-autocompletetextview/part-2-adapter
+public class ItemAdapter extends ArrayAdapter<ItemData> {
+    private List<ItemData> items;
 
-    public ItemAdapter(Context context, Cursor c) {
-        super(context, R.layout.autocomplete_item_row, c);
+    public ItemAdapter(@NonNull Context context, @NonNull List<ItemData> items) {
+        super(context, 0, items);
+        this.items = new ArrayList<>(items);
     }
 
+    @NonNull
     @Override
-    public void bindView(View view, Context context, Cursor cursor) {
-        String name = cursor.getString(cursor.getColumnIndex("name"));
-        String name2 = name.substring(0,1).toUpperCase() + name.substring(1);
-        String effect = cursor.getString(cursor.getColumnIndex("effect"));
-        String effect2 = effect.substring(6);
-        String sprite = cursor.getString(cursor.getColumnIndex("sprite"));
-
-//        ImageView img_sprite = view.findViewById(R.id.img_item);
-        TextView tv_name = view.findViewById(R.id.tv_name_item);
-        TextView tv_description = view.findViewById(R.id.tv_description_item);
-
-        Log.d("imageTag", sprite);
-
-        tv_name.setText(name2);
-        tv_description.setText(effect2);
+    public Filter getFilter() {
+        return itemsFilter;
     }
 
+    @NonNull
     @Override
-    public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View v = inflater.inflate(R.layout.autocomplete_item_row, parent, false);
-        bindView(v, context, cursor);
-        return v;
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        if (convertView == null) {
+            convertView = LayoutInflater.from(getContext()).inflate(
+                    R.layout.autocomplete_item_row, parent, false
+            );
+        }
+
+        TextView textViewName = convertView.findViewById(R.id.tv_name_item);
+        TextView textViewDescription = convertView.findViewById(R.id.tv_description_item);
+
+        ItemData item = getItem(position);
+
+        if (item != null) {
+            String name = item.getName();
+            String name2 = name.substring(0,1).toUpperCase() + name.substring(1);
+            textViewName.setText(name2);
+            textViewDescription.setText(item.getEffect());
+        }
+
+        return convertView;
     }
 
-    @Override
-    public String convertToString(Cursor cursor) {
-        return cursor.getString(cursor.getColumnIndex("name"));
-    }
+    private Filter itemsFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results = new FilterResults();
+            List<ItemData> suggestions = new ArrayList<>();
+
+            if (constraint == null || constraint.length() == 0) {
+                suggestions.addAll(items);
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+
+                for (ItemData item : items) {
+                    if (item.getName().toLowerCase().contains(filterPattern)) {
+                        suggestions.add(item);
+                    }
+                }
+            }
+
+            results.values = suggestions;
+            results.count = suggestions.size();
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            clear();
+            addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+
+        @Override
+        public CharSequence convertResultToString(Object resultValue) {
+            return ((ItemData) resultValue).getName();
+        }
+    };
 }

@@ -11,7 +11,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -21,7 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.davidarisz.pokemonbuilder.Adapters.AbilityAdapter;
-import com.example.davidarisz.pokemonbuilder.Adapters.ItemArrayAdapter2;
+import com.example.davidarisz.pokemonbuilder.Adapters.ItemAdapter;
 import com.example.davidarisz.pokemonbuilder.Adapters.MoveAdapter;
 import com.example.davidarisz.pokemonbuilder.Adapters.NatureAdapter;
 import com.example.davidarisz.pokemonbuilder.Classes.AbilityData;
@@ -57,7 +56,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
     private int nr_abilities, nr_loop;
     private String item, ability, move1, move2, move3, move4, nature, gender, type1, type2 = "";
     private int hp_iv, att_iv, def_iv, spa_iv, spd_iv, sp_iv, hp_ev, att_ev, def_ev, spa_ev, spd_ev, sp_ev;
-    private ItemArrayAdapter2 itemAdapter;
+    private ItemAdapter itemAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,7 +141,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
 
         Log.d("adapterTag", ""+items.size());
         final AutoCompleteTextView auto_items = findViewById(R.id.auto_items);
-        itemAdapter = new ItemArrayAdapter2(AddActivity.this, items);
+        itemAdapter = new ItemAdapter(AddActivity.this, items);
         auto_items.setAdapter(itemAdapter);
         auto_items.setDropDownWidth(ViewGroup.LayoutParams.MATCH_PARENT);
 //        auto_items.showDropDown();
