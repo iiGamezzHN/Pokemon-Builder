@@ -3,6 +3,7 @@ package com.example.davidarisz.pokemonbuilder.Activities;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Handler;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -48,6 +49,7 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
     private ProgressBar progressBar;
     private TextView tv_progress;
     private String progress;
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,12 +111,26 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
         db = PokemonDatabase.getInstance(getApplicationContext());
         adapter = new ListAdapter(this, db.selectAll());
 
-        ListView listView = findViewById(R.id.lv_saved_pokemon);
+        listView = findViewById(R.id.lv_saved_pokemon);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new ListViewClickListener());
+        listView.setOnItemLongClickListener(new ListViewLongClickListener());
 
         Button button = findViewById(R.id.btn_list_tab);
         button.setBackgroundColor(getResources().getColor(R.color.selectedTab));
+    }
+
+    private class ListViewLongClickListener implements AdapterView.OnItemLongClickListener {
+
+        @Override
+        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            cursor = (Cursor) parent.getItemAtPosition(position);
+            int entry_id = cursor.getInt(cursor.getColumnIndex("_id"));
+            db.remove(entry_id); // Delete entry from database
+            updateData();
+
+            return true;
+        }
     }
 
     public void deleteDB(View view) {
