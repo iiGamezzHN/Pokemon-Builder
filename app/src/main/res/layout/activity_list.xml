@@ -107,6 +107,7 @@
             android:onClick="loadMove5"/>
 
         <Button
+            android:id="@+id/del_database"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="del idb"

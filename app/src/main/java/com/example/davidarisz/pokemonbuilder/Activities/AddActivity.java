@@ -27,6 +27,7 @@ import com.example.davidarisz.pokemonbuilder.Adapters.NatureAdapter;
 import com.example.davidarisz.pokemonbuilder.Classes.AbilityData;
 import com.example.davidarisz.pokemonbuilder.Classes.ItemData;
 import com.example.davidarisz.pokemonbuilder.Classes.MoveData;
+import com.example.davidarisz.pokemonbuilder.Classes.NatureData;
 import com.example.davidarisz.pokemonbuilder.Classes.SavedPokemon;
 import com.example.davidarisz.pokemonbuilder.Classes.SearchModel;
 import com.example.davidarisz.pokemonbuilder.Databases.ItemDatabase;
@@ -155,24 +156,37 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         auto_items.setOnItemClickListener(new AdapterView.OnItemClickListener() { // TODO, set clicklisteners for items and moves to get l
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                ItemData test = itemAdapter.getItem(position);
-                Log.d("itemTag", "name: "+test.getName());
-                Log.d("itemTag", "effect: "+test.getEffect());
+                ItemData itemData = itemAdapter.getItem(position); //TODO, get to add
+                String itemName = itemData.getName();
+                item = itemName.substring(0,1).toUpperCase() + itemName.substring(1);
             }
         });
 
         // Nature data
         NatureDatabase natureDb = NatureDatabase.getInstance(getApplicationContext());
+        ArrayList<NatureData> natureArray = new ArrayList<>();
+
+        Cursor cursor2 = natureDb.selectAll();
+        while (cursor2.moveToNext()) {
+            String nature_name = cursor2.getString(cursor2.getColumnIndex("name"));
+            String nature_increased = cursor2.getString(cursor2.getColumnIndex("increased"));
+            String nature_decreased = cursor2.getString(cursor2.getColumnIndex("decreased"));
+            NatureData natureData = new NatureData(nature_name, nature_increased, nature_decreased);
+//            Log.d("cursorTag", item_name+item_effect+sprite);
+            natureArray.add(natureData);
+        }
+
         Spinner natures = findViewById(R.id.spn_nature);
-        NatureAdapter natureAdapter = new NatureAdapter(this, natureDb.selectAll());
+        final NatureAdapter natureAdapter = new NatureAdapter(this, R.layout.spinner_nature_row,
+                R.id.tv_name_nature, natureArray);
         natures.setAdapter(natureAdapter);
     }
 
     // Pokemon data
     public void gotPokemonData (Pokemon pokemon) {
         ArrayList<MoveData> moves = new ArrayList<>();
-        ArrayList<String> abilities = new ArrayList<String>();
         MoveDatabase moveDb = MoveDatabase.getInstance(getApplicationContext());
+
         // Get all moves for pokemon
         for (MoveItem moveItem : pokemon.getMoves()) {
             String move = moveItem.getMove().getName();
@@ -192,9 +206,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
             }
         }
 
-        Log.d("sizeTag", "nr of moves: "+moves.size());
-
-        MoveAdapter moveAdapter = new MoveAdapter(AddActivity.this, moves);
+        final MoveAdapter moveAdapter = new MoveAdapter(AddActivity.this, moves);
         final AutoCompleteTextView auto_moves1 = findViewById(R.id.auto_move1);
         final AutoCompleteTextView auto_moves2 = findViewById(R.id.auto_move2);
         final AutoCompleteTextView auto_moves3 = findViewById(R.id.auto_move3);
@@ -238,6 +250,43 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
                 return false;
             }
         });
+        auto_moves1.setOnItemClickListener(new AdapterView.OnItemClickListener() { // TODO, set clicklisteners for items and moves to get l
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                MoveData moveData = moveAdapter.getItem(position);
+                move1 = moveData.getName();
+            }
+        });
+        auto_moves2.setOnItemClickListener(new AdapterView.OnItemClickListener() { // TODO, set clicklisteners for items and moves to get l
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                MoveData moveData = moveAdapter.getItem(position);
+                move2 = moveData.getName();
+            }
+        });
+        auto_moves3.setOnItemClickListener(new AdapterView.OnItemClickListener() { // TODO, set clicklisteners for items and moves to get l
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                MoveData moveData = moveAdapter.getItem(position);
+                move3 = moveData.getName();
+            }
+        });
+        auto_moves4.setOnItemClickListener(new AdapterView.OnItemClickListener() { // TODO, set clicklisteners for items and moves to get l
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                MoveData moveData = moveAdapter.getItem(position);
+                move4 = moveData.getName();
+            }
+        });
+
+        // Get all types for pokemon
+        for(TypesItem typesItem : pokemon.getTypes()) {
+            if(typesItem.getSlot() == 1) {
+                type1 = typesItem.getType().getName();
+            } else if(typesItem.getSlot() == 2) {
+                type2 = typesItem.getType().getName();
+            }
+        }
 
         // Get all abilities for pokemon
         nr_abilities = pokemon.getAbilities().size();
@@ -255,11 +304,15 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         //Get all types for pokemon
         for(TypesItem typesItem : pokemon.getTypes()) {
             if(typesItem.getSlot() == 1) {
-                type1 = typesItem.getType().getName();
+                String typeName = typesItem.getType().getName();
+                type1 = typeName.substring(0,1).toUpperCase() + typeName.substring(1);
             } else if (typesItem.getSlot() == 2) {
-                type2 = typesItem.getType().getName();
+                String typeName = typesItem.getType().getName();
+                type2 = typeName.substring(0,1).toUpperCase() + typeName.substring(1);
             }
         }
+
+
     }
 
     public void gotAbilityData(AbilityData abilityData) {
@@ -271,6 +324,14 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
             Spinner ability = findViewById(R.id.spn_ability);
             AbilityAdapter abilityAdapter = new AbilityAdapter(this, R.layout.spinner_ability_row, R.id.tv_name_ability, abilities);
             ability.setAdapter(abilityAdapter);
+
+//            ability.setOnItemClickListener(new AdapterView.OnItemClickListener() { // TODO, set clicklisteners for items and moves to get l
+//                @Override
+//                public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+//                    MoveData moveData = moveAdapter.getItem(position);
+//                    move1 = moveData.getName();
+//                }
+//            });
         }
     }
 
@@ -326,13 +387,27 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         }
 
         // Set filled in elements
-        item = auto_item.toString();
-        ability = spn_ability.getSelectedItem().toString();
-        move1 = auto_move1.toString();  // TODO, fix this so i can add pokemon again
-        move2 = auto_move2.toString();
-        move3 = auto_move3.toString();
-        move4 = auto_move4.toString();
-        nature = spn_nature.getSelectedItem().toString(); // TODO, show what gets a boost and what doesn't
+        AbilityData abilityData = (AbilityData) spn_ability.getSelectedItem();
+        ability = abilityData.getName();
+        Log.d("abilityTag", ability);
+//        move1 = auto_move1.toString();  // TODO, fix this so i can add pokemon again
+//        move2 = auto_move2.toString();
+//        move3 = auto_move3.toString();
+//        move4 = auto_move4.toString();
+
+        NatureData natureData = (NatureData) spn_nature.getSelectedItem();
+        String natureName = natureData.getName();
+        nature = natureName.substring(0,1).toUpperCase() + natureName.substring(1);
+        Log.d("natureTag", nature);
+
+//        Cursor cursor = (Cursor) spn_nature.getSelectedItem();
+//        while (cursor.moveToNext()) {
+//            String test = cursor.getString(cursor.getColumnIndex("name"));
+//            int position = spn_nature.getSelectedItemPosition();
+//            String test2 = cursor.getString(0);
+//            Log.d("natureTag", ""+test2);
+//        }
+//        nature = natureData.getName(); // TODO, show what gets a boost and what doesn't
 
         if(TextUtils.isEmpty(et_hp_iv.getText()) || TextUtils.isEmpty(et_att_iv.getText()) || // TODO, complete the checks for all inputs
                 TextUtils.isEmpty(et_def_iv.getText()) || TextUtils.isEmpty(et_spa_iv.getText()) || // TODO, fix these checks

@@ -67,6 +67,7 @@ public class PokedexDetailActivity extends AppCompatActivity implements PokemonD
         String name = pokemon.getName();
         int id = pokemon.getId();
         String name2;
+
         if(String.valueOf(id).length() == 1) {
             name2 = "#00"+id+" - "+name.substring(0,1).toUpperCase() + name.substring(1);
         } else if(String.valueOf(id).length() == 2) {

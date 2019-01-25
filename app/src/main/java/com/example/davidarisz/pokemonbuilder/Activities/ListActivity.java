@@ -98,6 +98,9 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
         if(moveDb.selectAll().getCount() < 660) {
             MoveNamesRequest moveNamesRequest = new MoveNamesRequest(this);
             moveNamesRequest.getMoveNames(this);
+        } else {
+            Button delDatabase = findViewById(R.id.del_database);
+            delDatabase.setVisibility(View.GONE);
         }
 
         PokemonNamesRequest request = new PokemonNamesRequest(this);
