@@ -2,6 +2,7 @@ package com.example.davidarisz.pokemonbuilder.Adapters;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -22,8 +23,10 @@ public class ListAdapter extends ResourceCursorAdapter {
         String item = cursor.getString(cursor.getColumnIndex("item"));
         String url = cursor.getString(cursor.getColumnIndex("url"));
 
-        TextView list_name = view.findViewById(R.id.tv_name); // TODO, show boosts and type
-        TextView list_item = view.findViewById(R.id.tv_item);
+        TextView list_name = view.findViewById(R.id.tv_name_list); // TODO, show boosts and type
+        list_name.setBackgroundColor(Color.parseColor("#999999"));
+        TextView list_item = view.findViewById(R.id.tv_item_list);
+        list_item.setBackgroundColor(Color.parseColor("#999999"));
         ImageView list_picture = view.findViewById(R.id.img_picture_list);
 
         list_name.setText(name);

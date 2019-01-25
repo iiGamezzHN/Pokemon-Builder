@@ -49,44 +49,48 @@ import ir.mirrajabi.searchdialog.core.SearchResultListener;
 import ir.mirrajabi.searchdialog.core.Searchable;
 
 public class AddActivity extends AppCompatActivity implements PokemonDataRequest.Callback, AbilityDataRequest.Callback {
-    private ArrayList pokemonNames;
+    private ArrayList<String> pokemonNames;
     private ArrayList<AbilityData> abilities = new ArrayList<>();
-    private TextView tv_name;
+
     private String name, url, url_shiny;
-    private int nr_abilities, nr_loop;
     private String item, ability, move1, move2, move3, move4, nature, gender, type1, type2 = "";
-    private int hp_iv, att_iv, def_iv, spa_iv, spd_iv, sp_iv, hp_ev, att_ev, def_ev, spa_ev, spd_ev, sp_ev;
+    private int nr_abilities, nr_loop;
+    private int hp_iv, att_iv, def_iv, spa_iv, spd_iv, sp_iv, hp_ev, att_ev, def_ev, spa_ev, spd_ev, sp_ev = -1;
+
     private ItemAdapter itemAdapter;
+
+    private TextView tv_name;
+    private EditText et_hp_iv, et_att_iv, et_def_iv, et_spa_iv, et_spd_iv, et_sp_iv;
+    private EditText et_hp_ev, et_att_ev, et_def_ev, et_spa_ev, et_spd_ev, et_sp_ev;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
+
         pokemonNames = getIntent().getStringArrayListExtra("namesTag");
-        hp_iv= att_iv= def_iv= spa_iv= spd_iv= sp_iv= hp_ev= att_ev= def_ev= spa_ev= spd_ev= sp_ev-1;
+
+        // Check if you came from the pokedex to add a pokemon
         if(getIntent().getStringExtra("addName") != null) {
             name = getIntent().getStringExtra("addName");
-            Toast.makeText(this, name, Toast.LENGTH_SHORT).show();
-            String name2 = name.substring(0,1).toUpperCase() + name.substring(1);
+            String name2 = name.substring(0,1).toUpperCase() + name.substring(1); // TODO, needs comment?
             tv_name = findViewById(R.id.tv_name);
             String adding = "Adding: " + name2;
             tv_name.setText(adding);
-
-            // Not doing this causes error: Unable to add window -- token null is not valid; is your activity running?
-            // On auto_items.showDropDown()
-            new Handler().postDelayed(new Runnable() {
-                public void run() {
-                    makeRequest();
-                }
-            }, 1000);
         } else {
             tv_name = findViewById(R.id.tv_name);
-            tv_name.setText("Adding: ");
+            String adding = "Adding: ";
+            tv_name.setText(adding);
         }
 
+        // Set selected color to current tab
         Button button = findViewById(R.id.btn_add_tab);
         button.setBackgroundColor(getResources().getColor(R.color.selectedTab));
 
+        // Load all EditTextViews for later
+        setEditTextViews();
+
+        // Shows popup search screen, to search for a pokemon
         findViewById(R.id.btn_search).setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 new SimpleSearchDialogCompat(AddActivity.this, "Search...", "What are you looking for...",
@@ -100,6 +104,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
                         String adding = "Adding: " + name2;
                         tv_name.setText(adding);
 
+                        // When a pokemon is selected, make the needed requests
                         makeRequest();
                     }
                 }).show();
@@ -107,11 +112,27 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         });
     }
 
+    private void setEditTextViews() {
+        et_hp_iv = findViewById(R.id.et_hp_iv);
+        et_att_iv = findViewById(R.id.et_att_iv); // TODO, maybe show base stats
+        et_def_iv = findViewById(R.id.et_def_iv);
+        et_spa_iv = findViewById(R.id.et_spa_iv);
+        et_spd_iv = findViewById(R.id.et_spd_iv);
+        et_sp_iv = findViewById(R.id.et_sp_iv);
+        et_hp_ev = findViewById(R.id.et_hp_ev);
+        et_att_ev = findViewById(R.id.et_att_ev);
+        et_def_ev = findViewById(R.id.et_def_ev);
+        et_spa_ev = findViewById(R.id.et_spa_ev);
+        et_spd_ev = findViewById(R.id.et_spd_ev);
+        et_sp_ev = findViewById(R.id.et_sp_ev);
+    }
+
+    // Used in search popup
     private ArrayList<SearchModel> initData() {
         ArrayList<SearchModel> items = new ArrayList<>();
 
         for (int i = 0; i < pokemonNames.size(); i++) {
-            items.add(new SearchModel(pokemonNames.get(i).toString()));
+            items.add(new SearchModel(pokemonNames.get(i)));
         }
 
         return items;
@@ -119,12 +140,12 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
 
     // Requests for individual pokemon data, nature names and item names
     public void makeRequest () {
-        ArrayList<ItemData> items = new ArrayList<>();
-        // Pokemon data
+        // Loading individual pokemon data
         PokemonDataRequest pokemonData = new PokemonDataRequest(this, name);
         pokemonData.getPokemonData(this);
 
-        // Item Data
+        // Loading item data
+        ArrayList<ItemData> items = new ArrayList<>();
         ItemDatabase itemDb = ItemDatabase.getInstance(getApplicationContext());
         Cursor cursor = itemDb.selectAll();
         while (cursor.moveToNext()) {
@@ -132,19 +153,13 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
             String item_effect = cursor.getString(cursor.getColumnIndex("effect"));
             String item_sprite = cursor.getString(cursor.getColumnIndex("sprite"));
             ItemData itemData = new ItemData(item_name, item_effect, item_sprite);
-//            Log.d("cursorTag", item_name+item_effect+sprite);
             items.add(itemData);
         }
 
-        ItemData test = items.get(1);
-        Log.d("cursorTag", test.getName()+test.getEffect()+test.getSprite());
-
-        Log.d("adapterTag", ""+items.size());
         final AutoCompleteTextView auto_items = findViewById(R.id.auto_items);
         itemAdapter = new ItemAdapter(AddActivity.this, items);
         auto_items.setAdapter(itemAdapter);
         auto_items.setDropDownWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-//        auto_items.showDropDown();
         auto_items.setOnTouchListener(new View.OnTouchListener(){
             @Override
             public boolean onTouch(View v, MotionEvent event){
@@ -164,14 +179,13 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         // Nature data
         NatureDatabase natureDb = NatureDatabase.getInstance(getApplicationContext());
         ArrayList<NatureData> natureArray = new ArrayList<>();
-
         Cursor cursor2 = natureDb.selectAll();
+
         while (cursor2.moveToNext()) {
             String nature_name = cursor2.getString(cursor2.getColumnIndex("name"));
             String nature_increased = cursor2.getString(cursor2.getColumnIndex("increased"));
             String nature_decreased = cursor2.getString(cursor2.getColumnIndex("decreased"));
             NatureData natureData = new NatureData(nature_name, nature_increased, nature_decreased);
-//            Log.d("cursorTag", item_name+item_effect+sprite);
             natureArray.add(natureData);
         }
 
@@ -199,7 +213,6 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
                 String category = cursor.getString(cursor.getColumnIndex("category"));
                 String effect = cursor.getString(cursor.getColumnIndex("effect"));
                 String type = cursor.getString(cursor.getColumnIndex("type"));
-//                Log.d("moveTag", move+", "+power+", "+accuracy+", "+pp);
                 MoveData moveData = new MoveData(move2,power,accuracy,pp,category,effect,type);
                 moves.add(moveData);
             }
@@ -298,7 +311,11 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         }
 
         url = pokemon.getSprites().getFront_default();
-        url_shiny = pokemon.getSprites().getFront_shiny();
+        if (pokemon.getSprites().getFront_shiny() != null) {
+            url_shiny = pokemon.getSprites().getFront_shiny();
+        } else {
+            url_shiny = "";
+        }
 
         //Get all types for pokemon
         for(TypesItem typesItem : pokemon.getTypes()) {
@@ -323,14 +340,6 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
             Spinner ability = findViewById(R.id.spn_ability);
             AbilityAdapter abilityAdapter = new AbilityAdapter(this, R.layout.spinner_ability_row, R.id.tv_name_ability, abilities);
             ability.setAdapter(abilityAdapter);
-
-//            ability.setOnItemClickListener(new AdapterView.OnItemClickListener() { // TODO, set clicklisteners for items and moves to get l
-//                @Override
-//                public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-//                    MoveData moveData = moveAdapter.getItem(position);
-//                    move1 = moveData.getName();
-//                }
-//            });
         }
     }
 
@@ -349,95 +358,69 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
     }
 
     public void checkInputs(View view) {
-        // Get elements for layout
-        CheckBox chk_male = findViewById(R.id.chk_male);
-        CheckBox chk_female = findViewById(R.id.chk_female);
-        CheckBox chk_genderless = findViewById(R.id.chk_genderless);
-//        Spinner spn_item = findViewById(R.id.spn_item);
-        AutoCompleteTextView auto_item = findViewById(R.id.auto_items);
-        Spinner spn_ability = findViewById(R.id.spn_ability);
-        AutoCompleteTextView auto_move1 = findViewById(R.id.auto_move1);
-        AutoCompleteTextView auto_move2 = findViewById(R.id.auto_move2);
-        AutoCompleteTextView auto_move3 = findViewById(R.id.auto_move3);
-        AutoCompleteTextView auto_move4 = findViewById(R.id.auto_move4);
-        Spinner spn_nature = findViewById(R.id.spn_nature);
-        EditText et_hp_iv = findViewById(R.id.et_hp_iv); // TODO, maybe show base stats
-        EditText et_att_iv = findViewById(R.id.et_att_iv);
-        EditText et_def_iv = findViewById(R.id.et_def_iv);
-        EditText et_spa_iv = findViewById(R.id.et_spa_iv);
-        EditText et_spd_iv = findViewById(R.id.et_spd_iv);
-        EditText et_sp_iv = findViewById(R.id.et_sp_iv);
-        EditText et_hp_ev = findViewById(R.id.et_hp_ev);
-        EditText et_att_ev = findViewById(R.id.et_att_ev);
-        EditText et_def_ev = findViewById(R.id.et_def_ev);
-        EditText et_spa_ev = findViewById(R.id.et_spa_ev);
-        EditText et_spd_ev = findViewById(R.id.et_spd_ev);
-        EditText et_sp_ev = findViewById(R.id.et_sp_ev);
 
-        // Check checkboxes
-        if (chk_male.isChecked()) {
-            gender = "Male";
-        } else if (chk_female.isChecked()) {
-            gender = "Female";
-        } else if (chk_genderless.isChecked()) {
-            gender = "Genderless";
-        } else {
-            gender = "";
-        }
-
-        // Set filled in elements
-        AbilityData abilityData = (AbilityData) spn_ability.getSelectedItem();
-        ability = abilityData.getName();
-        Log.d("abilityTag", ability);
-//        move1 = auto_move1.toString();  // TODO, fix this so i can add pokemon again
-//        move2 = auto_move2.toString();
-//        move3 = auto_move3.toString();
-//        move4 = auto_move4.toString();
-
-        NatureData natureData = (NatureData) spn_nature.getSelectedItem();
-        String natureName = natureData.getName();
-        nature = natureName.substring(0,1).toUpperCase() + natureName.substring(1);
-        Log.d("natureTag", nature);
-
-//        Cursor cursor = (Cursor) spn_nature.getSelectedItem();
-//        while (cursor.moveToNext()) {
-//            String test = cursor.getString(cursor.getColumnIndex("name"));
-//            int position = spn_nature.getSelectedItemPosition();
-//            String test2 = cursor.getString(0);
-//            Log.d("natureTag", ""+test2);
-//        }
-//        nature = natureData.getName(); // TODO, show what gets a boost and what doesn't
-
-        if(TextUtils.isEmpty(et_hp_iv.getText()) || TextUtils.isEmpty(et_att_iv.getText()) || // TODO, complete the checks for all inputs
-                TextUtils.isEmpty(et_def_iv.getText()) || TextUtils.isEmpty(et_spa_iv.getText()) || // TODO, fix these checks
-                TextUtils.isEmpty(et_spd_iv.getText()) || TextUtils.isEmpty(et_sp_iv.getText()) ||
-                TextUtils.isEmpty(et_hp_ev.getText()) || TextUtils.isEmpty(et_att_ev.getText()) ||
-                TextUtils.isEmpty(et_def_ev.getText()) || TextUtils.isEmpty(et_spa_ev.getText()) ||
-                TextUtils.isEmpty(et_spd_ev.getText()) || TextUtils.isEmpty(et_sp_ev.getText())) {
-            Toast.makeText(this, "Oops, you forgot to fill in some IV's/EV's!", Toast.LENGTH_SHORT).show();
-        } else {
-            hp_iv = Integer.parseInt(et_hp_iv.getText().toString());
-            att_iv = Integer.parseInt(et_att_iv.getText().toString());
-            def_iv = Integer.parseInt(et_def_iv.getText().toString());
-            spa_iv = Integer.parseInt(et_spa_iv.getText().toString());
-            spd_iv = Integer.parseInt(et_spd_iv.getText().toString());
-            sp_iv = Integer.parseInt(et_sp_iv.getText().toString());
-            hp_ev = Integer.parseInt(et_hp_ev.getText().toString());
-            att_ev = Integer.parseInt(et_att_ev.getText().toString());
-            def_ev = Integer.parseInt(et_def_ev.getText().toString());
-            spa_ev = Integer.parseInt(et_spa_ev.getText().toString());
-            spd_ev = Integer.parseInt(et_spd_ev.getText().toString());
-            sp_ev = Integer.parseInt(et_sp_ev.getText().toString());
-        }
-
-        if (isAnyStringNullOrEmpty(item, ability, move1, move2, move3, move4, nature, gender)) {
+        if (isAnyStringNullOrEmpty(move1, move2, move3, move4)) {
             Toast.makeText(AddActivity.this, "Oops, you forgot to fill in some fields!", Toast.LENGTH_SHORT).show();
-        } else if (isAnyIntNullOrEmpty(hp_iv, att_iv, def_iv, spa_iv, spd_iv, sp_iv, hp_ev, att_ev,
-                def_ev, spa_ev, spd_ev, sp_ev)) {
-            Toast.makeText(this, "Oops, you forgot to fill", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(et_hp_iv.getText())) {
+            Toast.makeText(AddActivity.this, "Oops, you forgot to fill in IV's!", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "adding to db", Toast.LENGTH_SHORT).show();
-            addPokemon(view);
+
+            // Get elements for layout
+            CheckBox chk_male = findViewById(R.id.chk_male);
+            CheckBox chk_female = findViewById(R.id.chk_female);
+            CheckBox chk_genderless = findViewById(R.id.chk_genderless);
+            Spinner spn_ability = findViewById(R.id.spn_ability);
+            Spinner spn_nature = findViewById(R.id.spn_nature);
+
+            // Check checkboxes
+            if (chk_male.isChecked()) {
+                gender = "Male";
+            } else if (chk_female.isChecked()) {
+                gender = "Female";
+            } else if (chk_genderless.isChecked()) {
+                gender = "Genderless";
+            } else {
+                gender = "";
+            }
+
+            // Set filled in elements
+            AbilityData abilityData = (AbilityData) spn_ability.getSelectedItem();
+            ability = abilityData.getName();
+
+            NatureData natureData = (NatureData) spn_nature.getSelectedItem();
+            String natureName = natureData.getName();
+            nature = natureName.substring(0, 1).toUpperCase() + natureName.substring(1);
+            Log.d("natureTag", nature); // TODO, show what gets a boost and what doesn't
+
+            if (TextUtils.isEmpty(et_hp_iv.getText()) || TextUtils.isEmpty(et_att_iv.getText()) || // TODO, complete the checks for all inputs
+                    TextUtils.isEmpty(et_def_iv.getText()) || TextUtils.isEmpty(et_spa_iv.getText()) || // TODO, fix these checks
+                    TextUtils.isEmpty(et_spd_iv.getText()) || TextUtils.isEmpty(et_sp_iv.getText()) ||
+                    TextUtils.isEmpty(et_hp_ev.getText()) || TextUtils.isEmpty(et_att_ev.getText()) ||
+                    TextUtils.isEmpty(et_def_ev.getText()) || TextUtils.isEmpty(et_spa_ev.getText()) ||
+                    TextUtils.isEmpty(et_spd_ev.getText()) || TextUtils.isEmpty(et_sp_ev.getText())) {
+                Toast.makeText(this, "Oops, you forgot to fill in some IV's/EV's!", Toast.LENGTH_SHORT).show();
+            } else {
+                hp_iv = Integer.parseInt(et_hp_iv.getText().toString());
+                att_iv = Integer.parseInt(et_att_iv.getText().toString());
+                def_iv = Integer.parseInt(et_def_iv.getText().toString());
+                spa_iv = Integer.parseInt(et_spa_iv.getText().toString());
+                spd_iv = Integer.parseInt(et_spd_iv.getText().toString());
+                sp_iv = Integer.parseInt(et_sp_iv.getText().toString());
+                hp_ev = Integer.parseInt(et_hp_ev.getText().toString());
+                att_ev = Integer.parseInt(et_att_ev.getText().toString());
+                def_ev = Integer.parseInt(et_def_ev.getText().toString());
+                spa_ev = Integer.parseInt(et_spa_ev.getText().toString());
+                spd_ev = Integer.parseInt(et_spd_ev.getText().toString());
+                sp_ev = Integer.parseInt(et_sp_ev.getText().toString());
+            }
+
+            if (isAnyIntNullOrEmpty(hp_iv, att_iv, def_iv, spa_iv, spd_iv, sp_iv, hp_ev, att_ev,
+                    def_ev, spa_ev, spd_ev, sp_ev)) {
+                Toast.makeText(this, "Oops, you forgot to fill", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "adding to db", Toast.LENGTH_SHORT).show();
+                addPokemon(view);
+            }
         }
     }
 
@@ -477,13 +460,6 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
     }
 
     public void resetIV(View view) {
-        EditText et_hp_iv = findViewById(R.id.et_hp_iv);
-        EditText et_att_iv = findViewById(R.id.et_att_iv);
-        EditText et_def_iv = findViewById(R.id.et_def_iv);
-        EditText et_spa_iv = findViewById(R.id.et_spa_iv);
-        EditText et_spd_iv = findViewById(R.id.et_spd_iv);
-        EditText et_sp_iv = findViewById(R.id.et_sp_iv);
-
         et_hp_iv.setText(null);
         et_att_iv.setText(null);
         et_def_iv.setText(null);
@@ -493,19 +469,30 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
     }
 
     public void resetEV(View view) {
-        EditText et_hp_ev = findViewById(R.id.et_hp_ev);
-        EditText et_att_ev = findViewById(R.id.et_att_ev);
-        EditText et_def_ev = findViewById(R.id.et_def_ev);
-        EditText et_spa_ev = findViewById(R.id.et_spa_ev);
-        EditText et_spd_ev = findViewById(R.id.et_spd_ev);
-        EditText et_sp_ev = findViewById(R.id.et_sp_ev);
-
         et_hp_ev.setText(null);
         et_att_ev.setText(null);
         et_def_ev.setText(null);
         et_spa_ev.setText(null);
         et_spd_ev.setText(null);
         et_sp_ev.setText(null);
+    }
+
+    public void setIV(View view) {
+        et_hp_iv.setText(""+1);
+        et_att_iv.setText(""+2);
+        et_def_iv.setText(""+3);
+        et_spa_iv.setText(""+4);
+        et_spd_iv.setText(""+5);
+        et_sp_iv.setText(""+6);
+    }
+
+    public void setEV(View view) {
+        et_hp_ev.setText(""+7);
+        et_att_ev.setText(""+8);
+        et_def_ev.setText(""+9);
+        et_spa_ev.setText(""+10);
+        et_spd_ev.setText(""+11);
+        et_sp_ev.setText(""+12);
     }
 
     @Override

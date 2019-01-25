@@ -82,7 +82,9 @@ public class ListDetailActivity extends AppCompatActivity {
 
         tv_name.setText(name);
         Picasso.get().load(url).into(img_normal);
-        Picasso.get().load(url_shiny).into(img_shiny);
+        if (url_shiny != "") {
+            Picasso.get().load(url_shiny).into(img_shiny);
+        }
         tv_type1.setText(type1);
         tv_type1.setTextColor(Color.parseColor("#ffffff"));
         tv_type2.setText(type2);
