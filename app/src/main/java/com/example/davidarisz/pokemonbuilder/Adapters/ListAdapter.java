@@ -3,6 +3,7 @@ package com.example.davidarisz.pokemonbuilder.Adapters;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -28,6 +29,7 @@ public class ListAdapter extends ResourceCursorAdapter {
         String type1 = cursor.getString(cursor.getColumnIndex("type1"));
         String type2 = cursor.getString(cursor.getColumnIndex("type2"));
         String color1 = new GetTypeColor().ReturnColor(type1);
+
         String color2 = "";
 
         // If there is a 2nd type, get the color
@@ -48,12 +50,16 @@ public class ListAdapter extends ResourceCursorAdapter {
                 .centerCrop()
                 .into(list_picture);
         list_type1.setText(type1);
-        list_type1.setBackgroundColor(Color.parseColor(color1));
         list_type2.setText(type2);
+
+        // Set the rounded shape color to type color
+        GradientDrawable drawable = (GradientDrawable)list_type1.getBackground();
+        drawable.setColor(Color.parseColor(color1));
 
         // Set background color for 2nd type, or set the visibility to gone
         if (color2 != "") {
-            list_type2.setBackgroundColor(Color.parseColor(color2));
+            GradientDrawable drawable2 = (GradientDrawable)list_type2.getBackground();
+            drawable2.setColor(Color.parseColor(color2));
         } else {
             list_type2.setVisibility(View.GONE);
         }

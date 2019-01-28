@@ -83,7 +83,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
             tv_name.setText(adding);
         }
 
-        // Set selected color to current tab
+        // Set 'selected' color to current 'tab'
         Button button = findViewById(R.id.btn_add_tab);
         button.setBackgroundColor(getResources().getColor(R.color.selectedTab));
 
@@ -98,10 +98,12 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
                     @Override
                     public void onSelected(BaseSearchDialogCompat baseSearchDialogCompat, Searchable searchable, int i) {
                         baseSearchDialogCompat.dismiss();
+
                         name = searchable.getTitle();
                         String name2 = name.substring(0,1).toUpperCase() + name.substring(1);
-                        tv_name = findViewById(R.id.tv_name);
                         String adding = "Adding: " + name2;
+
+                        tv_name = findViewById(R.id.tv_name);
                         tv_name.setText(adding);
 
                         // When a pokemon is selected, make the needed requests
@@ -112,9 +114,10 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         });
     }
 
+
     private void setEditTextViews() {
         et_hp_iv = findViewById(R.id.et_hp_iv);
-        et_att_iv = findViewById(R.id.et_att_iv); // TODO, maybe show base stats
+        et_att_iv = findViewById(R.id.et_att_iv);
         et_def_iv = findViewById(R.id.et_def_iv);
         et_spa_iv = findViewById(R.id.et_spa_iv);
         et_spd_iv = findViewById(R.id.et_spd_iv);
@@ -127,6 +130,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         et_sp_ev = findViewById(R.id.et_sp_ev);
     }
 
+
     // Used in search popup
     private ArrayList<SearchModel> initData() {
         ArrayList<SearchModel> items = new ArrayList<>();
@@ -138,6 +142,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         return items;
     }
 
+
     // Requests for individual pokemon data, nature names and item names
     public void makeRequest () {
         // Loading individual pokemon data
@@ -148,6 +153,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         ArrayList<ItemData> items = new ArrayList<>();
         ItemDatabase itemDb = ItemDatabase.getInstance(getApplicationContext());
         Cursor cursor = itemDb.selectAll();
+
         while (cursor.moveToNext()) {
             String item_name = cursor.getString(cursor.getColumnIndex("name"));
             String item_effect = cursor.getString(cursor.getColumnIndex("effect"));
@@ -160,6 +166,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         itemAdapter = new ItemAdapter(AddActivity.this, items);
         auto_items.setAdapter(itemAdapter);
         auto_items.setDropDownWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+
         auto_items.setOnTouchListener(new View.OnTouchListener(){
             @Override
             public boolean onTouch(View v, MotionEvent event){
@@ -167,6 +174,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
                 return false;
             }
         });
+
         auto_items.setOnItemClickListener(new AdapterView.OnItemClickListener() { // TODO, set clicklisteners for items and moves to get l
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -176,7 +184,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
             }
         });
 
-        // Nature data
+        // Loading nature data
         NatureDatabase natureDb = NatureDatabase.getInstance(getApplicationContext());
         ArrayList<NatureData> natureArray = new ArrayList<>();
         Cursor cursor2 = natureDb.selectAll();
@@ -194,6 +202,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
                 R.id.tv_name_nature, natureArray);
         natures.setAdapter(natureAdapter);
     }
+
 
     // Pokemon data
     public void gotPokemonData (Pokemon pokemon) {
@@ -449,7 +458,10 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
     }
 
     public void toAdd(View view) {
-        // Do nothing
+        Intent intent = new Intent(this, AddActivity.class);
+        intent.putStringArrayListExtra("namesTag", pokemonNames);
+        startActivity(intent);
+        overridePendingTransition(0,0);
     }
 
     public void toPokedex(View view) {
@@ -477,6 +489,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         et_sp_ev.setText(null);
     }
 
+    // Testing purposes
     public void setIV(View view) {
         et_hp_iv.setText(""+1);
         et_att_iv.setText(""+2);
@@ -486,6 +499,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         et_sp_iv.setText(""+6);
     }
 
+    // Testing purposes
     public void setEV(View view) {
         et_hp_ev.setText(""+7);
         et_att_ev.setText(""+8);

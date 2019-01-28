@@ -21,14 +21,13 @@ public class AbilityAdapter extends ArrayAdapter<AbilityData> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.spinner_ability_row, parent, false);
         }
 
-        // Get the data
         AbilityData abilityData = getItem(position);
 
-        // Set the variables
         String name = abilityData.getName();
         String description = abilityData.getEffect();
 
@@ -38,11 +37,9 @@ public class AbilityAdapter extends ArrayAdapter<AbilityData> {
             description = description + " (hidden)";
         }
 
-        // Get the views
         TextView tv_name = convertView.findViewById(R.id.tv_name_ability);
         TextView tv_description = convertView.findViewById(R.id.tv_description_ability);
 
-        // Set the views
         tv_name.setText(name);
         tv_description.setText(description);
 
