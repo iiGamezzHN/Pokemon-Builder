@@ -15,12 +15,9 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class PokedexAdapter extends ArrayAdapter<String> {
-    private ArrayList<String> pokemonNames;
-    private String name2;
 
     public PokedexAdapter(Context context, int resource, ArrayList<String> names) {
         super(context, resource, names);
-        this.pokemonNames = names;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -29,7 +26,13 @@ public class PokedexAdapter extends ArrayAdapter<String> {
         }
 
         String name = getItem(position);
+        String name2;
         int id = position + 1;
+
+        // Get the url for the pokemon image
+        String url = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+id+".png";
+
+        // Set the id so that it always has 3 digits
         if(String.valueOf(position).length() == 1) {
             name2 = "#00"+id+" - "+name;
         } else if(String.valueOf(position).length() == 2) {
@@ -38,13 +41,14 @@ public class PokedexAdapter extends ArrayAdapter<String> {
             name2 = "#"+id+" - "+name;
         }
 
-        String url = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"+id+".png";
-
         TextView textView = convertView.findViewById(R.id.tv_name);
-        textView.setText(name2);
-
         ImageView imageView = convertView.findViewById(R.id.pd_detail_image);
-        Picasso.get().load(url).resize(300,300).into(imageView);
+
+        textView.setText(name2);
+        Picasso.get()
+                .load(url)
+                .resize(300,300)
+                .into(imageView);
 
         return convertView;
     }

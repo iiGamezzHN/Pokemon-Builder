@@ -16,12 +16,9 @@ import com.example.davidarisz.pokemonbuilder.R;
 import java.util.ArrayList;
 
 public class NatureAdapter extends ArrayAdapter<NatureData> {
-    private ArrayList<NatureData> natures;
 
     public NatureAdapter(Context context, int resource, int textViewResourceId, ArrayList<NatureData> objects) {
         super(context, resource, textViewResourceId, objects);
-
-        natures = objects;
     }
 
     @Override
@@ -37,6 +34,7 @@ public class NatureAdapter extends ArrayAdapter<NatureData> {
         String increased = natureData.getIncreased();
         String decreased = natureData.getDecreased();
 
+        // Trim the strings for shorter description in the AutoCompleteTextView
         switch(increased) {
             case "attack":
                 increased = "Att";
@@ -77,7 +75,7 @@ public class NatureAdapter extends ArrayAdapter<NatureData> {
         TextView tv_description = convertView.findViewById(R.id.tv_inc_dec_nature);
 
         tv_name.setText(name2);
-        String description = "+ "+increased+"    - "+decreased;
+        String description = "+ "+increased+"    - "+decreased; // TODO, make this 2 separate textviews
         tv_description.setText(description);
 
         return convertView;

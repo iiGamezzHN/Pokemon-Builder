@@ -48,6 +48,7 @@ public class ItemAdapter extends ArrayAdapter<ItemData> {
         if (item != null) {
             String name = item.getName();
             String name2 = name.substring(0,1).toUpperCase() + name.substring(1);
+
             textViewName.setText(name2);
             textViewDescription.setText(item.getEffect());
         }

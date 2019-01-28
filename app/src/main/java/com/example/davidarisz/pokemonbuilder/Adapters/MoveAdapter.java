@@ -16,7 +16,7 @@ import com.example.davidarisz.pokemonbuilder.R;
 import java.util.ArrayList;
 import java.util.List;
 
-
+// The basis of this code was taken from: https://codinginflow.com/tutorials/android/custom-autocompletetextview/part-2-adapter
 public class MoveAdapter extends ArrayAdapter<MoveData> {
     private List<MoveData> moves;
 
@@ -53,13 +53,20 @@ public class MoveAdapter extends ArrayAdapter<MoveData> {
         if (moveData != null) {
             String name = moveData.getName();
             String name2 = name.substring(0,1).toUpperCase() + name.substring(1);
+            String power = "Power: "+String.valueOf(moveData.getPower());
+            String accuracy = "Accuracy: "+String.valueOf(moveData.getAccuracy());
+            String pp = "PP: "+String.valueOf(moveData.getPp());
+            String category = "Category: "+moveData.getCategory();
+            String effect = "Description: "+moveData.getEffect();
+            String type = "Type: "+moveData.getType();
+
             tv_name.setText(name2);
-            tv_power.setText("Power: "+String.valueOf(moveData.getPower()));
-            tv_accuracy.setText("Accuracy: "+String.valueOf(moveData.getAccuracy()));
-            tv_pp.setText("PP: "+String.valueOf(moveData.getPp()));
-            tv_category.setText("Category: "+moveData.getCategory());
-            tv_effect.setText("Description: "+moveData.getEffect());
-            tv_type.setText("Type: "+moveData.getType());
+            tv_power.setText(power);
+            tv_accuracy.setText(accuracy);
+            tv_pp.setText(pp);
+            tv_category.setText(category);
+            tv_effect.setText(effect);
+            tv_type.setText(type    );
         }
 
         return convertView;

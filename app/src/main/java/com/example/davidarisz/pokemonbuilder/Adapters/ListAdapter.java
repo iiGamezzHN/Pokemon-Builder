@@ -15,11 +15,9 @@ import com.example.davidarisz.pokemonbuilder.R;
 import com.squareup.picasso.Picasso;
 
 public class ListAdapter extends ResourceCursorAdapter {
-    Context context;
 
     public ListAdapter(Context context,Cursor c) {
         super(context, R.layout.list_items, c);
-        this.context = context;
     }
 
     @Override
@@ -31,28 +29,33 @@ public class ListAdapter extends ResourceCursorAdapter {
         String type2 = cursor.getString(cursor.getColumnIndex("type2"));
         String color1 = new GetTypeColor().ReturnColor(type1);
         String color2 = "";
+
+        // If there is a 2nd type, get the color
         if (type2 != "") {
             color2 = new GetTypeColor().ReturnColor(type2);
         }
 
-        Log.d("colorTag", color1+color2);
-
         ImageView list_picture = view.findViewById(R.id.img_picture_list);
-
         TextView list_name = view.findViewById(R.id.tv_name_list); // TODO, show boosts and type
         TextView list_item = view.findViewById(R.id.tv_item_list);
-
         TextView list_type1 = view.findViewById(R.id.tv_type1_adapter);
-        list_type1.setText(type1);
-        list_type1.setBackgroundColor(Color.parseColor(color1));
         TextView list_type2 = view.findViewById(R.id.tv_type2_adapter);
-        list_type2.setText(type2);
-        if (color2 != "") {
-            list_type2.setBackgroundColor(Color.parseColor(color2));
-        }
 
         list_name.setText(name);
         list_item.setText(item);
-        Picasso.get().load(url).resize(300,300).centerCrop().into(list_picture);
+        Picasso.get().load(url)
+                .resize(300,300)
+                .centerCrop()
+                .into(list_picture);
+        list_type1.setText(type1);
+        list_type1.setBackgroundColor(Color.parseColor(color1));
+        list_type2.setText(type2);
+
+        // Set background color for 2nd type, or set the visibility to gone
+        if (color2 != "") {
+            list_type2.setBackgroundColor(Color.parseColor(color2));
+        } else {
+            list_type2.setVisibility(View.GONE);
+        }
     }
 }

@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.davidarisz.pokemonbuilder.Adapters.PagerAdapter;
 import com.example.davidarisz.pokemonbuilder.R;
 
 public class MainActivity extends AppCompatActivity {
