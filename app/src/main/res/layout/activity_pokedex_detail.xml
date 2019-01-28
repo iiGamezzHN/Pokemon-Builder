@@ -124,32 +124,32 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:layout_weight="1"
-                    android:text="@string/weight" />
+                    android:text="@string/weight"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/tv_hp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:layout_weight="1"
-                    android:text="Hp" />
+                    android:text="@string/hp"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/tv_att"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:layout_weight="1"
-                    android:text="Att" />
+                    android:text="@string/att"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/tv_def"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:layout_weight="1"
-                    android:text="Def" />
+                    android:text="@string/def"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -164,32 +164,32 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:layout_weight="1"
-                    android:text="@string/height" />
+                    android:text="@string/height"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/tv_sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:layout_weight="1"
-                    android:text="Sp" />
+                    android:text="@string/sp"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/tv_spa"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:layout_weight="1"
-                    android:text="SpA" />
+                    android:text="@string/spa"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/tv_spd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:layout_weight="1"
-                    android:text="SpD" />
+                    android:text="@string/spd"
+                    android:textSize="18sp" />
 
             </LinearLayout>
         </LinearLayout>
@@ -200,7 +200,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16sp"
             android:layout_marginBottom="8dp"
-            android:text="Ability name" />
+            android:text="Ability name"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tv_ability_effect"
@@ -208,14 +209,16 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16sp"
             android:layout_marginBottom="8dp"
-            android:text="Ability effect" />
+            android:text="Ability effect"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/held_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:text="Held item: "
-            android:layout_marginStart="16dp"/>
+            android:textSize="18sp" />
 
         <LinearLayout
             android:id="@+id/add_ability_layout"

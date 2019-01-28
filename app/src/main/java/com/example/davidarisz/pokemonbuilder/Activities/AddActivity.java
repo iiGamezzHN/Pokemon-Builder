@@ -2,7 +2,6 @@ package com.example.davidarisz.pokemonbuilder.Activities;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -74,12 +73,16 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         if(getIntent().getStringExtra("addName") != null) {
             name = getIntent().getStringExtra("addName");
             String name2 = name.substring(0,1).toUpperCase() + name.substring(1); // TODO, needs comment?
-            tv_name = findViewById(R.id.tv_name);
             String adding = "Adding: " + name2;
-            tv_name.setText(adding);
-        } else {
+
             tv_name = findViewById(R.id.tv_name);
+            tv_name.setText(adding);
+
+            makeRequest();
+        } else {
             String adding = "Adding: ";
+
+            tv_name = findViewById(R.id.tv_name);
             tv_name.setText(adding);
         }
 
@@ -145,6 +148,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
 
     // Requests for individual pokemon data, nature names and item names
     public void makeRequest () {
+
         // Loading individual pokemon data
         PokemonDataRequest pokemonData = new PokemonDataRequest(this, name);
         pokemonData.getPokemonData(this);
@@ -167,7 +171,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         auto_items.setAdapter(itemAdapter);
         auto_items.setDropDownWidth(ViewGroup.LayoutParams.MATCH_PARENT);
 
-        auto_items.setOnTouchListener(new View.OnTouchListener(){
+        auto_items.setOnTouchListener(new View.OnTouchListener(){ // TODO, make this an innerclass
             @Override
             public boolean onTouch(View v, MotionEvent event){
                 auto_items.showDropDown();
@@ -175,12 +179,15 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
             }
         });
 
-        auto_items.setOnItemClickListener(new AdapterView.OnItemClickListener() { // TODO, set clicklisteners for items and moves to get l
+        auto_items.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 ItemData itemData = itemAdapter.getItem(position); //TODO, get to add
-                String itemName = itemData.getName();
-                item = itemName.substring(0,1).toUpperCase() + itemName.substring(1);
+
+                if (itemData != null) {
+                    String itemName = itemData.getName();
+                    item = itemName.substring(0,1).toUpperCase() + itemName.substring(1);
+                }
             }
         });
 
@@ -228,6 +235,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         }
 
         final MoveAdapter moveAdapter = new MoveAdapter(AddActivity.this, moves);
+
         final AutoCompleteTextView auto_moves1 = findViewById(R.id.auto_move1);
         final AutoCompleteTextView auto_moves2 = findViewById(R.id.auto_move2);
         final AutoCompleteTextView auto_moves3 = findViewById(R.id.auto_move3);
@@ -250,6 +258,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
                 return false;
             }
         });
+
         auto_moves2.setOnTouchListener(new View.OnTouchListener(){
             @Override
             public boolean onTouch(View v, MotionEvent event){
@@ -257,6 +266,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
                 return false;
             }
         });
+
         auto_moves3.setOnTouchListener(new View.OnTouchListener(){
             @Override
             public boolean onTouch(View v, MotionEvent event){
@@ -264,6 +274,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
                 return false;
             }
         });
+
         auto_moves4.setOnTouchListener(new View.OnTouchListener(){
             @Override
             public boolean onTouch(View v, MotionEvent event){
@@ -271,6 +282,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
                 return false;
             }
         });
+
         auto_moves1.setOnItemClickListener(new AdapterView.OnItemClickListener() { // TODO, set clicklisteners for items and moves to get l
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -278,6 +290,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
                 move1 = moveData.getName();
             }
         });
+
         auto_moves2.setOnItemClickListener(new AdapterView.OnItemClickListener() { // TODO, set clicklisteners for items and moves to get l
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -285,6 +298,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
                 move2 = moveData.getName();
             }
         });
+
         auto_moves3.setOnItemClickListener(new AdapterView.OnItemClickListener() { // TODO, set clicklisteners for items and moves to get l
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -292,6 +306,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
                 move3 = moveData.getName();
             }
         });
+
         auto_moves4.setOnItemClickListener(new AdapterView.OnItemClickListener() { // TODO, set clicklisteners for items and moves to get l
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -302,6 +317,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
 
         // Get all types for pokemon
         for(TypesItem typesItem : pokemon.getTypes()) {
+
             if(typesItem.getSlot() == 1) {
                 type1 = typesItem.getType().getName();
             } else if(typesItem.getSlot() == 2) {
@@ -311,6 +327,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
 
         // Get all abilities for pokemon
         nr_abilities = pokemon.getAbilities().size();
+
         for (AbilityItem abilityItem : pokemon.getAbilities()) {
             String ability = abilityItem.getAbility().getName();
             Boolean hidden = abilityItem.is_hidden();
@@ -320,6 +337,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         }
 
         url = pokemon.getSprites().getFront_default();
+
         if (pokemon.getSprites().getFront_shiny() != null) {
             url_shiny = pokemon.getSprites().getFront_shiny();
         } else {
@@ -328,6 +346,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
 
         //Get all types for pokemon
         for(TypesItem typesItem : pokemon.getTypes()) {
+
             if(typesItem.getSlot() == 1) {
                 String typeName = typesItem.getType().getName();
                 type1 = typeName.substring(0,1).toUpperCase() + typeName.substring(1);
@@ -342,11 +361,11 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
 
     public void gotAbilityData(AbilityData abilityData) {
         nr_loop += 1;
-        Log.d("loopTag", "During loop");
         abilities.add(abilityData);
+
         if(nr_loop == nr_abilities) {
-            Log.d("loopTag", ""+abilities.size());
             Spinner ability = findViewById(R.id.spn_ability);
+
             AbilityAdapter abilityAdapter = new AbilityAdapter(this, R.layout.spinner_ability_row, R.id.tv_name_ability, abilities);
             ability.setAdapter(abilityAdapter);
         }
@@ -354,6 +373,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
 
     public boolean isAnyStringNullOrEmpty(String... strings) {
         for (String s : strings)
+
             if (s == null || s.isEmpty())
                 return true;
         return false;
@@ -361,6 +381,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
 
     public boolean isAnyIntNullOrEmpty(int... ints) {
         for (int i : ints)
+
             if (i == -1 || i >= 32)
                 return true;
         return false;
@@ -443,9 +464,12 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         SavedPokemon savedPokemon = new SavedPokemon(0, name, item, ability, move1, move2, move3,
                 move4, nature, hp_iv, att_iv, def_iv, spa_iv, spd_iv, sp_iv, hp_ev, att_ev, def_ev,
                 spa_ev, spd_ev, sp_ev, url, url_shiny, gender, type1, type2);
+
         db.insert(savedPokemon);
+
         Intent intent = new Intent(getApplicationContext(), ListActivity.class);
         startActivity(intent);
+
         // Get rid of opening animation of new activity
         overridePendingTransition(0, 0);
     }
@@ -454,6 +478,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         Intent intent = new Intent(this, ListActivity.class);
         intent.putStringArrayListExtra("namesTag", pokemonNames);
         startActivity(intent);
+
         overridePendingTransition(0,0);
     }
 
@@ -461,6 +486,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         Intent intent = new Intent(this, AddActivity.class);
         intent.putStringArrayListExtra("namesTag", pokemonNames);
         startActivity(intent);
+
         overridePendingTransition(0,0);
     }
 
@@ -468,6 +494,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         Intent intent = new Intent(this, PokedexActivity.class);
         intent.putStringArrayListExtra("namesTag", pokemonNames);
         startActivity(intent);
+
         overridePendingTransition(0,0);
     }
 
@@ -512,6 +539,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
     @Override
     protected void onPause() {
         super.onPause();
+
         overridePendingTransition(0, 0);
     }
 }

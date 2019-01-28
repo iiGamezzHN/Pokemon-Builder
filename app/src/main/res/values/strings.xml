@@ -28,4 +28,9 @@
     <string name="special_defense">Special Defense</string>
     <string name="speed">Speed</string>
     <string name="genderless">Genderless</string>
+    <string name="def">Def</string>
+    <string name="att">Att</string>
+    <string name="sp">Sp</string>
+    <string name="spa">SpA</string>
+    <string name="spd">SpD</string>
 </resources>
