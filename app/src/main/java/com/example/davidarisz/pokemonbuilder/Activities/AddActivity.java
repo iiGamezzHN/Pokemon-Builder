@@ -57,6 +57,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
     private int hp_iv, att_iv, def_iv, spa_iv, spd_iv, sp_iv, hp_ev, att_ev, def_ev, spa_ev, spd_ev, sp_ev = -1;
 
     private ItemAdapter itemAdapter;
+    private MoveAdapter moveAdapter;
 
     private TextView tv_name;
     private EditText et_hp_iv, et_att_iv, et_def_iv, et_spa_iv, et_spd_iv, et_sp_iv;
@@ -248,7 +249,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
             }
         }
 
-        final MoveAdapter moveAdapter = new MoveAdapter(AddActivity.this, moves);
+        moveAdapter = new MoveAdapter(AddActivity.this, moves);
 
         final AutoCompleteTextView auto_moves1 = findViewById(R.id.auto_move1);
         final AutoCompleteTextView auto_moves2 = findViewById(R.id.auto_move2);
@@ -265,69 +266,79 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         auto_moves3.setDropDownWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         auto_moves4.setDropDownWidth(ViewGroup.LayoutParams.MATCH_PARENT);
 
-        auto_moves1.setOnTouchListener(new View.OnTouchListener(){
-            @Override
-            public boolean onTouch(View v, MotionEvent event){
-                auto_moves1.showDropDown();
-                return false;
-            }
-        });
+        auto_moves1.setOnTouchListener(moveTouch);
+        auto_moves2.setOnTouchListener(moveTouch);
+        auto_moves3.setOnTouchListener(moveTouch);
+        auto_moves4.setOnTouchListener(moveTouch);
 
-        auto_moves2.setOnTouchListener(new View.OnTouchListener(){
-            @Override
-            public boolean onTouch(View v, MotionEvent event){
-                auto_moves2.showDropDown();
-                return false;
-            }
-        });
+        auto_moves1.setOnItemClickListener(moveClick);
+        auto_moves2.setOnItemClickListener(moveClick);
+        auto_moves3.setOnItemClickListener(moveClick);
+        auto_moves4.setOnItemClickListener(moveClick);
 
-        auto_moves3.setOnTouchListener(new View.OnTouchListener(){
-            @Override
-            public boolean onTouch(View v, MotionEvent event){
-                auto_moves3.showDropDown();
-                return false;
-            }
-        });
+//        auto_moves1.setOnTouchListener(new View.OnTouchListener(){
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event){
+//                auto_moves1.showDropDown();
+//                return false;
+//            }
+//        });
+//
+//        auto_moves2.setOnTouchListener(new View.OnTouchListener(){
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event){
+//                auto_moves2.showDropDown();
+//                return false;
+//            }
+//        });
+//
+//        auto_moves3.setOnTouchListener(new View.OnTouchListener(){
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event){
+//                auto_moves3.showDropDown();
+//                return false;
+//            }
+//        });
+//
+//        auto_moves4.setOnTouchListener(new View.OnTouchListener(){
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event){
+//                auto_moves4.showDropDown();
+//                return false;
+//            }
+//        });
 
-        auto_moves4.setOnTouchListener(new View.OnTouchListener(){
-            @Override
-            public boolean onTouch(View v, MotionEvent event){
-                auto_moves4.showDropDown();
-                return false;
-            }
-        });
-
-        auto_moves1.setOnItemClickListener(new AdapterView.OnItemClickListener() { // TODO, set clicklisteners for items and moves to get l
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                MoveData moveData = moveAdapter.getItem(position);
-                move1 = moveData.getName();
-            }
-        });
-
-        auto_moves2.setOnItemClickListener(new AdapterView.OnItemClickListener() { // TODO, set clicklisteners for items and moves to get l
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                MoveData moveData = moveAdapter.getItem(position);
-                move2 = moveData.getName();
-            }
-        });
-
-        auto_moves3.setOnItemClickListener(new AdapterView.OnItemClickListener() { // TODO, set clicklisteners for items and moves to get l
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                MoveData moveData = moveAdapter.getItem(position);
-                move3 = moveData.getName();
-            }
-        });
-
-        auto_moves4.setOnItemClickListener(new AdapterView.OnItemClickListener() { // TODO, set clicklisteners for items and moves to get l
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                MoveData moveData = moveAdapter.getItem(position);
-                move4 = moveData.getName();
-            }
-        });
+//        auto_moves1.setOnItemClickListener(new AdapterView.OnItemClickListener() { // TODO, set clicklisteners for items and moves to get l
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+//                MoveData moveData = moveAdapter.getItem(position);
+//                move1 = moveData.getName();
+//            }
+//        });
+//
+//        auto_moves2.setOnItemClickListener(new AdapterView.OnItemClickListener() { // TODO, set clicklisteners for items and moves to get l
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+//                MoveData moveData = moveAdapter.getItem(position);
+//                move2 = moveData.getName();
+//            }
+//        });
+//
+//        auto_moves3.setOnItemClickListener(new AdapterView.OnItemClickListener() { // TODO, set clicklisteners for items and moves to get l
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+//                MoveData moveData = moveAdapter.getItem(position);
+//                move3 = moveData.getName();
+//            }
+//        });
+//
+//        auto_moves4.setOnItemClickListener(new AdapterView.OnItemClickListener() { // TODO, set clicklisteners for items and moves to get l
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+//                MoveData moveData = moveAdapter.getItem(position);
+//                move4 = moveData.getName();
+//            }
+//        });
 
         // Get all types for pokemon
         for(TypesItem typesItem : pokemon.getTypes()) {
@@ -369,10 +380,65 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
                 type2 = typeName.substring(0,1).toUpperCase() + typeName.substring(1);
             }
         }
-
-
     }
 
+
+    // OnTouchListener for selecting moves
+    private View.OnTouchListener moveTouch = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View v, MotionEvent event){
+
+            // Check which move view was clicked
+            switch(v.getId()) {
+                case R.id.auto_move1:
+                    final AutoCompleteTextView auto_moves1 = v.findViewById(R.id.auto_move1);
+                    auto_moves1.showDropDown();
+                    break;
+                case R.id.auto_move2:
+                    final AutoCompleteTextView auto_moves2 = v.findViewById(R.id.auto_move2);
+                    auto_moves2.showDropDown();
+                    break;
+                case R.id.auto_move3:
+                    final AutoCompleteTextView auto_moves3 = v.findViewById(R.id.auto_move3);
+                    auto_moves3.showDropDown();
+                    break;
+                case R.id.auto_move4:
+                    final AutoCompleteTextView auto_moves4 = v.findViewById(R.id.auto_move4);
+                    auto_moves4.showDropDown();
+                    break;
+            }
+
+            return false;
+        }
+    };
+
+
+    // lala
+    private AdapterView.OnItemClickListener moveClick = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+            MoveData moveData = moveAdapter.getItem(position);
+            assert moveData != null;
+
+            switch (view.getId()) {
+                case R.id.auto_move1:
+                    move1 = moveData.getName();
+                    break;
+                case R.id.auto_move2:
+                    move2 = moveData.getName();
+                    break;
+                case R.id.auto_move3:
+                    move3 = moveData.getName();
+                    break;
+                case R.id.auto_move4:
+                    move4 = moveData.getName();
+                    break;
+            }
+        }
+    };
+
+
+    // Set abilities to spinner
     public void gotAbilityData(AbilityData abilityData) {
         nr_loop += 1;
         abilities.add(abilityData);
@@ -385,6 +451,8 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         }
     }
 
+
+    // Check of strings are null or empty
     public boolean isAnyStringNullOrEmpty(String... strings) {
         for (String s : strings)
 
@@ -402,6 +470,8 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         return false;
     }
 
+
+    // Check if all fields are filled in
     public void checkInputs(View view) {
         Spinner spn_ability = findViewById(R.id.spn_ability);
         Spinner spn_nature = findViewById(R.id.spn_nature);
@@ -443,7 +513,6 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
             NatureData natureData = (NatureData) spn_nature.getSelectedItem();
             String natureName = natureData.getName();
             nature = natureName.substring(0, 1).toUpperCase() + natureName.substring(1);
-            Log.d("natureTag", nature); // TODO, show what gets a boost and what doesn't
 
             hp_iv = Integer.parseInt(et_hp_iv.getText().toString());
             att_iv = Integer.parseInt(et_att_iv.getText().toString());
@@ -468,6 +537,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         }
     }
 
+
     // Add complete pokemon to database
     public void addPokemon(View view) {
 
@@ -488,6 +558,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         overridePendingTransition(0, 0);
     }
 
+
     public void toList(View view) {
         Intent intent = new Intent(this, ListActivity.class);
         intent.putStringArrayListExtra("namesTag", pokemonNames);
@@ -495,6 +566,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
 
         overridePendingTransition(0,0);
     }
+
 
     public void toAdd(View view) {
         Intent intent = new Intent(this, AddActivity.class);
@@ -504,6 +576,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         overridePendingTransition(0,0);
     }
 
+
     public void toPokedex(View view) {
         Intent intent = new Intent(this, PokedexActivity.class);
         intent.putStringArrayListExtra("namesTag", pokemonNames);
@@ -511,6 +584,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
 
         overridePendingTransition(0,0);
     }
+
 
     public void resetIV(View view) {
         et_hp_iv.setText(null);
@@ -521,6 +595,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         et_sp_iv.setText(null);
     }
 
+
     public void resetEV(View view) {
         et_hp_ev.setText(null);
         et_att_ev.setText(null);
@@ -529,6 +604,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         et_spd_ev.setText(null);
         et_sp_ev.setText(null);
     }
+
 
     // Testing purposes
     public void setIV(View view) {
@@ -540,6 +616,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         et_sp_iv.setText(""+6);
     }
 
+
     // Testing purposes
     public void setEV(View view) {
         et_hp_ev.setText(""+7);
@@ -549,6 +626,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         et_spd_ev.setText(""+11);
         et_sp_ev.setText(""+12);
     }
+
 
     @Override
     protected void onPause() {
