@@ -2,6 +2,7 @@ package com.example.davidarisz.pokemonbuilder.Activities;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.davidarisz.pokemonbuilder.Classes.GetTypeColor;
 import com.example.davidarisz.pokemonbuilder.Classes.SavedPokemon;
 import com.example.davidarisz.pokemonbuilder.Classes.SetTypeColors;
 import com.example.davidarisz.pokemonbuilder.R;
@@ -54,6 +56,15 @@ public class ListDetailActivity extends AppCompatActivity {
         int spd_ev = savedPokemon.getSpd_ev();
         int sp_ev = savedPokemon.getSp_ev();
 
+        String color1 = new GetTypeColor().ReturnColor(type1);
+
+        String color2 = "";
+
+        // If there is a 2nd type, get the color
+        if (type2 != "") {
+            color2 = new GetTypeColor().ReturnColor(type2);
+        }
+
         TextView tv_name = findViewById(R.id.tv_name);
         ImageView img_normal = findViewById(R.id.img_normal);
         ImageView img_shiny = findViewById(R.id.img_shiny);
@@ -82,15 +93,28 @@ public class ListDetailActivity extends AppCompatActivity {
 
         tv_name.setText(name);
         Picasso.get().load(url).into(img_normal);
+
         if (url_shiny != "") {
             Picasso.get().load(url_shiny).into(img_shiny);
         } else {
             img_shiny.setVisibility(View.GONE);
         }
+
         tv_type1.setText(type1);
-        tv_type1.setTextColor(Color.parseColor("#ffffff"));
+
+        // Set the rounded shape color to type color
+        GradientDrawable drawable = (GradientDrawable)tv_type1.getBackground();
+        drawable.setColor(Color.parseColor(color1));
+
+        // Set background color for 2nd type, or set the visibility to gone
+        if (color2 != "") {
+            GradientDrawable drawable2 = (GradientDrawable)tv_type2.getBackground();
+            drawable2.setColor(Color.parseColor(color2));
+        } else {
+            tv_type2.setVisibility(View.GONE);
+        }
+
         tv_type2.setText(type2);
-        tv_type2.setTextColor(Color.parseColor("#ffffff"));
         tv_gender.setText(gender);
         tv_item.setText(item);
         tv_ability.setText(ability);
@@ -114,9 +138,6 @@ public class ListDetailActivity extends AppCompatActivity {
 
         Button button = findViewById(R.id.btn_list_tab);
         button.setBackgroundColor(getResources().getColor(R.color.selectedTab));
-
-        new SetTypeColors(this, type1, type2, R.id.tv_type1_list_detail,
-                R.id.tv_type2_list_detail, "list");
     }
 
     public void toList(View view) {

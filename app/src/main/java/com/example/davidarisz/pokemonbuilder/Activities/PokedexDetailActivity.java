@@ -2,6 +2,7 @@ package com.example.davidarisz.pokemonbuilder.Activities;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.davidarisz.pokemonbuilder.Classes.GetTypeColor;
 import com.example.davidarisz.pokemonbuilder.Classes.SetTypeColors;
 import com.example.davidarisz.pokemonbuilder.R;
 import com.example.davidarisz.pokemonbuilder.Requests.PokemonDataRequest;
@@ -25,8 +27,6 @@ import java.util.ArrayList;
 public class PokedexDetailActivity extends AppCompatActivity implements PokemonDataRequest.Callback {
     private ArrayList pokemonNames;
     private TextView tv_name;
-    private TextView tv_type1;
-    private TextView tv_type2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +37,6 @@ public class PokedexDetailActivity extends AppCompatActivity implements PokemonD
         final String name = intent.getStringExtra("nameTag");
         pokemonNames = intent.getStringArrayListExtra("namesTag");
         tv_name = findViewById(R.id.tv_name);
-        tv_type1 = findViewById(R.id.tv_type1_pd_detail);
-        tv_type2 = findViewById(R.id.tv_type2_pd_detail);
 
         PokemonDataRequest request = new PokemonDataRequest(PokedexDetailActivity.this, name);
         request.getPokemonData(this);
@@ -47,7 +45,6 @@ public class PokedexDetailActivity extends AppCompatActivity implements PokemonD
         button.setBackgroundColor(getResources().getColor(R.color.selectedTab));
 
         FloatingActionButton fabButton = findViewById(R.id.floatingActionButton);
-        fabButton.setImageResource(R.drawable.pokeball);
         fabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,6 +72,7 @@ public class PokedexDetailActivity extends AppCompatActivity implements PokemonD
         } else {
             name2 = "#"+id+" - "+name.substring(0,1).toUpperCase() + name.substring(1);
         }
+
         String weight = String.valueOf(pokemon.getWeight());
         String height = String.valueOf(pokemon.getHeight());
         String normal, shiny, hp, att, def, spa, spd, sp, type1, type2; // TODO, ask if this is a good way
@@ -138,8 +136,19 @@ public class PokedexDetailActivity extends AppCompatActivity implements PokemonD
             item2 = "Held item: "+item.substring(0,1).toUpperCase() + item.substring(1);
         }
 
+        String color1 = new GetTypeColor().ReturnColor(type1);
+
+        String color2 = "";
+
+        // If there is a 2nd type, get the color
+        if (type2 != "") {
+            color2 = new GetTypeColor().ReturnColor(type2);
+        }
+
         ImageView iv_normal = findViewById(R.id.img_normal);
         ImageView iv_shiny = findViewById(R.id.img_shiny);
+        TextView tv_type1 = findViewById(R.id.tv_type1_pokedex_detail);
+        TextView tv_type2 = findViewById(R.id.tv_type2_pokedex_detail);
         TextView tv_weight = findViewById(R.id.tv_weight);
         TextView tv_height = findViewById(R.id.tv_height);
         TextView tv_hp = findViewById(R.id.tv_hp);
@@ -152,19 +161,30 @@ public class PokedexDetailActivity extends AppCompatActivity implements PokemonD
 
         tv_name.setText(name2);
         Picasso.get().load(normal).resize(300,300).into(iv_normal);
+
         if(!shiny.equals("")) {
             Picasso.get().load(shiny).resize(300,300).into(iv_shiny);
         } else {
             iv_shiny.setVisibility(View.GONE);
         }
+
         tv_weight.setText(weight2);
         tv_height.setText(height2);
         tv_type1.setText(type1);
-        tv_type1.setTextColor(Color.parseColor("#ffffff"));
         tv_type2.setText(type2);
-        tv_type2.setTextColor(Color.parseColor("#ffffff"));
-        new SetTypeColors(this, type1, type2, R.id.tv_type1_pd_detail, R.id.tv_type2_pd_detail,
-                "pokedex");
+
+        // Set the rounded shape color to type color
+        GradientDrawable drawable = (GradientDrawable)tv_type1.getBackground();
+        drawable.setColor(Color.parseColor(color1));
+
+        // Set background color for 2nd type, or set the visibility to gone
+        if (color2 != "") {
+            GradientDrawable drawable2 = (GradientDrawable)tv_type2.getBackground();
+            drawable2.setColor(Color.parseColor(color2));
+        } else {
+            tv_type2.setVisibility(View.GONE);
+        }
+
         tv_hp.setText(hp);
         tv_att.setText(att);
         tv_def.setText(def);

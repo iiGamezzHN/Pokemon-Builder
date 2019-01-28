@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/img_picture_list"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginStart="5dp" />
 
     <LinearLayout
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
             android:layout_marginBottom="1dp"
-            android:background="@drawable/rounded_corner"
+            android:background="@drawable/rounded_corner_types"
             android:text="Bug"
             android:textAlignment="center"
             android:textSize="18sp" />
@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
             android:layout_marginBottom="1dp"
-            android:background="@drawable/rounded_corner"
+            android:background="@drawable/rounded_corner_types"
             android:text="Psychic"
             android:textAlignment="center"
             android:textSize="18sp" />

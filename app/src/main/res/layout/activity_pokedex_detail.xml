@@ -64,38 +64,45 @@
                 android:id="@+id/img_normal"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:layout_marginEnd="8dp"/>
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/rounded_corner_images"/>
 
             <ImageView
                 android:id="@+id/img_shiny"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:layout_marginStart="8dp"/>
+                android:layout_marginStart="8dp"
+                android:background="@drawable/rounded_corner_images"/>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginBottom="16dp">
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tv_type1_pd_detail"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="Bug"
-                android:textAlignment="center" />
-
-            <TextView
-                android:id="@+id/tv_type2_pd_detail"
-                android:layout_width="60dp"
+                android:id="@+id/tv_type1_pokedex_detail"
+                android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="Dragon"
-                android:textAlignment="center" />
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/rounded_corner_types"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_type2_pokedex_detail"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/rounded_corner_types"
+                android:textAlignment="center"
+                android:textSize="18sp" />
 
         </LinearLayout>
 
@@ -227,9 +234,7 @@
         android:layout_margin="16dp"
         android:clickable="true"
         android:focusable="true"
-        android:src="@drawable/pokeball3"
-        android:backgroundTint="#a3a3a3"
-        app:borderWidth="0dp"
-        app:fabSize="normal" />
+        android:src="@drawable/add_button2"
+        app:maxImageSize="56dp" />
 
 </android.support.design.widget.CoordinatorLayout>
