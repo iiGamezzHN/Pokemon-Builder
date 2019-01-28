@@ -29,7 +29,6 @@ public class ListAdapter extends ResourceCursorAdapter {
         String type1 = cursor.getString(cursor.getColumnIndex("type1"));
         String type2 = cursor.getString(cursor.getColumnIndex("type2"));
         String color1 = new GetTypeColor().ReturnColor(type1);
-
         String color2 = "";
 
         // If there is a 2nd type, get the color

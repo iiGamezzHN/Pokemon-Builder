@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.example.davidarisz.pokemonbuilder.Classes.GetTypeColor;
 import com.example.davidarisz.pokemonbuilder.Classes.SavedPokemon;
-import com.example.davidarisz.pokemonbuilder.Classes.SetTypeColors;
 import com.example.davidarisz.pokemonbuilder.R;
 import com.squareup.picasso.Picasso;
 

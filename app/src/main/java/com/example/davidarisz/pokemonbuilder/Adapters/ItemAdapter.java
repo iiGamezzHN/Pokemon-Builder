@@ -89,7 +89,9 @@ public class ItemAdapter extends ArrayAdapter<ItemData> {
 
         @Override
         public CharSequence convertResultToString(Object resultValue) {
-            return ((ItemData) resultValue).getName();
+            String name = ((ItemData) resultValue).getName();
+            String name2 = name.substring(0,1).toUpperCase() + name.substring(1);
+            return name2;
         }
     };
 }
