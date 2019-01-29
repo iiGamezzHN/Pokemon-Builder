@@ -26,118 +26,135 @@ import java.util.ArrayList;
 
 public class PokedexDetailActivity extends AppCompatActivity implements PokemonDataRequest.Callback {
     private ArrayList pokemonNames;
-    private TextView tv_name;
+    private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pokedex_detail);
 
-        Intent intent = getIntent();
-        final String name = intent.getStringExtra("nameTag");
-        pokemonNames = intent.getStringArrayListExtra("namesTag");
-        tv_name = findViewById(R.id.tv_name);
-
-        PokemonDataRequest request = new PokemonDataRequest(PokedexDetailActivity.this, name);
-        request.getPokemonData(this);
-
+        // Set 'selected' color to current 'tab'
         Button button = findViewById(R.id.btn_pokedex_tab);
         button.setBackgroundColor(getResources().getColor(R.color.selectedTab));
 
-        FloatingActionButton fabButton = findViewById(R.id.floatingActionButton);
-        fabButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(PokedexDetailActivity.this, "Clicked button", Toast.LENGTH_SHORT).show();
+        Intent intent = getIntent();
+        name = intent.getStringExtra("nameTag");
+        pokemonNames = intent.getStringArrayListExtra("namesTag");
 
-                String pass_name = name;
-                String pass_name2 = pass_name.substring(0,1).toLowerCase() + pass_name.substring(1);
-                Intent intent = new Intent(getApplicationContext(), AddActivity.class);
-                intent.putExtra("addName", pass_name2);
-                intent.putStringArrayListExtra("namesTag", pokemonNames);
-                startActivity(intent);
-            }
-        });
+        // Request api for data of selected pokemon
+        PokemonDataRequest request = new PokemonDataRequest(PokedexDetailActivity.this, name);
+        request.getPokemonData(this);
+
+        FloatingActionButton fabButton = findViewById(R.id.floatingActionButton);
+        fabButton.setOnClickListener(addPokemon);
     }
+
+
+    // OnClickListener for floating action button to add pokemon you're currently on
+    private View.OnClickListener addPokemon = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(PokedexDetailActivity.this, "Adding pokemon", Toast.LENGTH_SHORT).show();
+
+            String pass_name = name;
+            String pass_name2 = pass_name.substring(0, 1).toLowerCase() + pass_name.substring(1);
+
+            Intent intent = new Intent(getApplicationContext(), AddActivity.class);
+            intent.putExtra("addName", pass_name2);
+            intent.putStringArrayListExtra("namesTag", pokemonNames);
+            startActivity(intent);
+        }
+    };
+
 
     public void gotPokemonData(Pokemon pokemon) {
         String name = pokemon.getName();
-        int id = pokemon.getId();
         String name2;
+        int id = pokemon.getId();
 
-        if(String.valueOf(id).length() == 1) {
-            name2 = "#00"+id+" - "+name.substring(0,1).toUpperCase() + name.substring(1);
-        } else if(String.valueOf(id).length() == 2) {
-            name2 = "#0"+id+" - "+name.substring(0,1).toUpperCase() + name.substring(1);
+        // Set the id so that it always has 3 digits
+        if (String.valueOf(id).length() == 1) {
+            name2 = "#00" + id + " - " + name.substring(0, 1).toUpperCase() + name.substring(1);
+        } else if (String.valueOf(id).length() == 2) {
+            name2 = "#0" + id + " - " + name.substring(0, 1).toUpperCase() + name.substring(1);
         } else {
-            name2 = "#"+id+" - "+name.substring(0,1).toUpperCase() + name.substring(1);
+            name2 = "#" + id + " - " + name.substring(0, 1).toUpperCase() + name.substring(1);
         }
 
         String weight = String.valueOf(pokemon.getWeight());
         String height = String.valueOf(pokemon.getHeight());
-        String normal, shiny, hp, att, def, spa, spd, sp, type1, type2; // TODO, ask if this is a good way
+        String normal, shiny, hp, att, def, spa, spd, sp, type1, type2;
         hp = att = def = spa = spd = sp = type1 = type2 = "";
 
-        if(name.contains("-")) { // TODO, ask if this should be in it's own method
-            normal = "https://img.pokemondb.net/artwork/large/"+name+".jpg";
+        // Names with - often don't have sprite links
+        if (name.contains("-")) { // TODO, ask if this should be in it's own method
+            normal = "https://img.pokemondb.net/artwork/large/" + name + ".jpg";
             shiny = "";
         } else {
             normal = pokemon.getSprites().getFront_default();
             shiny = pokemon.getSprites().getFront_shiny();
         }
 
-        for(TypesItem typesItem : pokemon.getTypes()) { // TODO, make this into blocks with color
-            if(typesItem.getSlot() == 1) {
-                type1 = typesItem.getType().getName().substring(0,1).toUpperCase() + typesItem.getType().getName().substring(1);
-            } else if(typesItem.getSlot() == 2) {
-                type2 = typesItem.getType().getName().substring(0,1).toUpperCase() + typesItem.getType().getName().substring(1);
+        // Get all types of pokemon
+        for (TypesItem typesItem : pokemon.getTypes()) { // TODO, make this into blocks with color
+
+            if (typesItem.getSlot() == 1) {
+                type1 = typesItem.getType().getName().substring(0, 1).toUpperCase() + typesItem.getType().getName().substring(1);
+            } else if (typesItem.getSlot() == 2) {
+                type2 = typesItem.getType().getName().substring(0, 1).toUpperCase() + typesItem.getType().getName().substring(1);
             }
         }
 
-        for(StatsItem statsItem : pokemon.getStats()) {
-            switch(statsItem.getStat().getName()) {
-                case("hp"):
-                    hp = "Hp: "+String.valueOf(statsItem.getBase_stat());
+        // Get all stats of pokemon
+        for (StatsItem statsItem : pokemon.getStats()) {
+
+            switch (statsItem.getStat().getName()) {
+                case ("hp"):
+                    hp = "Hp: " + String.valueOf(statsItem.getBase_stat());
                     break;
-                case("attack"):
-                    att = "Att: "+String.valueOf(statsItem.getBase_stat());
+                case ("attack"):
+                    att = "Att: " + String.valueOf(statsItem.getBase_stat());
                     break;
-                case("defense"):
-                    def = "Def: "+String.valueOf(statsItem.getBase_stat());
+                case ("defense"):
+                    def = "Def: " + String.valueOf(statsItem.getBase_stat());
                     break;
-                case("special-attack"):
-                    spa = "Spa: "+String.valueOf(statsItem.getBase_stat());
+                case ("special-attack"):
+                    spa = "Spa: " + String.valueOf(statsItem.getBase_stat());
                     break;
-                case("special-defense"):
-                    spd = "SpD: "+String.valueOf(statsItem.getBase_stat());
+                case ("special-defense"):
+                    spd = "SpD: " + String.valueOf(statsItem.getBase_stat());
                     break;
-                case("speed"):
-                    sp = "Sp: "+String.valueOf(statsItem.getBase_stat());
+                case ("speed"):
+                    sp = "Sp: " + String.valueOf(statsItem.getBase_stat());
                     break;
             }
         }
 
-        if(weight.length() < 2) {
+        // Formatting for weight
+        if (weight.length() < 2) {
             weight = "0" + weight.substring(0, weight.length() - 1) + "." + weight.substring(weight.length() - 1);
         } else {
             weight = weight.substring(0, weight.length() - 1) + "." + weight.substring(weight.length() - 1);
         }
         String weight2 = "Weight: " + weight + " kg";
 
-        if(height.length() < 2) {
+        // Formatting for height
+        if (height.length() < 2) {
             height = "0" + height.substring(0, height.length() - 1) + "." + height.substring(height.length() - 1);
         } else {
             height = height.substring(0, height.length() - 1) + "." + height.substring(height.length() - 1);
         }
+
         String height2 = "Height: " + height + " m";
         String item2 = "Held item: None";
-        for(HeldItem heldItem : pokemon.getHeld_items()) {
+
+        // Get helditems of pokemon
+        for (HeldItem heldItem : pokemon.getHeld_items()) {
             String item = heldItem.getItem().getName();
-            item2 = "Held item: "+item.substring(0,1).toUpperCase() + item.substring(1);
+            item2 = "Held item: " + item.substring(0, 1).toUpperCase() + item.substring(1);
         }
 
         String color1 = new GetTypeColor().ReturnColor(type1);
-
         String color2 = "";
 
         // If there is a 2nd type, get the color
@@ -145,6 +162,7 @@ public class PokedexDetailActivity extends AppCompatActivity implements PokemonD
             color2 = new GetTypeColor().ReturnColor(type2);
         }
 
+        TextView tv_name = findViewById(R.id.tv_name);
         ImageView iv_normal = findViewById(R.id.img_normal);
         ImageView iv_shiny = findViewById(R.id.img_shiny);
         TextView tv_type1 = findViewById(R.id.tv_type1_pokedex_detail);
@@ -160,10 +178,11 @@ public class PokedexDetailActivity extends AppCompatActivity implements PokemonD
         TextView tv_item = findViewById(R.id.held_item);
 
         tv_name.setText(name2);
-        Picasso.get().load(normal).resize(300,300).into(iv_normal);
+        Picasso.get().load(normal).resize(300, 300).into(iv_normal);
 
-        if(!shiny.equals("")) {
-            Picasso.get().load(shiny).resize(300,300).into(iv_shiny);
+        // Remove shiny imageview of url is empty
+        if (!shiny.equals("")) {
+            Picasso.get().load(shiny).resize(300, 300).into(iv_shiny);
         } else {
             iv_shiny.setVisibility(View.GONE);
         }
@@ -173,13 +192,13 @@ public class PokedexDetailActivity extends AppCompatActivity implements PokemonD
         tv_type1.setText(type1);
         tv_type2.setText(type2);
 
-        // Set the rounded shape color to type color
-        GradientDrawable drawable = (GradientDrawable)tv_type1.getBackground();
+        // Set the rounded shape and color 1st type textview
+        GradientDrawable drawable = (GradientDrawable) tv_type1.getBackground();
         drawable.setColor(Color.parseColor(color1));
 
-        // Set background color for 2nd type, or set the visibility to gone
+        // Set rounded shape and color for 2nd type textview, or set the visibility to gone
         if (color2 != "") {
-            GradientDrawable drawable2 = (GradientDrawable)tv_type2.getBackground();
+            GradientDrawable drawable2 = (GradientDrawable) tv_type2.getBackground();
             drawable2.setColor(Color.parseColor(color2));
         } else {
             tv_type2.setVisibility(View.GONE);
@@ -196,30 +215,41 @@ public class PokedexDetailActivity extends AppCompatActivity implements PokemonD
         // TODO, add abilities dynamically or make views visible when there's more than 1
     }
 
+
+    // Go to list activity
     public void toList(View view) {
         Intent intent = new Intent(this, ListActivity.class);
         intent.putStringArrayListExtra("namesTag", pokemonNames);
         startActivity(intent);
+
+        // Get rid of opening animation of new activity
         overridePendingTransition(0, 0);
     }
 
+
+    // Go to add activity
     public void toAdd(View view) {
         Intent intent = new Intent(this, AddActivity.class);
         intent.putStringArrayListExtra("namesTag", pokemonNames);
         startActivity(intent);
+
         overridePendingTransition(0, 0);
     }
 
+
+    // Go 'back' to pokedex activity
     public void toPokedex(View view) {
         Intent intent = new Intent(this, PokedexActivity.class);
         intent.putStringArrayListExtra("namesTag", pokemonNames);
         startActivity(intent);
+
         overridePendingTransition(0, 0);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+
         overridePendingTransition(0, 0);
     }
 }

@@ -71,9 +71,9 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         pokemonNames = getIntent().getStringArrayListExtra("namesTag");
 
         // Check if you came from the pokedex to add a pokemon
-        if(getIntent().getStringExtra("addName") != null) {
+        if (getIntent().getStringExtra("addName") != null) {
             name = getIntent().getStringExtra("addName");
-            String name2 = name.substring(0,1).toUpperCase() + name.substring(1); // TODO, needs comment?
+            String name2 = name.substring(0, 1).toUpperCase() + name.substring(1); // TODO, needs comment?
             String adding = "Adding: " + name2;
 
             tv_name = findViewById(R.id.tv_name);
@@ -110,7 +110,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
                     baseSearchDialogCompat.dismiss();
 
                     name = searchable.getTitle();
-                    String name2 = name.substring(0,1).toUpperCase() + name.substring(1);
+                    String name2 = name.substring(0, 1).toUpperCase() + name.substring(1);
                     String adding = "Adding: " + name2;
 
                     tv_name = findViewById(R.id.tv_name);
@@ -153,7 +153,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
 
 
     // Requests for individual pokemon data, nature names and item names
-    public void makeRequest () {
+    public void makeRequest() {
 
         // Loading individual pokemon data
         PokemonDataRequest pokemonData = new PokemonDataRequest(this, name);
@@ -220,21 +220,21 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
 
             if (itemData != null) {
                 String itemName = itemData.getName();
-                item = itemName.substring(0,1).toUpperCase() + itemName.substring(1);
+                item = itemName.substring(0, 1).toUpperCase() + itemName.substring(1);
             }
         }
     };
 
 
     // Pokemon data
-    public void gotPokemonData (Pokemon pokemon) {
+    public void gotPokemonData(Pokemon pokemon) {
         ArrayList<MoveData> moves = new ArrayList<>();
         MoveDatabase moveDb = MoveDatabase.getInstance(getApplicationContext());
 
         // Get all moves for pokemon
         for (MoveItem moveItem : pokemon.getMoves()) {
             String move = moveItem.getMove().getName();
-            String move2 = move.substring(0,1).toUpperCase() + move.substring(1);
+            String move2 = move.substring(0, 1).toUpperCase() + move.substring(1);
 
             Cursor cursor = moveDb.selectMove(move);
             while (cursor.moveToNext()) {
@@ -244,7 +244,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
                 String category = cursor.getString(cursor.getColumnIndex("category"));
                 String effect = cursor.getString(cursor.getColumnIndex("effect"));
                 String type = cursor.getString(cursor.getColumnIndex("type"));
-                MoveData moveData = new MoveData(move2,power,accuracy,pp,category,effect,type);
+                MoveData moveData = new MoveData(move2, power, accuracy, pp, category, effect, type);
                 moves.add(moveData);
             }
         }
@@ -341,11 +341,11 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
 //        });
 
         // Get all types for pokemon
-        for(TypesItem typesItem : pokemon.getTypes()) {
+        for (TypesItem typesItem : pokemon.getTypes()) {
 
-            if(typesItem.getSlot() == 1) {
+            if (typesItem.getSlot() == 1) {
                 type1 = typesItem.getType().getName();
-            } else if(typesItem.getSlot() == 2) {
+            } else if (typesItem.getSlot() == 2) {
                 type2 = typesItem.getType().getName();
             }
         }
@@ -370,14 +370,14 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         }
 
         //Get all types for pokemon
-        for(TypesItem typesItem : pokemon.getTypes()) {
+        for (TypesItem typesItem : pokemon.getTypes()) {
 
-            if(typesItem.getSlot() == 1) {
+            if (typesItem.getSlot() == 1) {
                 String typeName = typesItem.getType().getName();
-                type1 = typeName.substring(0,1).toUpperCase() + typeName.substring(1);
+                type1 = typeName.substring(0, 1).toUpperCase() + typeName.substring(1);
             } else if (typesItem.getSlot() == 2) {
                 String typeName = typesItem.getType().getName();
-                type2 = typeName.substring(0,1).toUpperCase() + typeName.substring(1);
+                type2 = typeName.substring(0, 1).toUpperCase() + typeName.substring(1);
             }
         }
     }
@@ -386,10 +386,10 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
     // OnTouchListener for selecting moves
     private View.OnTouchListener moveTouch = new View.OnTouchListener() {
         @Override
-        public boolean onTouch(View v, MotionEvent event){
+        public boolean onTouch(View v, MotionEvent event) {
 
             // Check which move view was clicked
-            switch(v.getId()) {
+            switch (v.getId()) {
                 case R.id.auto_move1:
                     final AutoCompleteTextView auto_moves1 = v.findViewById(R.id.auto_move1);
                     auto_moves1.showDropDown();
@@ -443,7 +443,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         nr_loop += 1;
         abilities.add(abilityData);
 
-        if(nr_loop == nr_abilities) {
+        if (nr_loop == nr_abilities) {
             Spinner ability = findViewById(R.id.spn_ability);
 
             AbilityAdapter abilityAdapter = new AbilityAdapter(this, R.layout.spinner_ability_row, R.id.tv_name_ability, abilities);
@@ -559,33 +559,37 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
     }
 
 
+    // Go to list activity
     public void toList(View view) {
         Intent intent = new Intent(this, ListActivity.class);
         intent.putStringArrayListExtra("namesTag", pokemonNames);
         startActivity(intent);
 
-        overridePendingTransition(0,0);
+        overridePendingTransition(0, 0);
     }
 
 
+    // Go to add activity, to reset selected pokemon
     public void toAdd(View view) {
         Intent intent = new Intent(this, AddActivity.class);
         intent.putStringArrayListExtra("namesTag", pokemonNames);
         startActivity(intent);
 
-        overridePendingTransition(0,0);
+        overridePendingTransition(0, 0);
     }
 
 
+    // Go to pokedex activity
     public void toPokedex(View view) {
         Intent intent = new Intent(this, PokedexActivity.class);
         intent.putStringArrayListExtra("namesTag", pokemonNames);
         startActivity(intent);
 
-        overridePendingTransition(0,0);
+        overridePendingTransition(0, 0);
     }
 
 
+    // Reset IV EditTexts
     public void resetIV(View view) {
         et_hp_iv.setText(null);
         et_att_iv.setText(null);
@@ -596,6 +600,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
     }
 
 
+    // Reset EV EditTexts
     public void resetEV(View view) {
         et_hp_ev.setText(null);
         et_att_ev.setText(null);
@@ -608,23 +613,23 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
 
     // Testing purposes
     public void setIV(View view) {
-        et_hp_iv.setText(""+1);
-        et_att_iv.setText(""+2);
-        et_def_iv.setText(""+3);
-        et_spa_iv.setText(""+4);
-        et_spd_iv.setText(""+5);
-        et_sp_iv.setText(""+6);
+        et_hp_iv.setText("" + 1);
+        et_att_iv.setText("" + 2);
+        et_def_iv.setText("" + 3);
+        et_spa_iv.setText("" + 4);
+        et_spd_iv.setText("" + 5);
+        et_sp_iv.setText("" + 6);
     }
 
 
     // Testing purposes
     public void setEV(View view) {
-        et_hp_ev.setText(""+7);
-        et_att_ev.setText(""+8);
-        et_def_ev.setText(""+9);
-        et_spa_ev.setText(""+10);
-        et_spd_ev.setText(""+11);
-        et_sp_ev.setText(""+12);
+        et_hp_ev.setText("" + 7);
+        et_att_ev.setText("" + 8);
+        et_def_ev.setText("" + 9);
+        et_spa_ev.setText("" + 10);
+        et_spd_ev.setText("" + 11);
+        et_sp_ev.setText("" + 12);
     }
 
 

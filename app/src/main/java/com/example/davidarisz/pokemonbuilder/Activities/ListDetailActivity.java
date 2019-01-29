@@ -25,10 +25,21 @@ public class ListDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_detail);
 
+        // Set 'selected' color to current 'tab'
+        Button button = findViewById(R.id.btn_list_tab);
+        button.setBackgroundColor(getResources().getColor(R.color.selectedTab));
+
         Intent intent = getIntent();
         pokemonNames = intent.getStringArrayListExtra("namesTag");
         SavedPokemon savedPokemon = (SavedPokemon) getIntent().getSerializableExtra("savedTag");
 
+        // Load data pokemon into views
+        setDetails(savedPokemon);
+    }
+
+
+    // Get all data from selected pokemon and load it into the views
+    public void setDetails(SavedPokemon savedPokemon) {
         String name = savedPokemon.getName();
         String url = savedPokemon.getUrl();
         String url_shiny = savedPokemon.getUrl_shiny();
@@ -56,7 +67,6 @@ public class ListDetailActivity extends AppCompatActivity {
         int sp_ev = savedPokemon.getSp_ev();
 
         String color1 = new GetTypeColor().ReturnColor(type1);
-
         String color2 = "";
 
         // If there is a 2nd type, get the color
@@ -93,6 +103,7 @@ public class ListDetailActivity extends AppCompatActivity {
         tv_name.setText(name);
         Picasso.get().load(url).into(img_normal);
 
+        // Remove shiny imageview if there's no shiny url
         if (url_shiny != "") {
             Picasso.get().load(url_shiny).into(img_shiny);
         } else {
@@ -102,12 +113,12 @@ public class ListDetailActivity extends AppCompatActivity {
         tv_type1.setText(type1);
 
         // Set the rounded shape color to type color
-        GradientDrawable drawable = (GradientDrawable)tv_type1.getBackground();
+        GradientDrawable drawable = (GradientDrawable) tv_type1.getBackground();
         drawable.setColor(Color.parseColor(color1));
 
         // Set background color for 2nd type, or set the visibility to gone
         if (color2 != "") {
-            GradientDrawable drawable2 = (GradientDrawable)tv_type2.getBackground();
+            GradientDrawable drawable2 = (GradientDrawable) tv_type2.getBackground();
             drawable2.setColor(Color.parseColor(color2));
         } else {
             tv_type2.setVisibility(View.GONE);
@@ -134,34 +145,44 @@ public class ListDetailActivity extends AppCompatActivity {
         tv_spa_iv.setText(String.valueOf(spa_iv));
         tv_spd_iv.setText(String.valueOf(spd_iv));
         tv_sp_iv.setText(String.valueOf(sp_iv));
-
-        Button button = findViewById(R.id.btn_list_tab);
-        button.setBackgroundColor(getResources().getColor(R.color.selectedTab));
     }
 
+
+    // Go 'back' to list activity
     public void toList(View view) {
-        if(pokemonNames != null) {
+
+        if (pokemonNames != null) {
             Intent intent = new Intent(this, ListActivity.class);
             intent.putStringArrayListExtra("namesTag", pokemonNames);
             startActivity(intent);
+
+            // Get rid of opening animation of new activity
             overridePendingTransition(0, 0);
         }
     }
 
+
+    // Go to add activity
     public void toAdd(View view) {
-        if(pokemonNames != null) {
+
+        if (pokemonNames != null) {
             Intent intent = new Intent(this, AddActivity.class);
             intent.putStringArrayListExtra("namesTag", pokemonNames);
             startActivity(intent);
+
             overridePendingTransition(0, 0);
         }
     }
 
+
+    // Go to pokedex activity
     public void toPokedex(View view) {
-        if(pokemonNames != null) {
+
+        if (pokemonNames != null) {
             Intent intent = new Intent(this, PokedexActivity.class);
             intent.putStringArrayListExtra("namesTag", pokemonNames);
             startActivity(intent);
+
             overridePendingTransition(0, 0);
         }
     }
