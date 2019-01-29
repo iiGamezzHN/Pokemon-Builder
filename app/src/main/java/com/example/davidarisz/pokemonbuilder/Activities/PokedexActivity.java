@@ -1,3 +1,10 @@
+/*
+Author: David Arisz
+
+PokedexActivity is where you see a list of all the pokemon possible. You can then click one of them
+to see some extra info the pokemon.
+ */
+
 package com.example.davidarisz.pokemonbuilder.Activities;
 
 import android.content.Intent;

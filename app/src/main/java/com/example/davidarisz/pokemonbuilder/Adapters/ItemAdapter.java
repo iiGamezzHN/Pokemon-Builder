@@ -1,3 +1,9 @@
+/*
+Author: David Arisz
+
+ItemAdapter takes an arraylist of ItemData objects and adapts it to an AutoCompleteTextView
+ */
+
 package com.example.davidarisz.pokemonbuilder.Adapters;
 
 import android.content.Context;
@@ -25,14 +31,17 @@ public class ItemAdapter extends ArrayAdapter<ItemData> {
         this.items = new ArrayList<>(items);
     }
 
+
     @NonNull
     @Override
     public Filter getFilter() {
         return itemsFilter;
     }
 
+
     @NonNull
     @Override
+    // Set what data to show in dropdown
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(
@@ -56,6 +65,8 @@ public class ItemAdapter extends ArrayAdapter<ItemData> {
         return convertView;
     }
 
+
+    // Make a filter that gives search results
     private Filter itemsFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
@@ -67,6 +78,7 @@ public class ItemAdapter extends ArrayAdapter<ItemData> {
             } else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
+                // Give items that match what you search for
                 for (ItemData item : items) {
                     if (item.getName().toLowerCase().contains(filterPattern)) {
                         suggestions.add(item);
@@ -80,6 +92,8 @@ public class ItemAdapter extends ArrayAdapter<ItemData> {
             return results;
         }
 
+
+        // Show filter results
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             clear();
@@ -87,11 +101,13 @@ public class ItemAdapter extends ArrayAdapter<ItemData> {
             notifyDataSetChanged();
         }
 
+
+        // Give back name when selecting an option
         @Override
         public CharSequence convertResultToString(Object resultValue) {
             String name = ((ItemData) resultValue).getName();
-            String name2 = name.substring(0,1).toUpperCase() + name.substring(1);
-            return name2;
+
+            return name.substring(0,1).toUpperCase() + name.substring(1);
         }
     };
 }

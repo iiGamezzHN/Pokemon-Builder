@@ -1,3 +1,10 @@
+/*
+Author: David Arisz
+
+ListDetailActivity is where you get sent from ListActivity after you've selected a pokemon.
+Here you see all the details of the saved pokemon like moves, ability, etc.
+ */
+
 package com.example.davidarisz.pokemonbuilder.Activities;
 
 import android.content.Intent;
@@ -112,11 +119,11 @@ public class ListDetailActivity extends AppCompatActivity {
 
         tv_type1.setText(type1);
 
-        // Set the rounded shape color to type color
+        // Set the rounded shape and color 1st type textview
         GradientDrawable drawable = (GradientDrawable) tv_type1.getBackground();
         drawable.setColor(Color.parseColor(color1));
 
-        // Set background color for 2nd type, or set the visibility to gone
+        // Set rounded shape and color for 2nd type textview, or set the visibility to gone
         if (color2 != "") {
             GradientDrawable drawable2 = (GradientDrawable) tv_type2.getBackground();
             drawable2.setColor(Color.parseColor(color2));

@@ -1,3 +1,11 @@
+/*
+Author: David Arisz
+
+ListActivity is where you can see all your saved pokemon, and click them to go see their detals.
+It is also where you have to load in all the data for items, natures and moves the very first time
+you start the app after installing it
+ */
+
 package com.example.davidarisz.pokemonbuilder.Activities;
 
 import android.content.Intent;

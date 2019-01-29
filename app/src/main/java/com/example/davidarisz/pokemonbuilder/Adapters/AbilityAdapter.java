@@ -1,3 +1,9 @@
+/*
+Author: David Arisz
+
+AbilityAdapter takes an arraylist of AbilityData objects and adapts it to a Spinner
+ */
+
 package com.example.davidarisz.pokemonbuilder.Adapters;
 
 import android.content.Context;
@@ -19,6 +25,7 @@ public class AbilityAdapter extends ArrayAdapter<AbilityData> {
         super(context, resource, textViewResourceId, objects);
     }
 
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -33,6 +40,7 @@ public class AbilityAdapter extends ArrayAdapter<AbilityData> {
 
         // If it is a hidden ability, add "(hidden)" at the end of the description
         boolean hidden = abilityData.isHidden();
+
         if (hidden) {
             description = description + " (hidden)";
         }
@@ -46,6 +54,7 @@ public class AbilityAdapter extends ArrayAdapter<AbilityData> {
         return convertView;
     }
 
+
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
@@ -56,7 +65,10 @@ public class AbilityAdapter extends ArrayAdapter<AbilityData> {
 
         String name = abilityData.getName();
         String description = abilityData.getEffect();
-        boolean hidden = abilityData.isHidden();
+
+        // If it is a hidden ability, add "(hidden)" at the end of the description
+        boolean hidden = abilityData.isHidden(); // TODO comment here?
+
         if (hidden) {
             description = description + " (hidden)";
         }

@@ -1,17 +1,21 @@
+/*
+Author: David Arisz
+
+ListAdapter takes a Cursor object from a database and adapts it to a ListView
+ */
+
 package com.example.davidarisz.pokemonbuilder.Adapters;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 
 import com.example.davidarisz.pokemonbuilder.Classes.GetTypeColor;
-import com.example.davidarisz.pokemonbuilder.Classes.SetTypeColors;
 import com.example.davidarisz.pokemonbuilder.R;
 import com.squareup.picasso.Picasso;
 
@@ -20,6 +24,7 @@ public class ListAdapter extends ResourceCursorAdapter {
     public ListAdapter(Context context,Cursor c) {
         super(context, R.layout.list_items, c);
     }
+
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
@@ -51,11 +56,11 @@ public class ListAdapter extends ResourceCursorAdapter {
         list_type1.setText(type1);
         list_type2.setText(type2);
 
-        // Set the rounded shape color to type color
+        // Set the rounded shape and color 1st type textview
         GradientDrawable drawable = (GradientDrawable)list_type1.getBackground();
         drawable.setColor(Color.parseColor(color1));
 
-        // Set background color for 2nd type, or set the visibility to gone
+        // Set rounded shape and color for 2nd type textview, or set the visibility to gone
         if (color2 != "") {
             GradientDrawable drawable2 = (GradientDrawable)list_type2.getBackground();
             drawable2.setColor(Color.parseColor(color2));

@@ -1,3 +1,9 @@
+/*
+Author: David Arisz
+
+This Class contains information on the pokemon abilities
+ */
+
 package com.example.davidarisz.pokemonbuilder.Classes;
 
 public class AbilityData {

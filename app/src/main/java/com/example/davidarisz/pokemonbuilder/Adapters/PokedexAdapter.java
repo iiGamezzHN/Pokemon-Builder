@@ -1,3 +1,9 @@
+/*
+Author: David Arisz
+
+PokedexAdapter takes an arraylist of strings and adapts it to a ListView
+ */
+
 package com.example.davidarisz.pokemonbuilder.Adapters;
 
 import android.content.Context;
@@ -20,7 +26,9 @@ public class PokedexAdapter extends ArrayAdapter<String> {
         super(context, resource, names);
     }
 
+    // Adapt the arraylist to the listview
     public View getView(int position, View convertView, ViewGroup parent) {
+
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.pokedex_items, parent, false);
         }

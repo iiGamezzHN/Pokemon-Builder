@@ -406,6 +406,12 @@
                 </TableRow>
 
             </TableLayout>
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="end"
+                android:background="@drawable/question_button"/>
         </LinearLayout>
     </ScrollView>
 

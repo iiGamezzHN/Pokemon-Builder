@@ -1,3 +1,11 @@
+/*
+Author: David Arisz
+
+PokedexDetailActivity is where you see the extra information on a pokemon that you've clicked on in
+PokedexActivity. You can also use the button in the bottom right to go add the pokemon to your list
+if you want to.
+ */
+
 package com.example.davidarisz.pokemonbuilder.Activities;
 
 import android.content.Intent;
@@ -13,7 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.davidarisz.pokemonbuilder.Classes.GetTypeColor;
-import com.example.davidarisz.pokemonbuilder.Classes.SetTypeColors;
 import com.example.davidarisz.pokemonbuilder.R;
 import com.example.davidarisz.pokemonbuilder.Requests.PokemonDataRequest;
 import com.example.davidarisz.pokemonbuilder.models.HeldItem;

@@ -1,3 +1,9 @@
+/*
+Author: David Arisz
+
+MoveAdapter takes an arraylist of MoveData objects and adapts it to an AutoCompleteTextView
+ */
+
 package com.example.davidarisz.pokemonbuilder.Adapters;
 
 import android.content.Context;
@@ -25,14 +31,17 @@ public class MoveAdapter extends ArrayAdapter<MoveData> {
         this.moves = new ArrayList<>(moves);
     }
 
+
     @NonNull
     @Override
     public Filter getFilter() {
         return movesFilter;
     }
 
+
     @NonNull
     @Override
+    // Set what data to show in dropdown
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(
@@ -72,6 +81,8 @@ public class MoveAdapter extends ArrayAdapter<MoveData> {
         return convertView;
     }
 
+
+    // Make a filter that gives search results
     private Filter movesFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
@@ -83,6 +94,7 @@ public class MoveAdapter extends ArrayAdapter<MoveData> {
             } else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
+                // Give items that match what you search for
                 for (MoveData move : moves) {
                     if (move.getName().toLowerCase().contains(filterPattern)) {
                         suggestions.add(move);
@@ -96,6 +108,8 @@ public class MoveAdapter extends ArrayAdapter<MoveData> {
             return results;
         }
 
+
+        // Show filter results
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             clear();
@@ -103,6 +117,8 @@ public class MoveAdapter extends ArrayAdapter<MoveData> {
             notifyDataSetChanged();
         }
 
+
+        // Give back name when selecting an option
         @Override
         public CharSequence convertResultToString(Object resultValue) {
             return ((MoveData) resultValue).getName();

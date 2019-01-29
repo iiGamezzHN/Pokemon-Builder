@@ -1,3 +1,11 @@
+/*
+Author: David Arisz
+
+AddActivity is where you fill in all the specific data for the pokemon you want to save.
+Before you can actually save the pokemon in the database multiple check will take place to make sure
+all info in filled in correctly.
+ */
+
 package com.example.davidarisz.pokemonbuilder.Activities;
 
 import android.content.Intent;
@@ -5,7 +13,6 @@ import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -99,7 +106,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
     }
 
 
-    // OnClickListener for search popup
+    // OnClickListener for search popup TODO more explanation and reference
     private View.OnClickListener popupSearch = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -413,7 +420,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
     };
 
 
-    // lala
+    // OnItemClickListener for selecting moves
     private AdapterView.OnItemClickListener moveClick = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -461,7 +468,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         return false;
     }
 
-    // May be needed later
+    // May be needed later TODO maybe delete
     public boolean isAnyIntNullOrEmpty(int... ints) {
         for (int i : ints)
 

@@ -1,15 +1,18 @@
+/*
+Author: David Arisz
+
+NatureAdapter takes an arraylist of NatureData objects and adapts it to a Spinner
+ */
+
 package com.example.davidarisz.pokemonbuilder.Adapters;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 
-import com.example.davidarisz.pokemonbuilder.Classes.AbilityData;
 import com.example.davidarisz.pokemonbuilder.Classes.NatureData;
 import com.example.davidarisz.pokemonbuilder.R;
 
@@ -21,7 +24,9 @@ public class NatureAdapter extends ArrayAdapter<NatureData> {
         super(context, resource, textViewResourceId, objects);
     }
 
+
     @Override
+    // Set what data to show after selecting
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.spinner_nature_row, parent, false);
@@ -81,7 +86,9 @@ public class NatureAdapter extends ArrayAdapter<NatureData> {
         return convertView;
     }
 
+
     @Override
+    // Set what data to show in dropdown
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.spinner_nature_row, parent, false);
@@ -94,6 +101,7 @@ public class NatureAdapter extends ArrayAdapter<NatureData> {
         String increased = natureData.getIncreased();
         String decreased = natureData.getDecreased();
 
+        // Trim the strings for shorter description in the AutoCompleteTextView
         switch(increased) {
             case "attack":
                 increased = "Att";
