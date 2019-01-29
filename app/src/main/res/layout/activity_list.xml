@@ -50,15 +50,15 @@
             android:id="@+id/load_natures"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="natures"
-            android:onClick="loadNatures"/>
+            android:onClick="loadNatures"
+            android:text="natures" />
 
         <Button
             android:id="@+id/load_items"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="items"
-            android:onClick="loadItems"/>
+            android:onClick="loadItems"
+            android:text="items" />
 
     </LinearLayout>
 
@@ -70,29 +70,29 @@
             android:id="@+id/load_moves1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="moves1"
-            android:onClick="loadMove1"/>
+            android:onClick="loadMoves"
+            android:text="moves1" />
 
         <Button
             android:id="@+id/load_moves2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="moves2"
-            android:onClick="loadMove2"/>
+            android:onClick="loadMoves"
+            android:text="moves2" />
 
         <Button
             android:id="@+id/load_moves3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="moves3"
-            android:onClick="loadMove3"/>
+            android:onClick="loadMoves"
+            android:text="moves3" />
 
         <Button
             android:id="@+id/load_moves4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="moves4"
-            android:onClick="loadMove4"/>
+            android:onClick="loadMoves"
+            android:text="moves4" />
     </LinearLayout>
 
     <LinearLayout
@@ -103,33 +103,33 @@
             android:id="@+id/load_moves5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="moves5"
-            android:onClick="loadMove5"/>
+            android:onClick="loadMoves"
+            android:text="moves5" />
 
         <Button
             android:id="@+id/del_database"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="del idb"
-            android:onClick="deleteDB"/>
+            android:onClick="deleteDB"
+            android:text="del idb" />
 
     </LinearLayout>
 
 
     <ProgressBar
         android:id="@+id/progress_bar_list"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp" />
 
     <TextView
         android:id="@+id/tv_progress_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"/>
+        android:layout_marginStart="16dp" />
 
     <ListView
         android:id="@+id/lv_saved_pokemon"
