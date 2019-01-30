@@ -20,6 +20,13 @@ google docs.
 In this app you will be able to recreate the build from your Pokemon and save them so that it is easier to keep
 track of all your different builds.
 
+
+<img src="doc/pokemon_list.jpg" width="150">	<img src="doc/pokemon_list_details.jpg" width="150"> 
+
+<img src="doc/add_search.jpg" width="150">	<img src="doc/add_filledin.jpg" width="150">
+
+<img src="doc/pokedex_list.jpg" width="150">	<img src="doc/pokedex_list_details.jpg" width="150">
+
 ### Features
 
 Main features:
@@ -83,3 +90,12 @@ Another hard part is that I want to try to use a lot of libraries to make my cod
 example GSON to 'automatically' makes Java models, and Retrofit for easier SQL code. By doing this I want to
 get more experience trying to write professional looking code.
 
+
+### External code
+
+Thanks to the following people:
+Mirrajabi for the search dialog
+The people of GSON for the library
+The people of Volley for the library
+The people of the pokemon api for making such a good api
+The awesome people of StackOverflow who ask and answer questions
