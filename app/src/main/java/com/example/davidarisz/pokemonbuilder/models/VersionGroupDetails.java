@@ -1,3 +1,10 @@
+/*
+Author: David Arisz
+
+This model is used by the GSON library to parse the VersionGroupDetails part of the api response for the MoveItem
+This model gets called from the MoveItem model
+ */
+
 package com.example.davidarisz.pokemonbuilder.models;
 
 public class VersionGroupDetails {
@@ -5,69 +12,88 @@ public class VersionGroupDetails {
     private MoveLearnMethod move_learn_method;
     private VersionGroup version_group;
 
-    public int getLevel_learned_at() {
-        return level_learned_at;
-    }
-
-    public void setLevel_learned_at(int level_learned_at) {
-        this.level_learned_at = level_learned_at;
-    }
-
-    public MoveLearnMethod getMove_learn_method() {
-        return move_learn_method;
-    }
-
-    public void setMove_learn_method(MoveLearnMethod move_learn_method) {
-        this.move_learn_method = move_learn_method;
-    }
-
-    public VersionGroup getVersion_group() {
-        return version_group;
-    }
-
-    public void setVersion_group(VersionGroup version_group) {
-        this.version_group = version_group;
-    }
 
     class MoveLearnMethod {
         private String name;
         private String url;
 
+
+        // Getters and setters
         public String getName() {
             return name;
         }
+
 
         public void setName(String name) {
             this.name = name;
         }
 
+
         public String getUrl() {
             return url;
         }
+
 
         public void setUrl(String url) {
             this.url = url;
         }
     }
 
+
     class VersionGroup {
         private String name;
         private String url;
 
+
+        // Getters and setters
         public String getName() {
             return name;
         }
+
 
         public void setName(String name) {
             this.name = name;
         }
 
+
         public String getUrl() {
             return url;
         }
 
+
         public void setUrl(String url) {
             this.url = url;
         }
+    }
+
+
+    // Getters and setters
+    public int getLevel_learned_at() {
+        return level_learned_at;
+    }
+
+
+    public void setLevel_learned_at(int level_learned_at) {
+        this.level_learned_at = level_learned_at;
+    }
+
+
+    public MoveLearnMethod getMove_learn_method() {
+        return move_learn_method;
+    }
+
+
+    public void setMove_learn_method(MoveLearnMethod move_learn_method) {
+        this.move_learn_method = move_learn_method;
+    }
+
+
+    public VersionGroup getVersion_group() {
+        return version_group;
+    }
+
+
+    public void setVersion_group(VersionGroup version_group) {
+        this.version_group = version_group;
     }
 }

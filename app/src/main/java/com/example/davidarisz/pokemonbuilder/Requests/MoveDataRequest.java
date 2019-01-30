@@ -61,11 +61,9 @@ public class MoveDataRequest implements Response.Listener<JSONObject>, Response.
     public void onErrorResponse(VolleyError error) {
 
         if (error.getMessage() == null) {
-            Toast.makeText(context, "Null error :(", Toast.LENGTH_SHORT).show();
-            Log.d("errorTag", "Null error");
+            Toast.makeText(context, "Timeout error", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(context, "Else error :(", Toast.LENGTH_SHORT).show();
-            Log.d("errorTag", "Else error");
+            Toast.makeText(context, "Timeout error", Toast.LENGTH_SHORT).show();
         }
     }
 

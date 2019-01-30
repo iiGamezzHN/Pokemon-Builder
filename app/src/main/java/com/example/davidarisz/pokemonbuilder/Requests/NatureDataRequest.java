@@ -62,9 +62,9 @@ public class NatureDataRequest implements Response.Listener<JSONObject>, Respons
     public void onErrorResponse(VolleyError error) {
 
         if (error.getMessage() == null) {
-            Toast.makeText(context, "Timeout error :(", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Timeout error", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(context, "Timeout error :(", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Timeout error", Toast.LENGTH_SHORT).show();
         }
     }
 
