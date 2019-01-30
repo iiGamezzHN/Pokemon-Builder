@@ -280,43 +280,6 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         auto_moves3.setOnTouchListener(moveTouch);
         auto_moves4.setOnTouchListener(moveTouch);
 
-        auto_moves1.setOnItemClickListener(moveClick);
-        auto_moves2.setOnItemClickListener(moveClick);
-        auto_moves3.setOnItemClickListener(moveClick);
-        auto_moves4.setOnItemClickListener(moveClick);
-
-//        auto_moves1.setOnTouchListener(new View.OnTouchListener(){
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event){
-//                auto_moves1.showDropDown();
-//                return false;
-//            }
-//        });
-//
-//        auto_moves2.setOnTouchListener(new View.OnTouchListener(){
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event){
-//                auto_moves2.showDropDown();
-//                return false;
-//            }
-//        });
-//
-//        auto_moves3.setOnTouchListener(new View.OnTouchListener(){
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event){
-//                auto_moves3.showDropDown();
-//                return false;
-//            }
-//        });
-//
-//        auto_moves4.setOnTouchListener(new View.OnTouchListener(){
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event){
-//                auto_moves4.showDropDown();
-//                return false;
-//            }
-//        });
-
         auto_moves1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -419,35 +382,6 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
             }
 
             return false;
-        }
-    };
-
-
-    // OnItemClickListener for selecting moves
-    private AdapterView.OnItemClickListener moveClick = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-            MoveData moveData = moveAdapter.getItem(position);
-
-            assert moveData != null;
-            Log.d("checkTagListener", "goes here");
-            Log.d("checkTagListener", "" + adapterView.getId());
-            Log.d("checkTagListener", "" + R.id.auto_move1);
-            switch (adapterView.getId()) {
-                case R.id.auto_move1:
-                    Log.d("checkTagListener", "goes move1 here");
-                    move1 = moveData.getName();
-                    break;
-                case R.id.auto_move2:
-                    move2 = moveData.getName();
-                    break;
-                case R.id.auto_move3:
-                    move3 = moveData.getName();
-                    break;
-                case R.id.auto_move4:
-                    move4 = moveData.getName();
-                    break;
-            }
         }
     };
 
@@ -611,7 +545,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
     }
 
 
-    // Testing purposes
+    // Set IV's for Testing purposes
     public void setIV(View view) {
         et_hp_iv.setText("" + 1);
         et_att_iv.setText("" + 2);
@@ -622,7 +556,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
     }
 
 
-    // Testing purposes
+    // Set EV's for testing purposes
     public void setEV(View view) {
         et_hp_ev.setText("" + 7);
         et_att_ev.setText("" + 8);

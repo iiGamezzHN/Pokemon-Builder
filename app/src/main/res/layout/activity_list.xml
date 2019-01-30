@@ -50,6 +50,7 @@
             android:id="@+id/load_natures"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/pokemonPrimary"
             android:onClick="loadNatures"
             android:text="natures" />
 
@@ -57,6 +58,7 @@
             android:id="@+id/load_items"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/pokemonPrimary"
             android:onClick="loadItems"
             android:text="items" />
 
@@ -70,6 +72,7 @@
             android:id="@+id/load_moves1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/pokemonPrimary"
             android:onClick="loadMoves"
             android:text="moves1" />
 
@@ -77,6 +80,7 @@
             android:id="@+id/load_moves2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/pokemonPrimary"
             android:onClick="loadMoves"
             android:text="moves2" />
 
@@ -84,6 +88,7 @@
             android:id="@+id/load_moves3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/pokemonPrimary"
             android:onClick="loadMoves"
             android:text="moves3" />
 
@@ -91,6 +96,7 @@
             android:id="@+id/load_moves4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/pokemonPrimary"
             android:onClick="loadMoves"
             android:text="moves4" />
     </LinearLayout>
@@ -103,15 +109,9 @@
             android:id="@+id/load_moves5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/pokemonPrimary"
             android:onClick="loadMoves"
             android:text="moves5" />
-
-        <Button
-            android:id="@+id/del_database"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="deleteDB"
-            android:text="del idb" />
 
     </LinearLayout>
 
