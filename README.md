@@ -20,8 +20,6 @@ google docs.
 In this app you will be able to recreate the build from your Pokemon and save them so that it is easier to keep
 track of all your different builds.
 
-![](doc/Screens.png)
-
 ### Features
 
 Main features:
