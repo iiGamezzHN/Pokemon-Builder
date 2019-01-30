@@ -1,3 +1,9 @@
+/*
+Author: David Arisz
+
+This Request asks for specific data om items from the api
+ */
+
 package com.example.davidarisz.pokemonbuilder.Requests;
 
 import android.content.Context;
@@ -22,10 +28,13 @@ public class ItemDataRequest implements Response.Listener<JSONObject>, Response.
     private Gson gson = new Gson();
     private String name;
 
+
     public interface Callback {
         void gotItemData(ItemData itemData);
     }
 
+
+    // Constructor for the class
     public ItemDataRequest(Context context, String name) {
         this.context = context;
         this.name = name.substring(0,1).toLowerCase() + name.substring(1);;
@@ -43,8 +52,11 @@ public class ItemDataRequest implements Response.Listener<JSONObject>, Response.
 
     }
 
+
+    // Catches the error if the request fails
     @Override
     public void onErrorResponse(VolleyError error) {
+
         if (error.getMessage() == null) {
             Toast.makeText(context, "Timeout error :(", Toast.LENGTH_SHORT).show();
         } else {
@@ -52,14 +64,18 @@ public class ItemDataRequest implements Response.Listener<JSONObject>, Response.
         }
     }
 
+
+    // Handles the response of the api request
     @Override
     public void onResponse(JSONObject response) {
         Item item = gson.fromJson(response.toString(), Item.class);
         String effect = "";
 
+        // Gets the effect of the item
         for(Item.EffectEntries effectEntries : item.getEffect_entries()) {
             effect = effectEntries.getShort_effect();
         }
+
         String name = item.getName();
         String sprite = item.getSprite();
         ItemData itemData = new ItemData(name, effect, sprite);

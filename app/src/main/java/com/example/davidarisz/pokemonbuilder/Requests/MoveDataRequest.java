@@ -1,3 +1,9 @@
+/*
+Author: David Arisz
+
+This Request asks for specific data om moves from the api
+ */
+
 package com.example.davidarisz.pokemonbuilder.Requests;
 
 import android.content.Context;
@@ -24,14 +30,18 @@ public class MoveDataRequest implements Response.Listener<JSONObject>, Response.
     private Gson gson = new Gson();
     private String name;
 
+
     public interface Callback {
         void gotMoveData(MoveData moveData);
     }
 
+
+    // Constructor for the class
     public MoveDataRequest(Context context, String name) {
         this.context = context;
         this.name = name.substring(0,1).toLowerCase() + name.substring(1);;
     }
+
 
     // Makes a request to the api
     public void getMoveData(MoveDataRequest.Callback activity) {
@@ -45,8 +55,11 @@ public class MoveDataRequest implements Response.Listener<JSONObject>, Response.
 
     }
 
+
+    // Catches the error if the request fails
     @Override
     public void onErrorResponse(VolleyError error) {
+
         if (error.getMessage() == null) {
             Toast.makeText(context, "Null error :(", Toast.LENGTH_SHORT).show();
             Log.d("errorTag", "Null error");
@@ -56,6 +69,8 @@ public class MoveDataRequest implements Response.Listener<JSONObject>, Response.
         }
     }
 
+
+    // Handles the response of the api request
     @Override
     public void onResponse(JSONObject response) {
         Move move = gson.fromJson(response.toString(), Move.class);
@@ -67,6 +82,7 @@ public class MoveDataRequest implements Response.Listener<JSONObject>, Response.
         String effect = "";
         String type = move.getType().getName();
 
+        // Gets the effect of the move
         for(Move.EffectEntries effectEntries : move.getEffect_entries()) {
             effect = effectEntries.getShort_effect();
         }

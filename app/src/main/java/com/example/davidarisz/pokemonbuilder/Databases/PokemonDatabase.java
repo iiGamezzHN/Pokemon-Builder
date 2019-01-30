@@ -1,3 +1,10 @@
+/*
+Author: David Arisz
+
+This file contains the moves database. It can create and delete the move table.
+It can also return and add move entries to/from the database.
+ */
+
 package com.example.davidarisz.pokemonbuilder.Databases;
 
 import android.content.ContentValues;

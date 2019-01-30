@@ -1,3 +1,9 @@
+/*
+Author: David Arisz
+
+This Request asks for specific data om natures from the api
+ */
+
 package com.example.davidarisz.pokemonbuilder.Requests;
 
 import android.content.Context;
@@ -25,14 +31,18 @@ public class NatureDataRequest implements Response.Listener<JSONObject>, Respons
     private Gson gson = new Gson();
     private String name;
 
+
     public interface Callback {
         void gotNatureData(NatureData natureData);
     }
 
+
+    // Constructor for the class
     public NatureDataRequest(Context context, String name) {
         this.context = context;
         this.name = name.substring(0,1).toLowerCase() + name.substring(1);
     }
+
 
     // Makes a request to the api
     public void getNatureData(NatureDataRequest.Callback activity) {
@@ -46,8 +56,11 @@ public class NatureDataRequest implements Response.Listener<JSONObject>, Respons
 
     }
 
+
+    // Catches the error if the request fails
     @Override
     public void onErrorResponse(VolleyError error) {
+
         if (error.getMessage() == null) {
             Toast.makeText(context, "Timeout error :(", Toast.LENGTH_SHORT).show();
         } else {
@@ -55,6 +68,8 @@ public class NatureDataRequest implements Response.Listener<JSONObject>, Respons
         }
     }
 
+
+    // Handles the response of the api request
     @Override
     public void onResponse(JSONObject response) {
         Nature nature = gson.fromJson(response.toString(), Nature.class);
@@ -63,6 +78,7 @@ public class NatureDataRequest implements Response.Listener<JSONObject>, Respons
         String decreased;
         String increased;
 
+        // If the nature doens't increase or decrease anything, set the strings to empty
         if (nature.getDecreasedStat() == null) {
             decreased = "";
             increased = "";

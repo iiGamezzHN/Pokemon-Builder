@@ -1,3 +1,9 @@
+/*
+Author: David Arisz
+
+This Request asks for specific data om abilities from the api
+ */
+
 package com.example.davidarisz.pokemonbuilder.Requests;
 
 import android.content.Context;
@@ -24,15 +30,19 @@ public class AbilityDataRequest implements Response.Listener<JSONObject>, Respon
     private String name;
     private boolean hidden;
 
+
     public interface Callback {
         void gotAbilityData(AbilityData abilityData);
     }
 
+
+    // Constructor for the class
     public AbilityDataRequest(Context context, String name, boolean hidden) {
         this.context = context;
         this.name = name;
         this.hidden = hidden;
     }
+
 
     // Makes a request to the api
     public void getAbilityData(AbilityDataRequest.Callback activity) {
@@ -46,15 +56,20 @@ public class AbilityDataRequest implements Response.Listener<JSONObject>, Respon
 
     }
 
+
+    // Catches the error if the request fails
     @Override
     public void onErrorResponse(VolleyError error) {
+
         if (error.getMessage() == null) {
-            Toast.makeText(context, "Timeout error :(", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Timeout error", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(context, "Timeout error :(", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Timeout error", Toast.LENGTH_SHORT).show();
         }
     }
 
+
+    // Handles the response of the api request
     @Override
     public void onResponse(JSONObject response) {
         Ability ability = gson.fromJson(response.toString(), Ability.class);
@@ -62,6 +77,7 @@ public class AbilityDataRequest implements Response.Listener<JSONObject>, Respon
         String name = ability.getName();
         String name2 = name.substring(0,1).toUpperCase() + name.substring(1);
 
+        // Gets the effect of the ability
         for(Ability.EffectEntries effectEntries : ability.getEffect_entries()) {
             effect = effectEntries.getShort_effect();
         }

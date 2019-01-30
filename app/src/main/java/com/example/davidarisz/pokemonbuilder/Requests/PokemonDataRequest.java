@@ -1,3 +1,9 @@
+/*
+Author: David Arisz
+
+This Request asks for specific data om pokemon from the api
+ */
+
 package com.example.davidarisz.pokemonbuilder.Requests;
 
 import android.content.Context;
@@ -25,14 +31,18 @@ public class PokemonDataRequest implements Response.Listener<JSONObject>, Respon
     private Gson gson = new Gson();
     private String name;
 
+
     public interface Callback {
         void gotPokemonData(Pokemon pokemon);
     }
 
+
+    // Constructor for the class
     public PokemonDataRequest(Context context, String name) {
         this.context = context;
         this.name = name.substring(0,1).toLowerCase() + name.substring(1);;
     }
+
 
     // Makes a request to the api
     public void getPokemonData(PokemonDataRequest.Callback activity) {
@@ -46,8 +56,11 @@ public class PokemonDataRequest implements Response.Listener<JSONObject>, Respon
 
     }
 
+
+    // Catches the error if the request fails
     @Override
     public void onErrorResponse(VolleyError error) {
+
         if (error.getMessage() == null) {
             Toast.makeText(context, "Timeout error :(", Toast.LENGTH_SHORT).show();
         } else {
@@ -55,13 +68,11 @@ public class PokemonDataRequest implements Response.Listener<JSONObject>, Respon
         }
     }
 
+
+    // Handles the response of the api request
     @Override
     public void onResponse(JSONObject response) {
         Pokemon pokemon = gson.fromJson(response.toString(), Pokemon.class);
-
-        for (StatsItem statsItem : pokemon.getStats()) {
-            Log.d("statTag", ""+statsItem.getBase_stat());
-        }
 
         activity.gotPokemonData(pokemon);
     }
