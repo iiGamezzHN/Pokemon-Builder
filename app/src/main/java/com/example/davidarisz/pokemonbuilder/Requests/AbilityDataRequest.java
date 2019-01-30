@@ -15,9 +15,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.davidarisz.pokemonbuilder.Classes.AbilityData;
-import com.example.davidarisz.pokemonbuilder.Classes.ItemData;
 import com.example.davidarisz.pokemonbuilder.models.Ability;
-import com.example.davidarisz.pokemonbuilder.models.Item;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;

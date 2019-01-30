@@ -7,7 +7,6 @@ PokedexAdapter takes an arraylist of strings and adapts it to a ListView
 package com.example.davidarisz.pokemonbuilder.Adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

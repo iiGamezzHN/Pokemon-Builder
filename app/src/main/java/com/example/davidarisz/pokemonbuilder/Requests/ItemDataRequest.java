@@ -7,7 +7,6 @@ This Request asks for specific data om items from the api
 package com.example.davidarisz.pokemonbuilder.Requests;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;

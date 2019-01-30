@@ -7,7 +7,6 @@ This Request asks for specific data om natures from the api
 package com.example.davidarisz.pokemonbuilder.Requests;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -16,13 +15,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.davidarisz.pokemonbuilder.Classes.NatureData;
-import com.example.davidarisz.pokemonbuilder.models.Item;
 import com.example.davidarisz.pokemonbuilder.models.Nature;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 public class NatureDataRequest implements Response.Listener<JSONObject>, Response.ErrorListener {
 
