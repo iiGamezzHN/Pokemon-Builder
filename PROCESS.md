@@ -68,7 +68,7 @@ I already have code that I can run. I've already processed two API requests and 
 - Ability spinner now shows both the name and the effect of the abilities
 - Using a spinner for items and moves is terrible because there are too many options. You need to be able to search. So I will use a custom AutoCompleteTextView for these
 
-## Week 3 (last week)
+## Week 3
 ### Day 11 - Monday
 - AutoCompleteTextView finally works for items
 - Still need to do the AutoCompleteTextView for moves
@@ -84,3 +84,30 @@ I already have code that I can run. I've already processed two API requests and 
 - Can now add pokemon from PokedexDetails activity
 - Need checks for AddActivity so you can't add pokemon when parts are empty/not filled in correctly
 - Need to expand move database with effect and damage class
+
+## Day 13 - Wednesday
+- FloatingActionButton in PokedexDetailActivity now shows a pokeball for a more pleasing aesthetic
+- Selecting a move in AddActivity now shows more information than just the name
+
+## Day 14 - Thursday
+- Made better looking layout for PokedexDetailActivity
+- PokedexActivity ListView now shows an image of the pokemon so it's easier to know what pokemon you're going to click
+- PokedexDetailActivity now shows matching colors for the type(s) of the pokemon
+
+## Day 15 - Friday
+- ListDetailActivity now also shows matching colors for the type(s) of the pokemon
+- Saved pokemon can be deleted by longpressing them
+
+### Week 4 (final week)
+## Day 16 - Monday
+- Made code look cleaner
+- Some small aesthetically pleasing changes like rounded corners
+
+## Day 17 - Tuesday
+- More cleaning of the code
+- Adding comments to the code
+
+## Day 18 - Wednesday (final day)
+- Picked an open source license
+- Finished adding commets to the code
+- Finished the app
