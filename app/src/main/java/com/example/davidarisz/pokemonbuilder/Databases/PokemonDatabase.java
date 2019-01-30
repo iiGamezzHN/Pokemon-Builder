@@ -11,6 +11,7 @@ import com.example.davidarisz.pokemonbuilder.Classes.SavedPokemon;
 
 public class PokemonDatabase extends SQLiteOpenHelper {
 
+    // String for creating the pokemon table inside the database with all variables
     private static final String SQL_CREATE_POKEMON = "CREATE TABLE " + "pokemon" + " (" +
             "_id" + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "name" + " TEXT NOT NULL, " +
@@ -39,8 +40,12 @@ public class PokemonDatabase extends SQLiteOpenHelper {
             "type1" + " TEXT NOT NULL, " +
             "type2" + " TEXT NOT NULL)";
 
+
+    // Deletes the pokemon table from the database
     private static final String SQL_DELETE_POKEMON = "DROP TABLE IF EXISTS " + "pokemon";
 
+
+    // Test entry TODO remove this
     private static final String sql = "INSERT INTO pokemon (name, item, ability, move1, move2, move3, " +
             "move4, nature, hp_iv, att_iv, def_iv, spa_iv, spd_iv, sp_iv, hp_ev, att_ev, def_ev, " +
             "spa_ev, spd_ev, sp_ev, url, url_shiny, gender, type1, type2) " +
@@ -49,25 +54,34 @@ public class PokemonDatabase extends SQLiteOpenHelper {
             ",'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/6.png','Male'," +
             "'Fire', 'Flying')";
 
+
+    // Excecuting the create table string
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_POKEMON);
         db.execSQL(sql);
     }
 
+
+    // Updates the database with new entries
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(SQL_DELETE_POKEMON);
         onCreate(db);
     }
 
+
+    // Constructor for the database
     public PokemonDatabase(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 
+
     private static PokemonDatabase instance;
 
+
     public static PokemonDatabase getInstance (Context c) {
+
         if (instance != null) {
             return instance;
         }
@@ -77,10 +91,14 @@ public class PokemonDatabase extends SQLiteOpenHelper {
         }
     }
 
+
+    // Query to return all entries in the database
     public Cursor selectAll() {
         return getWritableDatabase().rawQuery("select * from pokemon",null);
     }
 
+
+    // Insert a new entry into the database
     public Long insert (SavedPokemon savedPokemon) {
         ContentValues contentValues = new ContentValues();
 
@@ -113,6 +131,8 @@ public class PokemonDatabase extends SQLiteOpenHelper {
         return getWritableDatabase().insertOrThrow("pokemon",null,contentValues);
     }
 
+
+    // Excecuting code that deletes the move table
     public long remove (int id) {
         return getWritableDatabase().delete("pokemon","_id = ?", new String[] { String.valueOf(id) });
     }

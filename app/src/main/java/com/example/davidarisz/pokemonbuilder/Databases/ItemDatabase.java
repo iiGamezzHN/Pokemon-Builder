@@ -11,32 +11,44 @@ import com.example.davidarisz.pokemonbuilder.Classes.ItemData;
 
 public class ItemDatabase extends SQLiteOpenHelper {
 
+    // String for creating the items table inside the database with all variables
     private static final String SQL_CREATE_ITEMS = "CREATE TABLE " + "items" + " (" +
             "_id" + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "name" + " TEXT NOT NULL, " +
             "effect" + " TEXT NOT NULL, " +
             "sprite" + " TEXT NOT NULL)";
 
+
+    // Deletes the items table from the database
     private static final String SQL_DELETE_ITEMS = "DROP TABLE IF EXISTS " + "items";
 
+
+    // Excecuting the create table string
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_ITEMS);
     }
 
+
+    // Updates the database with new entries
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(SQL_DELETE_ITEMS);
         onCreate(db);
     }
 
+
+    // Constructor for the database
     public ItemDatabase(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 
+
     private static ItemDatabase instance;
 
+
     public static ItemDatabase getInstance (Context c) {
+
         if (instance != null) {
             return instance;
         }
@@ -46,10 +58,14 @@ public class ItemDatabase extends SQLiteOpenHelper {
         }
     }
 
+
+    // Query to return all entries in the database
     public Cursor selectAll() {
         return getWritableDatabase().rawQuery("select * from items",null);
     }
 
+
+    // Insert a new entry into the database
     public Long insert (ItemData itemData) {
         ContentValues contentValues = new ContentValues();
 
@@ -60,6 +76,8 @@ public class ItemDatabase extends SQLiteOpenHelper {
         return getWritableDatabase().insert("items",null,contentValues);
     }
 
+
+    // Excecuting code that deletes the move table
     public void remove () {
         SQLiteDatabase db = this.getReadableDatabase();
         db.execSQL(SQL_DELETE_ITEMS);
