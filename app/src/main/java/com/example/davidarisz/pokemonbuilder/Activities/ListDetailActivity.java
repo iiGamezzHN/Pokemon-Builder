@@ -34,7 +34,7 @@ public class ListDetailActivity extends AppCompatActivity {
 
         // Set 'selected' color to current 'tab'
         Button button = findViewById(R.id.btn_list_tab);
-        button.setBackgroundColor(getResources().getColor(R.color.selectedTab));
+        button.setBackgroundColor(getResources().getColor(R.color.selectedTab2));
 
         Intent intent = getIntent();
         pokemonNames = intent.getStringArrayListExtra("namesTag");

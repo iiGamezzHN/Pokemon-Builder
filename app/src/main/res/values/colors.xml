@@ -4,5 +4,9 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="selectedTab">#017064</color>
+    <color name="selectedTab2">#e51b1b</color>
     <color name="white">#ffffff</color>
+    <color name="pokemonPrimary">#ff1c1c</color>
+    <color name="pokemonPrimaryDark">#e51b1b</color>
+    <color name="background">#fff4f4</color>
 </resources>

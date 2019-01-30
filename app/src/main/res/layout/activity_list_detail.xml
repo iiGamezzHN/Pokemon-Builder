@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:orientation="vertical"
     tools:context=".Activities.ListDetailActivity">
 
@@ -16,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/colorPrimary"
+            android:background="@color/pokemonPrimary"
             android:onClick="toList"
             android:text="@string/pokemon_list"
             android:textColor="@color/white" />
@@ -25,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/colorPrimary"
+            android:background="@color/pokemonPrimary"
             android:onClick="toAdd"
             android:text="@string/add_pokemon"
             android:textColor="@color/white" />
@@ -34,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/colorPrimary"
+            android:background="@color/pokemonPrimary"
             android:onClick="toPokedex"
             android:text="@string/pokedex"
             android:textColor="@color/white" />
@@ -194,49 +195,56 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="italic" />
 
                     <TextView
                         android:id="@+id/tv_item"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="italic" />
 
                     <TextView
                         android:id="@+id/tv_ability"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="italic" />
 
                     <TextView
                         android:id="@+id/tv_move1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="italic" />
 
                     <TextView
                         android:id="@+id/tv_move2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="italic" />
 
                     <TextView
                         android:id="@+id/tv_move3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="italic" />
 
                     <TextView
                         android:id="@+id/tv_move4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="italic" />
 
                 </LinearLayout>
 
@@ -257,7 +265,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginEnd="20dp"
                     android:layout_marginBottom="8dp"
                     android:text="@string/nature"
                     android:textSize="18sp" />
@@ -301,13 +309,15 @@
                         android:id="@+id/tv_hp_iv"
                         android:gravity="center"
                         android:hint="@string/et_hint"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="italic" />
 
                     <TextView
                         android:id="@+id/tv_hp_ev"
                         android:gravity="center"
                         android:hint="@string/et_hint"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="italic" />
                 </TableRow>
 
                 <TableRow android:layout_marginBottom="8dp">
@@ -320,13 +330,15 @@
                         android:id="@+id/tv_att_iv"
                         android:gravity="center"
                         android:hint="@string/et_hint"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="italic" />
 
                     <TextView
                         android:id="@+id/tv_att_ev"
                         android:gravity="center"
                         android:hint="@string/et_hint"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="italic" />
                 </TableRow>
 
                 <TableRow android:layout_marginBottom="8dp">
@@ -339,13 +351,15 @@
                         android:id="@+id/tv_def_iv"
                         android:gravity="center"
                         android:hint="@string/et_hint"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="italic" />
 
                     <TextView
                         android:id="@+id/tv_def_ev"
                         android:gravity="center"
                         android:hint="@string/et_hint"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="italic" />
                 </TableRow>
 
                 <TableRow android:layout_marginBottom="8dp">
@@ -358,13 +372,15 @@
                         android:id="@+id/tv_spa_iv"
                         android:gravity="center"
                         android:hint="@string/et_hint"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="italic" />
 
                     <TextView
                         android:id="@+id/tv_spa_ev"
                         android:gravity="center"
                         android:hint="@string/et_hint"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="italic" />
                 </TableRow>
 
                 <TableRow android:layout_marginBottom="8dp">
@@ -377,13 +393,15 @@
                         android:id="@+id/tv_spd_iv"
                         android:gravity="center"
                         android:hint="@string/et_hint"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="italic" />
 
                     <TextView
                         android:id="@+id/tv_spd_ev"
                         android:gravity="center"
                         android:hint="@string/et_hint"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="italic" />
                 </TableRow>
 
                 <TableRow android:layout_marginBottom="8dp">
@@ -396,23 +414,19 @@
                         android:id="@+id/tv_sp_iv"
                         android:gravity="center"
                         android:hint="@string/et_hint"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="italic" />
 
                     <TextView
                         android:id="@+id/tv_sp_ev"
                         android:gravity="center"
                         android:hint="@string/et_hint"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="italic" />
                 </TableRow>
 
             </TableLayout>
         </LinearLayout>
-
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="end"
-            android:background="@drawable/question_button" />
     </ScrollView>
 
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

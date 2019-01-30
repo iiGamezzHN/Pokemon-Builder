@@ -67,7 +67,7 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
 
         // Set 'selected' color to current 'tab'
         Button button = findViewById(R.id.btn_list_tab);
-        button.setBackgroundColor(getResources().getColor(R.color.selectedTab));
+        button.setBackgroundColor(getResources().getColor(R.color.selectedTab2));
 
         // Set progressbars for loading data into databases
         progressBar = findViewById(R.id.progress_bar_list);
@@ -78,21 +78,18 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
 
         // If the databases are filled, delete the loading buttons
         natureDb = NatureDatabase.getInstance(getApplicationContext());
-        Toast.makeText(this, "natures: " + String.valueOf(natureDb.selectAll().getCount()), Toast.LENGTH_SHORT).show();
         if (natureDb.selectAll().getCount() > 0) {
             Button loadNature = findViewById(R.id.load_natures);
             loadNature.setVisibility(View.GONE);
         }
 
         itemDb = ItemDatabase.getInstance(getApplicationContext());
-        Toast.makeText(this, "items: " + String.valueOf(itemDb.selectAll().getCount()), Toast.LENGTH_SHORT).show();
         if (itemDb.selectAll().getCount() > 0) {
             Button loadNature = findViewById(R.id.load_items);
             loadNature.setVisibility(View.GONE);
         }
 
-        moveDb = MoveDatabase.getInstance(getApplicationContext()); // TODO, check which button is already loaded
-        Toast.makeText(this, "Moves: " + String.valueOf(moveDb.selectAll().getCount()), Toast.LENGTH_SHORT).show();
+        moveDb = MoveDatabase.getInstance(getApplicationContext());
 
         // If move database has specific moves, those corresponding buttons won't show
         if (moveDb.selectMove("swords-dance").getCount() == 1) {
@@ -151,7 +148,6 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
     // Testing method for deleting move database
     public void deleteDB(View view) {
         moveDb.remove();
-        Toast.makeText(this, "Count: " + String.valueOf(moveDb.selectAll().getCount()), Toast.LENGTH_SHORT).show();
     }
 
 
@@ -296,7 +292,6 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
                         String name = (String) movesArray.get(i);
                         MoveDataRequest moveDataRequest = new MoveDataRequest(this, name);
                         moveDataRequest.getMoveData(this);
-                        Log.d("ammountTag", "" + i);
                     }
 
                     break;
@@ -314,7 +309,6 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
                         String name = (String) movesArray.get(i);
                         MoveDataRequest moveDataRequest = new MoveDataRequest(this, name);
                         moveDataRequest.getMoveData(this);
-                        Log.d("ammountTag", "" + i);
                     }
 
                     break;
@@ -332,7 +326,6 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
                         String name = (String) movesArray.get(i);
                         MoveDataRequest moveDataRequest = new MoveDataRequest(this, name);
                         moveDataRequest.getMoveData(this);
-                        Log.d("ammountTag", "" + i);
                     }
 
                     break;
@@ -350,7 +343,6 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
                         String name = (String) movesArray.get(i);
                         MoveDataRequest moveDataRequest = new MoveDataRequest(this, name);
                         moveDataRequest.getMoveData(this);
-                        Log.d("ammountTag", "" + i);
                     }
 
                     break;
@@ -368,7 +360,6 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
                         String name = (String) movesArray.get(i);
                         MoveDataRequest moveDataRequest = new MoveDataRequest(this, name);
                         moveDataRequest.getMoveData(this);
-                        Log.d("ammountTag", "" + i);
                     }
 
                     break;
@@ -392,9 +383,6 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
         progressBar.incrementProgressBy(1);
         progress = progressBar.getProgress() + "/" + tot_count;
         tv_progress.setText(progress);
-
-        Log.d("ammountTag", "add to db " + nr);
-        Log.d("ammountTag", moveData.getName());
 
         // Check if loading is done for when different buttons are clicked
         if (nr == limit) {
@@ -540,7 +528,6 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
     }
 
 
-    //
     @Override
     protected void onPause() {
         super.onPause();
@@ -550,7 +537,6 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
     }
 
 
-    //
     @Override
     public void onResume() {
         super.onResume();
@@ -562,147 +548,5 @@ public class ListActivity extends AppCompatActivity implements PokemonNamesReque
     private void updateData() {
         db = PokemonDatabase.getInstance(getApplicationContext());
         adapter.swapCursor(db.selectAll());
-    }
-
-    // Probably obsolete
-    public void loadMove1(View view) {
-
-
-        if (movesArray != null) {
-            nr = 0;
-            limit = 150;
-            tot_count = limit;
-            progressBar.setMax(limit);
-            progressBar.setProgress(nr);
-            progress = progressBar.getProgress() + "/" + limit;
-            tv_progress.setText(progress);
-
-            for (int i = nr; i < limit; i++) {
-                String name = (String) movesArray.get(i);
-                MoveDataRequest moveDataRequest = new MoveDataRequest(this, name);
-                moveDataRequest.getMoveData(this);
-                Log.d("ammountTag", "" + i);
-            }
-        } else {
-            Toast.makeText(this, "moves not loaded", Toast.LENGTH_SHORT).show();
-            progressBar.setVisibility(View.GONE);
-            tv_progress.setVisibility(View.GONE);
-        }
-    }
-
-
-    // Probably obsolete
-    public void loadMove2(View view) {
-        progressBar.setVisibility(View.VISIBLE);
-        tv_progress.setVisibility(View.VISIBLE);
-        tv_progress.setText("Loading Items...");
-
-        if (movesArray != null) {
-            nr = 150;
-            limit = 300;
-            tot_count = limit - nr;
-            progressBar.setMax(limit - nr);
-            progressBar.setProgress(0);
-            progress = progressBar.getProgress() + "/" + (limit - nr);
-            tv_progress.setText(progress);
-
-            for (int i = nr; i < limit; i++) {
-                String name = (String) movesArray.get(i);
-                MoveDataRequest moveDataRequest = new MoveDataRequest(this, name);
-                moveDataRequest.getMoveData(this);
-                Log.d("ammountTag", "" + i);
-            }
-        } else {
-            Toast.makeText(this, "moves not loaded", Toast.LENGTH_SHORT).show();
-            progressBar.setVisibility(View.GONE);
-            tv_progress.setVisibility(View.GONE);
-        }
-    }
-
-
-    // Probably obsolete
-    public void loadMove3(View view) {
-        progressBar.setVisibility(View.VISIBLE);
-        tv_progress.setVisibility(View.VISIBLE);
-        tv_progress.setText("Loading Items...");
-
-        if (movesArray != null) {
-            nr = 300;
-            limit = 450;
-            tot_count = limit - nr;
-            progressBar.setMax(limit - nr);
-            progressBar.setProgress(0);
-            progress = progressBar.getProgress() + "/" + (limit - nr);
-            tv_progress.setText(progress);
-
-            for (int i = nr; i < limit; i++) {
-                String name = (String) movesArray.get(i);
-                MoveDataRequest moveDataRequest = new MoveDataRequest(this, name);
-                moveDataRequest.getMoveData(this);
-                Log.d("ammountTag", "" + i);
-            }
-        } else {
-            Toast.makeText(this, "moves not loaded", Toast.LENGTH_SHORT).show();
-            progressBar.setVisibility(View.GONE);
-            tv_progress.setVisibility(View.GONE);
-        }
-    }
-
-
-    // Probably obsolete
-    public void loadMove4(View view) {
-        progressBar.setVisibility(View.VISIBLE);
-        tv_progress.setVisibility(View.VISIBLE);
-        tv_progress.setText("Loading Items...");
-
-        if (movesArray != null) {
-            nr = 450;
-            limit = 600;
-            tot_count = limit - nr;
-            progressBar.setMax(limit - nr);
-            progressBar.setProgress(0);
-            progress = progressBar.getProgress() + "/" + (limit - nr);
-            tv_progress.setText(progress);
-
-            for (int i = nr; i < limit; i++) {
-                String name = (String) movesArray.get(i);
-                MoveDataRequest moveDataRequest = new MoveDataRequest(this, name);
-                moveDataRequest.getMoveData(this);
-                Log.d("ammountTag", "" + i);
-            }
-        } else {
-            Toast.makeText(this, "moves not loaded", Toast.LENGTH_SHORT).show();
-            progressBar.setVisibility(View.GONE);
-            tv_progress.setVisibility(View.GONE);
-        }
-    }
-
-
-    // Probably obsolete
-    public void loadMove5(View view) {
-        progressBar.setVisibility(View.VISIBLE);
-        tv_progress.setVisibility(View.VISIBLE);
-        tv_progress.setText("Loading Items...");
-
-        if (movesArray != null) {
-            nr = 600;
-            limit = movesArray.size() - 18;
-            tot_count = limit - nr;
-            progressBar.setMax(limit - nr);
-            progressBar.setProgress(0);
-            progress = progressBar.getProgress() + "/" + (limit - nr);
-            tv_progress.setText(progress);
-
-            for (int i = nr; i < limit; i++) {
-                String name = (String) movesArray.get(i);
-                MoveDataRequest moveDataRequest = new MoveDataRequest(this, name);
-                moveDataRequest.getMoveData(this);
-                Log.d("ammountTag", "" + i);
-            }
-        } else {
-            Toast.makeText(this, "moves not loaded", Toast.LENGTH_SHORT).show();
-            progressBar.setVisibility(View.GONE);
-            tv_progress.setVisibility(View.GONE);
-        }
     }
 }

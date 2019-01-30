@@ -13,19 +13,26 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activities.ListActivity">
+        <activity android:name=".Activities.ListActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FragmentFiles.MenuActivity" />
-        <activity android:name=".Activities.AddActivity" />
-        <activity android:name=".FragmentFiles.MainActivity" />
-        <activity android:name=".Activities.PokedexActivity" />
-        <activity android:name=".Activities.PokedexDetailActivity" />
-        <activity android:name=".Activities.ListDetailActivity"></activity>
+        <activity android:name=".FragmentFiles.MenuActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.AddActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".FragmentFiles.MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.PokedexActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.PokedexDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.ListDetailActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

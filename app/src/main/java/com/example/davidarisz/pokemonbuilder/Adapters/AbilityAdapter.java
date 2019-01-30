@@ -67,7 +67,7 @@ public class AbilityAdapter extends ArrayAdapter<AbilityData> {
         String description = abilityData.getEffect();
 
         // If it is a hidden ability, add "(hidden)" at the end of the description
-        boolean hidden = abilityData.isHidden(); // TODO comment here?
+        boolean hidden = abilityData.isHidden();
 
         if (hidden) {
             description = description + " (hidden)";

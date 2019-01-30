@@ -13,6 +13,7 @@ import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,7 +81,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         // Check if you came from the pokedex to add a pokemon
         if (getIntent().getStringExtra("addName") != null) {
             name = getIntent().getStringExtra("addName");
-            String name2 = name.substring(0, 1).toUpperCase() + name.substring(1); // TODO, needs comment?
+            String name2 = name.substring(0, 1).toUpperCase() + name.substring(1);
             String adding = "Adding: " + name2;
 
             tv_name = findViewById(R.id.tv_name);
@@ -96,7 +97,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
 
         // Set 'selected' color to current 'tab'
         Button button = findViewById(R.id.btn_add_tab);
-        button.setBackgroundColor(getResources().getColor(R.color.selectedTab));
+        button.setBackgroundColor(getResources().getColor(R.color.selectedTab2));
 
         // Load all EditTextViews for later
         setEditTextViews();
@@ -106,7 +107,8 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
     }
 
 
-    // OnClickListener for search popup TODO more explanation and reference
+    // OnClickListener for search popup using search dialog
+    // Taken from https://github.com/mirrajabi/search-dialog
     private View.OnClickListener popupSearch = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -174,7 +176,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         while (cursor.moveToNext()) {
             String item_name = cursor.getString(cursor.getColumnIndex("name"));
             String item_effect = cursor.getString(cursor.getColumnIndex("effect"));
-            String item_sprite = cursor.getString(cursor.getColumnIndex("sprite")); // TODO, isn't used
+            String item_sprite = cursor.getString(cursor.getColumnIndex("sprite"));
 
             ItemData itemData = new ItemData(item_name, item_effect, item_sprite);
             items.add(itemData);
@@ -223,7 +225,7 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
     private AdapterView.OnItemClickListener itemSelect = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-            ItemData itemData = itemAdapter.getItem(position); //TODO, get to add
+            ItemData itemData = itemAdapter.getItem(position);
 
             if (itemData != null) {
                 String itemName = itemData.getName();
@@ -315,37 +317,38 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
 //            }
 //        });
 
-//        auto_moves1.setOnItemClickListener(new AdapterView.OnItemClickListener() { // TODO, set clicklisteners for items and moves to get l
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-//                MoveData moveData = moveAdapter.getItem(position);
-//                move1 = moveData.getName();
-//            }
-//        });
-//
-//        auto_moves2.setOnItemClickListener(new AdapterView.OnItemClickListener() { // TODO, set clicklisteners for items and moves to get l
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-//                MoveData moveData = moveAdapter.getItem(position);
-//                move2 = moveData.getName();
-//            }
-//        });
-//
-//        auto_moves3.setOnItemClickListener(new AdapterView.OnItemClickListener() { // TODO, set clicklisteners for items and moves to get l
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-//                MoveData moveData = moveAdapter.getItem(position);
-//                move3 = moveData.getName();
-//            }
-//        });
-//
-//        auto_moves4.setOnItemClickListener(new AdapterView.OnItemClickListener() { // TODO, set clicklisteners for items and moves to get l
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-//                MoveData moveData = moveAdapter.getItem(position);
-//                move4 = moveData.getName();
-//            }
-//        });
+        auto_moves1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Log.d("checkTagListener", "inside gets here");
+                MoveData moveData = moveAdapter.getItem(position);
+                move1 = moveData.getName();
+            }
+        });
+
+        auto_moves2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                MoveData moveData = moveAdapter.getItem(position);
+                move2 = moveData.getName();
+            }
+        });
+
+        auto_moves3.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                MoveData moveData = moveAdapter.getItem(position);
+                move3 = moveData.getName();
+            }
+        });
+
+        auto_moves4.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                MoveData moveData = moveAdapter.getItem(position);
+                move4 = moveData.getName();
+            }
+        });
 
         // Get all types for pokemon
         for (TypesItem typesItem : pokemon.getTypes()) {
@@ -425,10 +428,14 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
             MoveData moveData = moveAdapter.getItem(position);
-            assert moveData != null;
 
-            switch (view.getId()) {
+            assert moveData != null;
+            Log.d("checkTagListener", "goes here");
+            Log.d("checkTagListener", "" + adapterView.getId());
+            Log.d("checkTagListener", "" + R.id.auto_move1);
+            switch (adapterView.getId()) {
                 case R.id.auto_move1:
+                    Log.d("checkTagListener", "goes move1 here");
                     move1 = moveData.getName();
                     break;
                 case R.id.auto_move2:
@@ -468,15 +475,6 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         return false;
     }
 
-    // May be needed later TODO maybe delete
-    public boolean isAnyIntNullOrEmpty(int... ints) {
-        for (int i : ints)
-
-            if (i == -1)
-                return true;
-        return false;
-    }
-
 
     // Check if all fields are filled in
     public void checkInputs(View view) {
@@ -486,13 +484,13 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
         CheckBox chk_female = findViewById(R.id.chk_female);
         CheckBox chk_genderless = findViewById(R.id.chk_genderless);
 
-        // Check if everything is filled in
+        // Check if everything is filled in. If it is, get all the values and add it to the database
         if (spn_ability.getSelectedItem() == null || spn_nature.getSelectedItem() == null) {
             Toast.makeText(AddActivity.this, "Oops, you forgot to select a pokemon!", Toast.LENGTH_SHORT).show();
         } else if (isAnyStringNullOrEmpty(item, move1, move2, move3, move4)) {
             Toast.makeText(AddActivity.this, "Oops, you forgot to fill in some fields!", Toast.LENGTH_SHORT).show();
-        } else if (TextUtils.isEmpty(et_hp_iv.getText()) || TextUtils.isEmpty(et_att_iv.getText()) || // TODO, complete the checks for all inputs
-                TextUtils.isEmpty(et_def_iv.getText()) || TextUtils.isEmpty(et_spa_iv.getText()) || // TODO, fix these checks
+        } else if (TextUtils.isEmpty(et_hp_iv.getText()) || TextUtils.isEmpty(et_att_iv.getText()) ||
+                TextUtils.isEmpty(et_def_iv.getText()) || TextUtils.isEmpty(et_spa_iv.getText()) ||
                 TextUtils.isEmpty(et_spd_iv.getText()) || TextUtils.isEmpty(et_sp_iv.getText()) ||
                 TextUtils.isEmpty(et_hp_ev.getText()) || TextUtils.isEmpty(et_att_ev.getText()) ||
                 TextUtils.isEmpty(et_def_ev.getText()) || TextUtils.isEmpty(et_spa_ev.getText()) ||
@@ -534,13 +532,8 @@ public class AddActivity extends AppCompatActivity implements PokemonDataRequest
             spd_ev = Integer.parseInt(et_spd_ev.getText().toString());
             sp_ev = Integer.parseInt(et_sp_ev.getText().toString());
 
-            Toast.makeText(this, "adding to db", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "adding to savedpokemon", Toast.LENGTH_SHORT).show();
             addPokemon(view);
-
-//            if (isAnyIntNullOrEmpty(hp_iv, att_iv, def_iv, spa_iv, spd_iv, sp_iv, hp_ev, att_ev,
-//                    def_ev, spa_ev, spd_ev, sp_ev)) {
-//                Toast.makeText(this, "Oops, you forgot to fill", Toast.LENGTH_SHORT).show();
-//            } else {
         }
     }
 

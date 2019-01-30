@@ -80,7 +80,7 @@ public class NatureAdapter extends ArrayAdapter<NatureData> {
         TextView tv_description = convertView.findViewById(R.id.tv_inc_dec_nature);
 
         tv_name.setText(name2);
-        String description = "+ "+increased+"    - "+decreased; // TODO, make this 2 separate textviews
+        String description = "+ "+increased+"    - "+decreased;
         tv_description.setText(description);
 
         return convertView;

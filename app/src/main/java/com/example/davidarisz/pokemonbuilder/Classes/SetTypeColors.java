@@ -9,7 +9,7 @@ import com.example.davidarisz.pokemonbuilder.Activities.ListActivity;
 import com.example.davidarisz.pokemonbuilder.Activities.ListDetailActivity;
 import com.example.davidarisz.pokemonbuilder.Activities.PokedexDetailActivity;
 
-public class SetTypeColors extends AppCompatActivity { // TODO, ask if this is a good way to avoid huge walls of text
+public class SetTypeColors extends AppCompatActivity {
     private Context context;
     private String type1;
     private String type2;

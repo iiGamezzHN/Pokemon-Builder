@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/colorPrimary"
+            android:background="@color/pokemonPrimary"
             android:onClick="toList"
             android:text="@string/pokemon_list"
             android:textColor="@color/white" />
@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/colorPrimary"
+            android:background="@color/pokemonPrimary"
             android:onClick="toAdd"
             android:text="@string/add_pokemon"
             android:textColor="@color/white" />
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/colorPrimary"
+            android:background="@color/pokemonPrimary"
             android:onClick="toPokedex"
             android:text="@string/pokedex"
             android:textColor="@color/white" />
@@ -134,7 +134,8 @@
     <ListView
         android:id="@+id/lv_saved_pokemon"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/background">
 
     </ListView>
 

@@ -32,7 +32,7 @@ public class PokedexActivity extends AppCompatActivity {
 
         // Set 'selected' color to current 'tab'
         Button button = findViewById(R.id.btn_pokedex_tab);
-        button.setBackgroundColor(getResources().getColor(R.color.selectedTab));
+        button.setBackgroundColor(getResources().getColor(R.color.selectedTab2));
 
         PokedexAdapter adapter = new PokedexAdapter(this, R.layout.pokedex_items, pokemonNames);
 

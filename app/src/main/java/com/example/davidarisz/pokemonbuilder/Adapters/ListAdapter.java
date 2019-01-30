@@ -42,7 +42,7 @@ public class ListAdapter extends ResourceCursorAdapter {
         }
 
         ImageView list_picture = view.findViewById(R.id.img_picture_list);
-        TextView list_name = view.findViewById(R.id.tv_name_list); // TODO, show boosts and type
+        TextView list_name = view.findViewById(R.id.tv_name_list);
         TextView list_item = view.findViewById(R.id.tv_item_list);
         TextView list_type1 = view.findViewById(R.id.tv_type1_adapter);
         TextView list_type2 = view.findViewById(R.id.tv_type2_adapter);

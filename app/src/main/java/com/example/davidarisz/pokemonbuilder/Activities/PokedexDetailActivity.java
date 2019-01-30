@@ -14,6 +14,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -42,7 +43,7 @@ public class PokedexDetailActivity extends AppCompatActivity implements PokemonD
 
         // Set 'selected' color to current 'tab'
         Button button = findViewById(R.id.btn_pokedex_tab);
-        button.setBackgroundColor(getResources().getColor(R.color.selectedTab));
+        button.setBackgroundColor(getResources().getColor(R.color.selectedTab2));
 
         Intent intent = getIntent();
         name = intent.getStringExtra("nameTag");
@@ -94,7 +95,7 @@ public class PokedexDetailActivity extends AppCompatActivity implements PokemonD
         hp = att = def = spa = spd = sp = type1 = type2 = "";
 
         // Names with - often don't have sprite links
-        if (name.contains("-")) { // TODO, ask if this should be in it's own method
+        if (name.contains("-")) {
             normal = "https://img.pokemondb.net/artwork/large/" + name + ".jpg";
             shiny = "";
         } else {
@@ -103,7 +104,7 @@ public class PokedexDetailActivity extends AppCompatActivity implements PokemonD
         }
 
         // Get all types of pokemon
-        for (TypesItem typesItem : pokemon.getTypes()) { // TODO, make this into blocks with color
+        for (TypesItem typesItem : pokemon.getTypes()) {
 
             if (typesItem.getSlot() == 1) {
                 type1 = typesItem.getType().getName().substring(0, 1).toUpperCase() + typesItem.getType().getName().substring(1);
@@ -117,22 +118,22 @@ public class PokedexDetailActivity extends AppCompatActivity implements PokemonD
 
             switch (statsItem.getStat().getName()) {
                 case ("hp"):
-                    hp = "Hp: " + String.valueOf(statsItem.getBase_stat());
+                    hp = "<b>Hp:</b> " + String.valueOf(statsItem.getBase_stat());
                     break;
                 case ("attack"):
-                    att = "Att: " + String.valueOf(statsItem.getBase_stat());
+                    att = "<b>Att:</b> " + String.valueOf(statsItem.getBase_stat());
                     break;
                 case ("defense"):
-                    def = "Def: " + String.valueOf(statsItem.getBase_stat());
+                    def = "<b>Def:</b> " + String.valueOf(statsItem.getBase_stat());
                     break;
                 case ("special-attack"):
-                    spa = "Spa: " + String.valueOf(statsItem.getBase_stat());
+                    spa = "<b>Spa:</b> " + String.valueOf(statsItem.getBase_stat());
                     break;
                 case ("special-defense"):
-                    spd = "SpD: " + String.valueOf(statsItem.getBase_stat());
+                    spd = "<b>SpD:</b> " + String.valueOf(statsItem.getBase_stat());
                     break;
                 case ("speed"):
-                    sp = "Sp: " + String.valueOf(statsItem.getBase_stat());
+                    sp = "<b>Sp:</b> " + String.valueOf(statsItem.getBase_stat());
                     break;
             }
         }
@@ -143,7 +144,8 @@ public class PokedexDetailActivity extends AppCompatActivity implements PokemonD
         } else {
             weight = weight.substring(0, weight.length() - 1) + "." + weight.substring(weight.length() - 1);
         }
-        String weight2 = "Weight: " + weight + " kg";
+
+        String weight2 = "<b>Weight:</b> " + weight + " kg";
 
         // Formatting for height
         if (height.length() < 2) {
@@ -152,13 +154,13 @@ public class PokedexDetailActivity extends AppCompatActivity implements PokemonD
             height = height.substring(0, height.length() - 1) + "." + height.substring(height.length() - 1);
         }
 
-        String height2 = "Height: " + height + " m";
-        String item2 = "Held item: None";
+        String height2 = "<b>Height:</b> " + height + " m";
+        String item2 = "<b>Held item:</b> None";
 
         // Get helditems of pokemon
         for (HeldItem heldItem : pokemon.getHeld_items()) {
             String item = heldItem.getItem().getName();
-            item2 = "Held item: " + item.substring(0, 1).toUpperCase() + item.substring(1);
+            item2 = "<b>Held item:</b> " + item.substring(0, 1).toUpperCase() + item.substring(1);
         }
 
         String color1 = new GetTypeColor().ReturnColor(type1);
@@ -194,8 +196,8 @@ public class PokedexDetailActivity extends AppCompatActivity implements PokemonD
             iv_shiny.setVisibility(View.GONE);
         }
 
-        tv_weight.setText(weight2);
-        tv_height.setText(height2);
+        tv_weight.setText(Html.fromHtml(weight2));
+        tv_height.setText(Html.fromHtml(height2));
         tv_type1.setText(type1);
         tv_type2.setText(type2);
 
@@ -211,15 +213,14 @@ public class PokedexDetailActivity extends AppCompatActivity implements PokemonD
             tv_type2.setVisibility(View.GONE);
         }
 
-        tv_hp.setText(hp);
-        tv_att.setText(att);
-        tv_def.setText(def);
-        tv_spa.setText(spa);
-        tv_spd.setText(spd);
-        tv_sp.setText(sp);
-        tv_item.setText(item2);
-
-        // TODO, add abilities dynamically or make views visible when there's more than 1
+        // Use html in string so show bold text
+        tv_hp.setText(Html.fromHtml(hp));
+        tv_att.setText(Html.fromHtml(att));
+        tv_def.setText(Html.fromHtml(def));
+        tv_spa.setText(Html.fromHtml(spa));
+        tv_spd.setText(Html.fromHtml(spd));
+        tv_sp.setText(Html.fromHtml(sp));
+        tv_item.setText(Html.fromHtml(item2));
     }
 
 
