@@ -1,3 +1,12 @@
+/*
+Author: David Arisz
+
+This Class contains information on the nature data
+Name is the name of the nature
+Increased is the stat that the nature increases
+Decreased is the stat that the nature decreases
+ */
+
 package com.example.davidarisz.pokemonbuilder.Classes;
 
 public class NatureData {

@@ -1,3 +1,12 @@
+/*
+Author: David Arisz
+
+This Class contains information on the item data
+Name is the name of the item
+Effect is the effect that the item has
+Sprite is the url of the item image TODO maybe remove
+ */
+
 package com.example.davidarisz.pokemonbuilder.Classes;
 
 public class ItemData {

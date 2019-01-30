@@ -1,3 +1,9 @@
+/*
+Author: David Arisz
+
+This Class contains the search model which is used in the search popup in AddActivity
+ */
+
 package com.example.davidarisz.pokemonbuilder.Classes;
 
 import java.util.ArrayList;

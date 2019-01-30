@@ -1,3 +1,10 @@
+/*
+Author: David Arisz
+
+This Class takes a type as string, and return the color code that type should get
+Color codes were obtained by getting the color from pictures of the types
+ */
+
 package com.example.davidarisz.pokemonbuilder.Classes;
 
 public class GetTypeColor {

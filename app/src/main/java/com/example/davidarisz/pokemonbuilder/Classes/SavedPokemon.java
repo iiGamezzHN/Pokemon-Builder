@@ -1,3 +1,9 @@
+/*
+Author: David Arisz
+
+This Class contains information on the data of a pokemon
+ */
+
 package com.example.davidarisz.pokemonbuilder.Classes;
 
 import java.io.Serializable;

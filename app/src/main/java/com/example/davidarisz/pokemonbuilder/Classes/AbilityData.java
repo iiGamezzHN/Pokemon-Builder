@@ -2,6 +2,9 @@
 Author: David Arisz
 
 This Class contains information on the pokemon abilities
+Name is the name of the ability
+Effect is a string that explains what the ability does
+Hidden is a boolean that shows if an ability is hidden. Which means it's harder to get in the games
  */
 
 package com.example.davidarisz.pokemonbuilder.Classes;

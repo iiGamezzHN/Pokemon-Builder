@@ -1,3 +1,16 @@
+/*
+Author: David Arisz
+
+This Class contains information on the move data
+Name is the name of the move
+Power is a number that shows how much damage the move does
+Accuracy is a number that shows how often the attack hits
+PP shows how often a move can be used
+Category shows whether a move is physical, special or status
+Effect shows what the move does
+Type shows what type the move is (Fire, Water, etc)
+ */
+
 package com.example.davidarisz.pokemonbuilder.Classes;
 
 public class MoveData {
