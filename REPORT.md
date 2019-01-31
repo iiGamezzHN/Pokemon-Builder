@@ -39,4 +39,23 @@ Dit is bedoeld om wat extra's over de pokemon te weten te komen, en het kan ook 
 
 In de afbeelding hieronder is een overzicht van alle schermen en waar ze heen leiden in de navigatie.
 
-<img src="doc/Report_Design.png">
+<img src="doc/Report_Design.png" width="650dp">
+
+### Uitdagingen en veranderingen
+In het originele ontwerp van de app had ik voor ogen om een soort centraal scherm te maken waar je kon kiezen naar welk ander scherm je wilde gaan. Ik kwam er echter vrij snel achter dat dit absoluut niet gebruiks vriendelijk was. Het navigeren was niet makkelijk en de gebruiker werd niet 'uitgenodigd' om te beginnen pokemon toe te voegen. Daarom ben ik toen met advies overgestapt naar een tabblat-achtige layout. Dit wilde ik eerst doen door fragments te gaan gebruiken, iets wat we nog nooit gebruikt hadden. Maar helaas duurde het zo lang om dit werkend te krijgen dat ik ben overgestapt naar simpele buttons als tabbladen bovenaan de app. Dit ziet er bijna hetzelfde uit als fragments, maar werkt gewoon op de manier die we al hadden geleerd.
+
+Ook had ik in het begin nog geen idee hoe ik de opgeslagen informatie weer wilde gaan geven. Hier heb ik uitendelijk met de hand een paar schetsen voor gemaakt om te kijken wat mij de beste layout leek. Achteraf ben ik erg blij met mijn layout van alle informatie, aangezien ik meerdere keren te horen heb gekregen dat het er duidelijk uitziet.
+
+De grootste verandering en tevens ook de grootste uitdaging was dat ik enorm had onderschat hoeveel bestanden ik aan moest gaan maken om de app werkend te krijgen zoals ik wilde. Dit komt mede door de enorme hoeveelheid aan data die ik nodig heb die niet ideaal door de api word gegeven. Je kan bijvoorbeeld niet een lijst met alle items en de beschrijvingen opvragen, maar je moet zowel de namen, als de beschrijven van ieder item apart opvragen. Dit zorgt voor een enorme hoeveelheid aan api requests, waardoor ik een andere manier moest bedenken om alle informatie op te vragen. Uiteindelijk heb ik dit gedaan door de informatie één keer op te vragen en in databases te stoppen. Zodat ik het vervolgens snel kon opvragen als ik de informatie nodig had.
+
+De library GSON heeft mij erg geholpen om de api responses te parsen. Dit was ook nodig om het overzichtelijk te houden want sommige responses waren duizenden regels lang. Dit kostte echter wel een paar dagen om uit te zoeken hoe alles werkte, en ik moest uiteindelijk een hoop extra modellen aanmaken. Maar achteraf ben ik er erg blij mee, want het werkte erg fijn.
+
+Het laatste waar ik vrij veel moeite mee had was de AutoCompleteTextViews werkend krijgen met een custom adapter zodat ik extra informatie kon laten zien. Dit heeft mij dagen heel wat dagen gekocht om uiteindelijk werkend te krijgen. Mede dankzij de fantastische hulp van zowel Natashja and Renske.
+
+Uiteindelijk ben ik erg tevreden met de app die ik gemaakt heb. Zowel qua navigatie, layout als gebruik is het beter en mooier dan ik origineel in mijn hoofd had toen ik met dit project begon.
+
+### Verbeterpunten
+Als ik meer tijd zou hebben zou ik zeker nog een aantal dingen willen verbeteren. Nu had ik helaas geen tijd om functies toe te voegen als sorteren en zoeken op meerdere criteria. Ook had ik origineel meer libraries willen gebruiken voor het versimplen van requests en sqlite queries, maar ik heb ik simpelweg geen tijd voor gehad.
+
+### Dankwoord
+Tenslotte wil ik alle begeleiders van harte bedanken. Ik heb nog nooit zulke goeie hulp ontvangen bij mijn andere programmeervakken en dat waardeer ik enorm, dit scheelde een hoop tijd en frustratie.
