@@ -6,6 +6,8 @@ In deze app kun je de zelfgemaakt pokemon opslaan die je in de echte games hebt 
 
 <img src="doc/pokemon_list.jpg" width="150">
 
+[Screencast op Youtube](https://www.youtube.com/watch?v=FIzcznSG6tk&feature=youtu.be)
+
 ### Technisch Ontwerp
 In alle activities zitten bovenin tabbladen om door de app heen te kunnen navigeren. Met een iets donkerdere kleur wordt aangegeven op welke tabblad je momenteel zit.
 
