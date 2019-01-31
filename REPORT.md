@@ -41,6 +41,10 @@ In de afbeelding hieronder is een overzicht van alle schermen en waar ze heen le
 
 <img src="doc/Report_Design.png" width="650dp">
 
+In de afbeelding hieronder is een UML overzicht hoe alles met elkaar in verbinding staat.
+
+<img src="doc/UML.png">
+
 ### Uitdagingen en veranderingen
 In het originele ontwerp van de app had ik voor ogen om een soort centraal scherm te maken waar je kon kiezen naar welk ander scherm je wilde gaan. Ik kwam er echter vrij snel achter dat dit absoluut niet gebruiks vriendelijk was. Het navigeren was niet makkelijk en de gebruiker werd niet 'uitgenodigd' om te beginnen pokemon toe te voegen. Daarom ben ik toen met advies overgestapt naar een tabblat-achtige layout. Dit wilde ik eerst doen door fragments te gaan gebruiken, iets wat we nog nooit gebruikt hadden. Maar helaas duurde het zo lang om dit werkend te krijgen dat ik ben overgestapt naar simpele buttons als tabbladen bovenaan de app. Dit ziet er bijna hetzelfde uit als fragments, maar werkt gewoon op de manier die we al hadden geleerd.
 
